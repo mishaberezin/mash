@@ -1,0 +1,78 @@
+<html>
+  <head>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      .grid {
+        grid-template-areas:
+          'head head head'
+          'nav  main main'
+          'nav  main main';
+        grid-template-rows: 1fr 1fr 1fr;
+        grid-template-columns: 1fr 1fr 1fr;
+
+        grid-gap: 20px;
+        position: relative;
+
+        width: 1024px;
+        height: 512px;
+        margin: 50px auto 0 50px;
+        box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1);
+
+        display: grid;
+
+        transform: scale(0.5);
+        transform-origin: top left;
+      }
+
+      /* items */
+
+      .logo {
+        width: 120px;
+        height: 120px;
+        background-color: blue;
+        grid-area: head;
+        /* grid-column-start: 2;
+        grid-column-end: 30;
+        grid-row-start: 2;
+        grid-row-end: 5; */
+      }
+
+      .image {
+        background-color: rgba(255, 192, 203, 0.3);
+        z-index: -1;
+        grid-area: head;
+      }
+
+      .title {
+        background-color: rgba(64, 224, 208, 0.3);
+        grid-area: nav;
+      }
+
+      .text {
+        background-color: rgba(0, 128, 0, 0.5);
+        grid-area: main;
+      }
+
+      .text-in-centr {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="grid">
+      <div class="logo text-in-centr">logo</div>
+      <div class="image text-in-centr">image</div>
+      <div class="title text-in-centr">title</div>
+      <div class="text text-in-centr">text</div>
+    </div>
+    <hr />
+    <svg viewBox="0 0 56 18">
+      <text x="0" y="15">Fit Me</text>
+    </svg>
+  </body>
+</html>

@@ -1,0 +1,94 @@
+<html>
+  <head>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      .grid {
+        width: 1024px;
+        height: 512px;
+        margin: 50px auto 0 50px;
+        box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1);
+
+        display: grid;
+        grid-template:
+          'a a b'
+          'a a b'
+          'c c b';
+
+        transform: scale(0.5);
+        transform-origin: top left;
+      }
+
+      .tvik {
+        grid-template:
+          'a a d b'
+          'a a d b'
+          'c c c b';
+      }
+
+      .tvik2 {
+        grid-template:
+          'a a d e'
+          'a a d b'
+          'a a d b'
+          'c c c b';
+      }
+
+      .navigation {
+        background-color: blue;
+        grid-area: a;
+        /* grid-column-start: 2;
+        grid-column-end: 30;
+        grid-row-start: 2;
+        grid-row-end: 5; */
+      }
+
+      .rightbar {
+        background-color: rgba(255, 192, 203, 0.3);
+        grid-area: b;
+      }
+
+      .notes {
+        background-color: rgba(64, 224, 208, 0.3);
+        grid-area: c;
+      }
+
+      .else {
+        background-color: red;
+        grid-area: d;
+        display: none !important;
+      }
+
+      .tvik .else,
+      .tvik2 .else {
+        display: flex !important;
+      }
+
+      .else2 {
+        background-color: violet;
+        grid-area: e;
+        display: none !important;
+      }
+
+      .tvik2 .else2 {
+        display: flex !important;
+      }
+
+      .text-in-centr {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="grid">
+      <div class="navigation text-in-centr">navigation</div>
+      <div class="rightbar text-in-centr">rightbar</div>
+      <div class="notes text-in-centr">notes</div>
+      <div class="else text-in-centr">else</div>
+    </div>
+  </body>
+</html>
