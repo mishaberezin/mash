@@ -4,7 +4,8 @@
   "scripts": {
     "start": "parcel src/stand.html --open --no-hmr --https",
     "build": "parcel build src/stand.html",
-    "deploy": "echo todo",
+    "prebuild": "rm -rf ./dist",
+    "deploy": "npm run build && surge ./dist --domain layoutmash.surge.sh",
     "test": "echo todo"
   },
   "devDependencies": {
