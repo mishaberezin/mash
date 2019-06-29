@@ -5,7 +5,8 @@
 <style>
   .control-panel {
     background: purple;
+    margin-bottom: 20px;
   }
 </style>
 
-<div class="control-panel">Hello {name}!</div>
+<div class="control-panel">Panel {name}!</div>
