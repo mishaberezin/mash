@@ -1,105 +1,14 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <style>
-      * {
-        box-sizing: border-box;
-      }
-
-      .grid {
-        --area-full: 1/1/-1/-1;
-        --area-center: 10/20/26/44;
-        --area-left: 1/1/-1/32;
-        --area-right: 1/32/-1/-1;
-        --area-left-top-half: 1/1/16/32;
-        --area-left-bottom-half: 16/1/-1/32;
-        --area-right-top-half: 1/32/16/-1;
-        --area-right-bottom-half: 16/32/-1/-1;
-
-        --area-left-3-4th: 16/1/24/22;
-
-        width: 1024px;
-        height: 512px;
-        margin: 50px auto 0 50px;
-        background-image: repeating-linear-gradient(
-            90deg,
-            transparent 1px,
-            transparent 15px,
-            rgba(0, 0, 0, 0.1) 15px,
-            rgba(0, 0, 0, 0.1) 17px
-          ),
-          repeating-linear-gradient(
-            0deg,
-            transparent 1px,
-            transparent 15px,
-            rgba(0, 0, 0, 0.1) 15px,
-            rgba(0, 0, 0, 0.1) 17px
-          );
-        box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1);
-
-        display: grid;
-        grid-template: repeat(32, 16px) / repeat(64, 16px);
-
-        transform: scale(0.5);
-        transform-origin: top left;
-      }
-
-      .logo {
-        width: 120px;
-        height: 120px;
-        background-color: blue;
-        grid-area: 2 / 2 / 5 / 30;
-        /* grid-column-start: 2;
-        grid-column-end: 30;
-        grid-row-start: 2;
-        grid-row-end: 5; */
-      }
-
-      .image {
-        background-color: rgba(255, 192, 203, 0.3);
-        grid-column-start: 2;
-        grid-column-end: 5;
-        grid-row-start: 3;
-        grid-row-end: 10;
-        z-index: -1;
-        grid-area: var(--area-full);
-        grid-area: var(--area-center);
-        grid-area: var(--area-left-top-half);
-        grid-area: var(--area-left-bottom-half);
-        grid-area: var(--area-right-top-half);
-        grid-area: var(--area-right-bottom-half);
-      }
-
-      .title {
-        background-color: rgba(64, 224, 208, 0.3);
-        grid-area: 3/3/7/18;
-      }
-
-      .text {
-        background-color: rgba(0, 128, 0, 0.5);
-        grid-area: var(--area-left-3-4th);
-      }
-
-      .text-in-centr {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      }
-    </style>
-    <script>
-      const layouts = ['2col', '3col'];
-    </script>
-  </head>
+  <head></head>
   <body>
-    <div class="grid">
-      <div class="logo text-in-centr">logo</div>
-      <div class="image text-in-centr">image</div>
-      <div class="title text-in-centr">title</div>
-      <div class="text text-in-centr">text</div>
-    </div>
-    <hr />
-    <svg viewBox="0 0 56 18">
-      <text x="0" y="15">Fit Me</text>
-    </svg>
+    <iframe
+      width="560"
+      height="315"
+      src="https://www.youtube.com/embed/1YhKFH1VmzU"
+      frameborder="0"
+      allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+      allowfullscreen
+    ></iframe>
   </body>
 </html>

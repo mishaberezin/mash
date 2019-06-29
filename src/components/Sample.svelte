@@ -1,14 +1,24 @@
+<script>
+  export let arrangement = {};
+  export let model;
+
+  const style = [
+    `--area-logo: ${arrangement.logo}`,
+    `--area-text: ${arrangement.text}`,
+    `--area-image: ${arrangement.image}`
+  ].join(';');
+</script>
+
 <style>
   .sample {
     width: 1024px;
     height: 512px;
     box-sizing: border-box;
     display: grid;
-    grid-template: repeat(2, 1fr) / repeat(4, 1fr);
-    grid-gap: 15px;
-    padding: 15px;
+    grid-template: repeat(2, 236px) / repeat(4, 241px);
+    grid-gap: 12px;
+    padding: 12px;
     background-color: #fff;
-    --area-full: 1/1/-1/-1;
   }
 
   .sample__item {
@@ -29,22 +39,32 @@
   .sample__item_role_image {
     grid-area: var(--area-image);
   }
+
+  .sample_model_true .sample__item_role_logo {
+    background-color: rgba(86, 0, 255, 0.3);
+  }
+  .sample_model_true .sample__item_role_text {
+    background-color: rgba(0, 128, 0, 0.5);
+  }
+  .sample_model_true .sample__item_role_image {
+    background-color: rgba(255, 192, 203, 0.3);
+  }
 </style>
 
-<div class="sample">
+<div class="sample sample_model_{Boolean(model)}" {style}>
   <div class="sample__item sample__item_role_logo">
     <slot name="logo">
-      <span class="missing">🐞 I'm not a logo</span>
+      <span class="missing">logo</span>
     </slot>
   </div>
   <div class="sample__item sample__item_role_text">
     <slot name="text">
-      <span class="missing">🐞 I'm not a text</span>
+      <span class="missing">text</span>
     </slot>
   </div>
   <div class="sample__item sample__item_role_image">
     <slot name="image">
-      <span class="missing">🐞 I'm not an image</span>
+      <span class="missing">image</span>
     </slot>
   </div>
 </div>

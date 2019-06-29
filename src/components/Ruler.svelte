@@ -13,7 +13,7 @@
     right: 0;
     bottom: 0;
     left: 0;
-    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1);
+    box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.1);
     background-image: repeating-linear-gradient(
         90deg,
         transparent 0px,
