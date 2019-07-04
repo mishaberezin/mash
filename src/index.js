@@ -1,10 +1,9 @@
 import IndexPage from './IndexPage.svelte';
-import index from '../lib/index.js';
 
-const app = new Page({
-  target: document.body,
+const app = new IndexPage({
+  target: document.getElementById('app'),
   props: {
-    name: 'world',
+    name: 'Generate',
     items: [1, 2, 3, 4]
   }
 });

@@ -100,7 +100,7 @@
           </template>
           <template use:fragment slot="text" let:data>
             <TextBlock
-              title="See you later, Alligator"
+              header="See you later, Alligator"
               paragraph="Not so soon, baboon!"
             >
             </TextBlock>

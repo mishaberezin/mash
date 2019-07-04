@@ -1,12 +1,9 @@
 <script>
-  import Item from './components/Item.svelte';
+  import normalize from 'normalize.css';
+  import MegaButton from './components/MegaButton.svelte';
 
   export let name;
   export let items = [];
-
-  console.log('===========================');
-  console.log(items);
-  console.log('===========================');
 </script>
 
 <style>
@@ -15,8 +12,4 @@
   }
 </style>
 
-<div class="wrap">
-  {#each items as item}
-  <Item>{item}</Item>
-  {/each}
-</div>
+<MegaButton>{name}</MegaButton>

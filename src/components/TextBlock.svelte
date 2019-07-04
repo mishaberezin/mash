@@ -1,5 +1,7 @@
 <script>
-  export let title;
+  import Textfit from './Textfit.svelte';
+
+  export let headline;
   export let paragraph;
 </script>
 
@@ -7,7 +9,7 @@
   .text {
     font-family: 'Open Sans', sans-serif;
   }
-  .text__title {
+  .text__headline {
     font-size: 62px;
     font-weight: 800;
     margin: 0;
@@ -18,6 +20,6 @@
 </style>
 
 <div class="text">
-  <h2 class="text__title">{title}</h2>
-  <p class="text__paragraph">{paragraph}</p>
+  <h2 class="text__headline"><Textfit>{headline}</Textfit></h2>
+  <p class="text__paragraph"><Textfit>{paragraph}</Textfit></p>
 </div>
