@@ -2,8 +2,8 @@
   "name": "mash",
   "version": "0.1.0",
   "scripts": {
-    "start": "parcel src/*.html --open --no-hmr --https",
-    "build": "parcel build src/*.html",
+    "start": "parcel src/*.html --open --no-hmr --https --log-level 2",
+    "build": "parcel build src/*.html --experimental-scope-hoisting",
     "prebuild": "rm -rf ./dist",
     "deploy": "npm run build && surge ./dist --domain layoutmash.surge.sh",
     "test": "echo todo"

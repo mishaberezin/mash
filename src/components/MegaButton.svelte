@@ -7,10 +7,11 @@
 
 <style>
   .mega-button {
-    width: 1024px;
-    height: 100vh;
+    width: 100%;
+    height: 100%;
     font-family: Navigo;
     font-size: 50px;
+    user-select: none;
   }
 
   .mega-button__svg {
