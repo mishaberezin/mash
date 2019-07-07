@@ -8,7 +8,25 @@
 
   let stage = 'initial';
 
-  // stage = 'layout';
+  const onHeadlineChange = (e) => {
+    console.log(e);
+    console.log('HELLO CHANGE');
+  }
+
+  const onTextChange = (e) => {
+    console.log(e);
+    console.log('HELLO CHANGE');
+  }
+
+  const onLogoChange = (e) => {
+    console.log(e);
+    console.log('HELLO CHANGE');
+  }
+
+  const onPictureChange = (e) => {
+    console.log(e);
+    console.log('HELLO CHANGE');
+  }
 </script>
 
 <style>
@@ -31,8 +49,19 @@
   .page__main-line {
     flex-grow: 1;
     min-height: 130px;
-    border-bottom: 3px solid black;
+    /* border-bottom: 3px solid black; */
     box-sizing: border-box;
+    position: relative;
+  }
+
+  .page__main-line:after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 7px;
+    background-color: #000;
   }
 
   .page__main-line_last {
@@ -56,12 +85,11 @@
       <div class="page__main-line">
         <SvgText main="Layout" misc="Mash"/>
       </div>
-      <!-- <div class="page__main-line"><Field label="Headline"/></div> -->
-      <div class="page__main-line"><TextField label="Headline"/></div>
-      <div class="page__main-line"><TextField label="Text"/></div>
-      <div class="page__main-line"><FileField label="Logo"/></div>
+      <div class="page__main-line"><TextField label="Headline" on:change={onHeadlineChange}/></div>
+      <div class="page__main-line"><TextField label="Text" on:change={onTextChange}/></div>
+      <div class="page__main-line"><FileField label="Logo" on:change={onLogoChange}/></div>
       <div class="page__main-line page__main-line_last">
-        <FileField label="Photo"/>
+        <FileField label="Picture" on:change={onPictureChange}/>
       </div>
     </div>
     <div class="page__side">

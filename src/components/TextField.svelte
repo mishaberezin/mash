@@ -126,6 +126,7 @@
   class:field_hovered="{isHovered}"
   on:mouseenter="{onMouseenter}"
   on:mouseleave="{onMouseleave}"
+  on:change
 >
   <label for="{id}" class="field__label">
     <SvgText main="{label}"></SvgText>
@@ -138,5 +139,6 @@
     on:focus="{onFocus}"
     on:blur="{onBlur}"
     on:input="{onInput}"
+    on:change
   ></textarea>
 </div>
