@@ -94,15 +94,4 @@
   }
 </style>
 
-<FormField {label}>
-  <textarea
-    class="field__control"
-    id="{id}"
-    contenteditable="true"
-    spellcheck="false"
-    on:focus="{onFocus}"
-    on:blur="{onBlur}"
-    on:input="{onInput}"
-    on:change
-  ></textarea>
-</FormField>
+<FormField {label}> </FormField>

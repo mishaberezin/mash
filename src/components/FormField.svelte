@@ -1,44 +1,49 @@
 <script context="module">
   let counter = 0;
-  const getUniqId = () => `field_${counter++}`;
+  const getUniqId = () => `FormField_${counter++}`;
 </script>
 
 <script>
   import SvgText from './SvgText.svelte';
 
   export let label = 'Noname';
-  export let isFocused = false;
+  export let type = 'text';
 
   const id = getUniqId();
 
   let isFocused = false;
   let isHovered = false;
 
-  const onMouseenter = e => {
-    isHovered = true;
-  };
-
-  const onMouseleave = e => {
-    isHovered = false;
-  };
-
+  const onMouseenter = e => (isHovered = true);
+  const onMouseleave = e => (isHovered = false);
   const onFocus = e => {
-    console.log('===========================');
-    console.log('onFocus');
-    console.log('===========================');
     isFocused = true;
-    isHovered = false;
   };
-
   const onBlur = e => {
-    isFocused = false;
+    //isFocused = false
+  };
+  const onInput = e => {
+    const { target } = e;
+    const { clientHeight, scrollHeight } = target;
+
+    let fontSize = parseInt(
+      target.style.fontSize || getComputedStyle(target).fontSize
+    );
+
+    if (target.scrollHeight === clientHeight) {
+      // ...
+    } else {
+      while (target.scrollHeight > clientHeight) {
+        fontSize--;
+        target.style.fontSize = fontSize + 'px';
+      }
+    }
   };
 </script>
 
 <style>
   .form-field {
     height: 100%;
-    /* width: 100%; */
     display: flex;
     background-color: transparent;
     transition: background-color 0.2s;
@@ -47,14 +52,21 @@
 
   .form-field__item {
     position: relative;
+    transition: width 0.2s;
   }
 
   .form-field__item_for_label {
     width: 100%;
   }
+  .form-field_focused .form-field__item_for_label {
+    width: 0;
+  }
 
   .form-field__item_for_control {
     width: 0;
+  }
+  .form-field_focused .form-field__item_for_control {
+    width: 100%;
   }
 
   .form-field__label {
@@ -77,21 +89,14 @@
   }
 
   .form-field_focused .form-field__label {
-    flex-grow: 0;
-    fill: #fff;
-    opacity: 0.2;
     transform: translateX(0);
-  }
-
-  .form-field_focused .form-field__item_for_label {
-    flex-grow: 1;
   }
 </style>
 
 <div
   class="form-field"
-  class:field_focused="{isFocused}"
-  class:field_hovered="{isHovered}"
+  class:form-field_focused="{isFocused}"
+  class:form-field_hovered="{isHovered}"
   on:mouseenter="{onMouseenter}"
   on:mouseleave="{onMouseleave}"
   on:change
@@ -102,6 +107,17 @@
     </label>
   </div>
   <div class="form-field__item form-field__item_for_control">
-    <slot></slot>
+    {#if type === 'file'} {:else}
+    <textarea
+      class="field__control"
+      id="{id}"
+      contenteditable="true"
+      spellcheck="false"
+      on:focus="{onFocus}"
+      on:blur="{onBlur}"
+      on:input="{onInput}"
+      on:change
+    ></textarea>
+    {/if}
   </div>
 </div>

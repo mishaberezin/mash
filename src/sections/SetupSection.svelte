@@ -4,6 +4,7 @@
   import MegaButton from '../components/MegaButton.svelte';
   import FileField from '../components/FileField.svelte';
   import TextField from '../components/TextField.svelte';
+  import FormField from '../components/FormField.svelte';
   import SvgText from '../components/SvgText.svelte';
 
   export let mix = '';
@@ -145,7 +146,7 @@
     <SvgText main="Layout" misc="Mash"></SvgText>
   </div>
   <div class="section__item section__item_for_headline">
-    <TextField label="Headline" on:change="{onHeadlineChange}"></TextField>
+    <FormField label="Headline" on:change="{onHeadlineChange}"></FormField>
   </div>
   <div class="section__item section__item_for_text">
     <TextField label="Text" on:change="{onTextChange}"></TextField>
