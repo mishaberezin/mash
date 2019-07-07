@@ -30,20 +30,18 @@
     const { target } = e;
     const { clientHeight, scrollHeight } = target;
 
-    window.TARGET = target;
+    // window.TARGET = target;
 
-    console.log('clientHeight: ' + clientHeight);
-    console.log('scrollHeight: ' + scrollHeight);
-    console.log('style fontSize: ' + target.style.fontSize);
-    console.log(
-      'computed fontSize: ' + parseInt(getComputedStyle(target).fontSize)
-    );
+    // console.log('clientHeight: ' + clientHeight);
+    // console.log('scrollHeight: ' + scrollHeight);
+    // console.log('style fontSize: ' + target.style.fontSize);
+    // console.log(
+    //   'computed fontSize: ' + parseInt(getComputedStyle(target).fontSize)
+    // );
 
     let fontSize = parseInt(
       target.style.fontSize || getComputedStyle(target).fontSize
     );
-
-    console.log('origFontSize: ' + fontSize);
 
     if (target.scrollHeight === clientHeight) {
       // ...
@@ -53,8 +51,6 @@
         target.style.fontSize = fontSize + 'px';
       }
     }
-
-    console.log('Result: ' + fontSize);
 
     // target.style.fontSize = fontSize + 'px';
   };

@@ -5,50 +5,29 @@
 
 <script>
   import SvgText from './SvgText.svelte';
+  import FormField from './FormField.svelte';
 
-  export let label = 'Noname';
-  export let type = 'text';
+  export let label = '';
 
   const id = getUniqId();
 
   let isFocused = false;
   let isHovered = false;
 
-  const onMouseenter = e => {
-    isHovered = true;
-  };
-
-  const onMouseleave = e => {
-    isHovered = false;
-  };
-
+  const onMouseenter = e => (isHovered = true);
+  const onMouseleave = e => (isHovered = false);
   const onFocus = e => {
     isFocused = true;
-    isHovered = false;
   };
-
-  const onBlur = e => {
-    // isFocused = false;
-  };
+  const onBlur = e => (isFocused = false);
 
   const onInput = e => {
     const { target } = e;
     const { clientHeight, scrollHeight } = target;
 
-    window.TARGET = target;
-
-    console.log('clientHeight: ' + clientHeight);
-    console.log('scrollHeight: ' + scrollHeight);
-    console.log('style fontSize: ' + target.style.fontSize);
-    console.log(
-      'computed fontSize: ' + parseInt(getComputedStyle(target).fontSize)
-    );
-
     let fontSize = parseInt(
       target.style.fontSize || getComputedStyle(target).fontSize
     );
-
-    console.log('origFontSize: ' + fontSize);
 
     if (target.scrollHeight === clientHeight) {
       // ...
@@ -58,24 +37,19 @@
         target.style.fontSize = fontSize + 'px';
       }
     }
-
-    console.log('Result: ' + fontSize);
-
-    // target.style.fontSize = fontSize + 'px';
   };
 </script>
 
 <style>
   .field {
-    font-family: 'Open Sans', sans-serif;
     height: 100%;
     width: 100%;
     display: flex;
-    cursor: pointer;
     background-color: transparent;
     transition: background-color 0.2s;
     position: relative;
   }
+
   .field__label {
     width: 100%;
     transition: transform 0.2s;
@@ -120,17 +94,7 @@
   }
 </style>
 
-<div
-  class="field"
-  class:field_focused="{isFocused}"
-  class:field_hovered="{isHovered}"
-  on:mouseenter="{onMouseenter}"
-  on:mouseleave="{onMouseleave}"
-  on:change
->
-  <label for="{id}" class="field__label">
-    <SvgText main="{label}"></SvgText>
-  </label>
+<FormField {label}>
   <textarea
     class="field__control"
     id="{id}"
@@ -141,4 +105,4 @@
     on:input="{onInput}"
     on:change
   ></textarea>
-</div>
+</FormField>

@@ -18,6 +18,7 @@
     "last 1 chrome versions"
   ],
   "dependencies": {
+    "sections": "^1.0.0",
     "svelte-fragment": "^1.0.1"
   }
 }

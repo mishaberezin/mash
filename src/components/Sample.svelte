@@ -18,7 +18,6 @@
     grid-template: repeat(2, 236px) / repeat(4, 241px);
     grid-gap: 12px;
     padding: 12px;
-    background-color: #fff;
   }
 
   .sample__item {
@@ -51,7 +50,7 @@
   }
 </style>
 
-<div class="sample sample_model_{Boolean(model)}" {style}>
+<div class="sample sample_model_{Boolean(model)}" {style} on:click>
   <div class="sample__item sample__item_role_logo">
     <slot name="logo">
       <span class="missing">logo</span>

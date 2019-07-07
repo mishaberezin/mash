@@ -19,7 +19,7 @@
   }
 </style>
 
-<div class="mega-button">
+<div class="mega-button" on:click>
   <svg
     class="mega-button__svg"
     viewBox="0 0 100 100"

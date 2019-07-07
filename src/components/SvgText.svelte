@@ -33,20 +33,3 @@
     {/if}
   </text>
 </svg>
-
-<!--
-<div class="svg-text">
-  <svg
-    class="svg-text__svg"
-    height="100%"
-    preserveAspectRatio="xMinYMin meet"
-    viewBox="0 0 150 30"
-    xmlns="http://www.w3.org/2000/svg"
-  >
-    <text x="0" y="70%" dominant-baseline="middle" class="svg-text__text">
-      {main} {#if misc}
-      <tspan dx="5px" dy="-40%" class="svg-text__text-misc">{misc}</tspan>
-      {/if}
-    </text>
-  </svg>
-</div> -->
