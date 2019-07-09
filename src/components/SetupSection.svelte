@@ -1,13 +1,13 @@
 <script>
-  import { headline, text, logo, picture } from '../stores/assets.js';
-  import { createEventDispatcher } from 'svelte';
-  import MegaButton from '../components/MegaButton.svelte';
-  import FileField from '../components/FileField.svelte';
-  import TextField from '../components/TextField.svelte';
-  import FormField from '../components/FormField.svelte';
-  import SvgText from '../components/SvgText.svelte';
+  import { headline, text, logo, picture } from "../stores/assets.js";
+  import { createEventDispatcher } from "svelte";
+  import MegaButton from "./MegaButton.svelte";
+  import FileField from "./FileField.svelte";
+  import TextField from "./TextField.svelte";
+  import FormField from "./FormField.svelte";
+  import SvgText from "./SvgText.svelte";
 
-  export let mix = '';
+  export let mix = "";
 
   const dispatch = createEventDispatcher();
 
@@ -28,7 +28,7 @@
   };
 
   const onMegaButtonClick = e => {
-    dispatch('next');
+    dispatch("next");
   };
 </script>
 
@@ -84,7 +84,7 @@
   }
 
   .section__item_role_border:after {
-    content: '';
+    content: "";
     position: absolute;
     bottom: 0;
     left: 0;
@@ -145,29 +145,28 @@
 
 <section class="section section_name_setup {mix}">
   <div class="section__item section__item_for_header">
-    <SvgText text="Layout Mash" size="190" theme="outline"></SvgText>
+    <SvgText text="Layout Mash" size="190" theme="outline" />
   </div>
   <div class="section__item section__item_for_headline">
-    <FormField label="Headline" on:change="{onHeadlineChange}"></FormField>
+    <FormField label="Headline" on:change={onHeadlineChange} />
   </div>
   <div class="section__item section__item_for_text">
-    <TextField label="Text" on:change="{onTextChange}"></TextField>
+    <TextField label="Text" on:change={onTextChange} />
   </div>
   <div class="section__item section__item_for_logo">
-    <FileField label="Logo" on:change="{onLogoChange}"></FileField>
+    <FileField label="Logo" on:change={onLogoChange} />
   </div>
   <div class="section__item section__item_for_picture">
-    <FileField label="Picture" on:change="{onPictureChange}"></FileField>
+    <FileField label="Picture" on:change={onPictureChange} />
   </div>
   <div class="section__item section__item_for_button">
     <div class="button-wrap">
-      <MegaButton on:click="{onMegaButtonClick}">Generate</MegaButton>
+      <MegaButton on:click={onMegaButtonClick}>Generate</MegaButton>
     </div>
   </div>
 
   {#each [1, 2, 3, 4] as number}
-  <div
-    class="section__item section__item_role_border section__item_for_line{number}"
-  ></div>
+    <div
+      class="section__item section__item_role_border section__item_for_line{number}" />
   {/each}
 </section>

@@ -1,6 +1,6 @@
-import Index from './Index.svelte';
+import Page from './_Input.svelte';
 
-const app = new Index({
+const app = new Page({
   target: document.getElementById('app'),
   props: {}
 });

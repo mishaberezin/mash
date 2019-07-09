@@ -10,12 +10,12 @@
   import layouts from '../../lib/layouts.js';
   import { getPermutations } from '../../lib/utils.js';
 
-  import Sample from '../components/Sample.svelte';
-  import Ruler from '../components/Ruler.svelte';
-  import TextBlock from '../components/TextBlock.svelte';
-  import Logo from '../components/Logo.svelte';
-  import Image from '../components/Image.svelte';
-  import Unzoom from '../components/Unzoom.svelte';
+  import Sample from './Sample.svelte';
+  import Ruler from './Ruler.svelte';
+  import TextBlock from './TextBlock.svelte';
+  import Logo from './Logo.svelte';
+  import Image from './Image.svelte';
+  import Unzoom from './Unzoom.svelte';
 
   export let mix = '';
 

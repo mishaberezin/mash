@@ -4,10 +4,10 @@
 
   import fragment from 'svelte-fragment';
 
-  import Sample from '../components/Sample.svelte';
-  import TextBlock from '../components/TextBlock.svelte';
-  import Logo from '../components/Logo.svelte';
-  import Image from '../components/Image.svelte';
+  import Sample from './Sample.svelte';
+  import TextBlock from './TextBlock.svelte';
+  import Logo from './Logo.svelte';
+  import Image from './Image.svelte';
 
   export let mix = '';
 

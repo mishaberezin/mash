@@ -1,6 +1,6 @@
-import StandPage from './StandPage.svelte';
+import Page from './_Textfit.svelte';
 
-const app = new StandPage({
+const app = new Page({
   target: document.querySelector('#page'),
   props: {}
 });
