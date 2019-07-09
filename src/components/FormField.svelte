@@ -5,14 +5,17 @@
 
 <script>
   import SvgText from './SvgText.svelte';
+  import Textfit from './Textfit.svelte';
 
-  export let label = 'Noname';
+  export let label = '';
   export let type = 'text';
 
   const id = getUniqId();
 
   let isFocused = false;
   let isHovered = false;
+
+  let labelStyle = '';
 
   const onMouseenter = e => (isHovered = true);
   const onMouseleave = e => (isHovered = false);
@@ -48,6 +51,8 @@
     background-color: transparent;
     transition: background-color 0.2s;
     position: relative;
+
+    padding-right: var(--right-col-width);
   }
 
   .form-field__item {
@@ -59,14 +64,14 @@
     width: 100%;
   }
   .form-field_focused .form-field__item_for_label {
-    width: 0;
+    width: 50px;
   }
 
   .form-field__item_for_control {
     width: 0;
   }
   .form-field_focused .form-field__item_for_control {
-    width: 100%;
+    width: auto;
   }
 
   .form-field__label {
@@ -78,6 +83,9 @@
     /* position: absolute; */
     /* top: 0; */
     display: block;
+
+    font-family: Navigo;
+    font-size: 50px;
   }
 
   .form-field_hovered .form-field__label {
@@ -89,7 +97,14 @@
   }
 
   .form-field_focused .form-field__label {
-    transform: translateX(0);
+    width: 20vh;
+    height: auto;
+    transform: rotate(-90deg) translateX(30px);
+    transform-origin: 0 0;
+  }
+
+  .field__control {
+    background-color: transparent;
   }
 </style>
 
@@ -101,13 +116,13 @@
   on:mouseleave="{onMouseleave}"
   on:change
 >
-  <div class="form-field__item form-field__item_for_label">
+  <div class="form-field__item form-field__item_for_label" style="{labelStyle}">
     <label for="{id}" class="form-field__label">
-      <SvgText main="{label}"></SvgText>
+      <SvgText text="{label}" rect="790 190" size="190"></SvgText>
     </label>
   </div>
   <div class="form-field__item form-field__item_for_control">
-    {#if type === 'file'} {:else}
+    {#if type === 'text'}
     <textarea
       class="field__control"
       id="{id}"

@@ -34,9 +34,11 @@
 
 <style>
   .section {
+    --right-col-width: 33.5vh;
+
     height: 100%;
     display: grid;
-    grid-template: repeat(5, 1fr) / 1fr 33.5vh;
+    grid-template: repeat(5, 20vh) / 1fr var(--right-col-width);
   }
 
   .section__item {
@@ -44,11 +46,11 @@
   }
 
   .section__item_for_header {
-    grid-area: 1/1/2/2;
+    grid-area: 1/1/2/3;
   }
 
   .section__item_for_headline {
-    grid-area: 2/1/3/2;
+    grid-area: 2/1/3/3;
   }
 
   .section__item_for_text {
@@ -143,7 +145,7 @@
 
 <section class="section section_name_setup {mix}">
   <div class="section__item section__item_for_header">
-    <SvgText main="Layout" misc="Mash"></SvgText>
+    <SvgText text="Layout Mash" size="190" theme="outline"></SvgText>
   </div>
   <div class="section__item section__item_for_headline">
     <FormField label="Headline" on:change="{onHeadlineChange}"></FormField>
