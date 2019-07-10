@@ -16,6 +16,7 @@
 
   const id = getUniqId();
 
+  let isntEmpty = false;
   let isFocused = false;
   let isHovered = false;
 
@@ -29,22 +30,32 @@
   const onBlur = e => {
     // isFocused = false;
   };
+
   const onInput = e => {
     const { target } = e;
     const { clientHeight, scrollHeight } = target;
+
+    if (target.value === "") {
+      isntEmpty = false;
+      return;
+    }
+
+    isntEmpty = true;
 
     let fontSize = parseInt(
       target.style.fontSize || getComputedStyle(target).fontSize
     );
 
-    if (target.scrollHeight === clientHeight) {
-      // ...
-    } else {
-      while (target.scrollHeight > clientHeight) {
-        fontSize--;
-        target.style.fontSize = fontSize + "px";
-      }
-    }
+    console.log(fontSize);
+
+    // if (target.scrollHeight === clientHeight) {
+    //   // ...
+    // } else {
+    //   while (target.scrollHeight > clientHeight) {
+    //     fontSize--;
+    //     target.style.fontSize = fontSize + "px";
+    //   }
+    // }
   };
 </script>
 
@@ -56,6 +67,7 @@
   .wrap {
     margin: 100px 0 0 0;
     height: 20vh;
+    min-height: 100px;
     background-color: #fff;
   }
 
@@ -79,15 +91,9 @@
     width: 100%;
   }
 
-  .form-field_focused .form-field__item_for_label {
-    width: 50px;
-  }
-
   .form-field__item_for_control {
     width: 0;
-  }
-  .form-field_focused .form-field__item_for_control {
-    width: calc(100% - 50px);
+    margin-left: 20px;
   }
 
   .form-field__label {
@@ -102,21 +108,26 @@
     font-size: 50px;
   }
 
+  .form-field_focused .form-field__item_for_label,
+  .form-field_notempty .form-field__item_for_label {
+    width: 50px;
+  }
+
+  .form-field_focused .form-field__item_for_control,
+  .form-field_notempty .form-field__item_for_control {
+    width: 100%;
+  }
+
   .form-field_hovered .form-field__label {
     transform: translateX(30px);
   }
 
-  .form-field_focused {
-    background-color: #000;
-  }
-
-  .form-field_focused .form-field__label {
+  .form-field_focused .form-field__label,
+  .form-field_notempty .form-field__label {
     width: 20vh;
     height: auto;
-    transform: rotate(-90deg) translateX(30px);
     transform-origin: 0 0;
     fill: white;
-
     width: 20vh;
     height: 50px;
     transform: rotate(-90deg);
@@ -128,13 +139,17 @@
     bottom: 0;
   }
 
+  .form-field_focused {
+    background-color: #000;
+  }
+
   .field__control {
     background-color: transparent;
     width: 0;
     outline: none;
     border: 0;
     resize: none;
-
+    caret-color: red;
     position: absolute;
     top: 0;
     right: 0;
@@ -143,12 +158,13 @@
     padding: 0;
     margin: 5px;
     color: #fff;
-    font-size: 40px;
+    font-size: 80px;
+    line-height: 15vh;
     padding: 5px;
   }
 
   .form-field_focused .field__control {
-    border: 2px dashed #fff;
+    /* border: 1px dotted #fff; */
     width: 100%;
   }
 </style>
@@ -156,6 +172,7 @@
 <div class="wrap">
   <div
     class="form-field"
+    class:form-field_notempty={isntEmpty}
     class:form-field_focused={isFocused}
     class:form-field_hovered={isHovered}
     on:mouseenter={onMouseenter}
