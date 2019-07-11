@@ -3,13 +3,13 @@
   import layouts from '../lib/layouts.js';
   import { getPermutations } from '../lib/utils.js';
 
-  import Panel from './components/Panel.svelte';
-  import Sample from './components/Sample.svelte';
-  import Ruler from './components/Ruler.svelte';
-  import TextBlock from './components/TextBlock.svelte';
-  import Logo from './components/Logo.svelte';
-  import Image from './components/Image.svelte';
-  import Unzoom from './components/Unzoom.svelte';
+  import Panel from './blocks/Panel.svelte';
+  import Sample from './blocks/Sample.svelte';
+  import Ruler from './blocks/Ruler.svelte';
+  import TextBlock from './blocks/TextBlock.svelte';
+  import Logo from './blocks/Logo.svelte';
+  import Image from './blocks/Image.svelte';
+  import Unzoom from './blocks/Unzoom.svelte';
 
   import mcLogoUrl from './assets/mc-logo.svg';
   import cyborgImageUrl from './assets/cyborg.png';

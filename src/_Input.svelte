@@ -4,23 +4,22 @@
 </script>
 
 <script>
-  import globalcss from "./global.css";
-  import normalize from "normalize.css";
   import navigo from "./fonts/navigo.css";
 
-  import SvgText from "./components/SvgText.svelte";
-  import Textfit from "./components/Textfit.svelte";
+  import SvgText from "./blocks/SvgText.svelte";
+  import Textfit from "./blocks/Textfit.svelte";
 
   export let label = "Headline";
-  export let type = "text";
 
-  const id = getUniqId();
+  let madmode = false;
 
-  let isntEmpty = false;
+  let value = "";
   let isFocused = false;
   let isHovered = false;
+  let isEnabled;
+  $: isEnabled = isFocused || value !== "";
 
-  let labelStyle = "";
+  const id = getUniqId();
 
   const onMouseenter = e => (isHovered = true);
   const onMouseleave = e => (isHovered = false);
@@ -28,34 +27,48 @@
     isFocused = true;
   };
   const onBlur = e => {
-    // isFocused = false;
+    isFocused = false;
   };
 
   const onInput = e => {
     const { target } = e;
     const { clientHeight, scrollHeight } = target;
 
-    if (target.value === "") {
-      isntEmpty = false;
-      return;
-    }
-
-    isntEmpty = true;
+    value = target.value;
 
     let fontSize = parseInt(
       target.style.fontSize || getComputedStyle(target).fontSize
     );
 
-    console.log(fontSize);
+    console.log("initial: " + fontSize);
 
-    // if (target.scrollHeight === clientHeight) {
-    //   // ...
-    // } else {
-    //   while (target.scrollHeight > clientHeight) {
-    //     fontSize--;
-    //     target.style.fontSize = fontSize + "px";
-    //   }
-    // }
+    if (scrollHeight === clientHeight) {
+      console.log("===");
+      let guard = 100;
+      while (guard && target.scrollHeight === clientHeight) {
+        guard--;
+
+        const nextSize = fontSize + 1;
+        target.style.fontSize = nextSize + "px";
+
+        if (target.scrollHeight === clientHeight) {
+          fontSize = nextSize;
+        } else {
+          target.style.fontSize = fontSize + "px";
+          break;
+        }
+      }
+    } else if (scrollHeight > clientHeight) {
+      console.log("> >");
+      let guard = 100;
+      while (guard && target.scrollHeight > clientHeight) {
+        guard--;
+        fontSize--;
+        target.style.fontSize = fontSize + "px";
+      }
+    }
+
+    console.log("new: " + fontSize);
   };
 </script>
 
@@ -65,91 +78,91 @@
   }
 
   .wrap {
-    margin: 100px 0 0 0;
+    margin: 100px auto 0 auto;
     height: 20vh;
-    min-height: 100px;
+    min-height: 150px;
+    max-width: 1200px;
     background-color: #fff;
+    box-shadow: 0 0px 10px 0px rgba(0, 0, 0, 0.3);
+  }
+
+  .wrap_madmode .form-field__control {
+    transition: font-size 0.1s 0.1s;
   }
 
   .form-field {
     height: 100%;
     display: flex;
+    overflow: hidden;
     background-color: transparent;
     position: relative;
-
-    transition: background-color 0.2s;
     padding-right: 100px;
     font-family: Navigo;
+    transform: translateZ(0);
+
+    transition: background-color 0.2s;
   }
 
-  .form-field__item {
-    position: relative;
-    transition: width 0.2s;
-  }
-
-  .form-field__item_for_label {
-    width: 100%;
-  }
-
-  .form-field__item_for_control {
-    width: 0;
-    margin-left: 20px;
-  }
-
-  .form-field__label {
-    width: 100%;
-    height: 100%;
-    transition: transform 0.2s;
-    cursor: pointer;
-    width: 100%;
-    display: block;
-
-    font-family: Navigo;
-    font-size: 50px;
-  }
-
-  .form-field_focused .form-field__item_for_label,
-  .form-field_notempty .form-field__item_for_label {
-    width: 50px;
-  }
-
-  .form-field_focused .form-field__item_for_control,
-  .form-field_notempty .form-field__item_for_control {
-    width: 100%;
-  }
-
-  .form-field_hovered .form-field__label {
-    transform: translateX(30px);
-  }
-
-  .form-field_focused .form-field__label,
-  .form-field_notempty .form-field__label {
-    width: 20vh;
-    height: auto;
-    transform-origin: 0 0;
-    fill: white;
-    width: 20vh;
-    height: 50px;
-    transform: rotate(-90deg);
-    transform-origin: left bottom;
-    fill: white;
-    margin-left: 50px;
-    /* margin-bottom: -100px; */
-    position: absolute;
-    bottom: 0;
-  }
-
-  .form-field_focused {
+  .form-field_enabled {
     background-color: #000;
   }
 
-  .field__control {
+  .form-field__cell {
+    position: relative;
+    z-index: 0;
+  }
+
+  .form-field__cell_for_nameplate {
+    width: 72px;
+    height: 100%;
+    margin-left: -72px;
+
+    transition: margin-left 0.2s;
+  }
+
+  .form-field__cell_for_textarea {
+    flex-grow: 1;
+  }
+
+  .form-field__nameplate {
+    font-size: 180px;
+    writing-mode: tb;
+    width: 100%;
+    height: 100%;
+    fill: #fff;
+    fill: #666;
+    cursor: pointer;
+    transform: rotate(180deg);
+  }
+
+  .form-field__label {
+    pointer-events: none;
+    font-size: 180px;
+    fill: #000;
+
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+
+    z-index: -1;
+  }
+
+  .form-field_enabled .form-field__label {
+    display: none;
+  }
+
+  .form-field_hovered .form-field__cell_for_nameplate,
+  .form-field_enabled .form-field__cell_for_nameplate {
+    margin-left: 0;
+  }
+
+  .form-field__control {
     background-color: transparent;
-    width: 0;
     outline: none;
     border: 0;
     resize: none;
-    caret-color: red;
     position: absolute;
     top: 0;
     right: 0;
@@ -157,37 +170,50 @@
     left: 0;
     padding: 0;
     margin: 5px;
+    margin-left: 20px;
     color: #fff;
-    font-size: 80px;
+    font-size: 50px;
     line-height: 15vh;
-    padding: 5px;
+    /* padding: 5px;
+    padding-top: 10px; */
+    width: 100%;
+    line-height: 1.2em;
+
+    cursor: pointer;
   }
 
-  .form-field_focused .field__control {
-    /* border: 1px dotted #fff; */
-    width: 100%;
+  .form-field_enabled .form-field__control {
+    cursor: text;
   }
 </style>
 
-<div class="wrap">
+<label for="madmode">
+  Mad mode (try to type something)
+  <input id="madmode" type="checkbox" bind:checked={madmode} />
+</label>
+<div class="wrap" class:wrap_madmode={madmode}>
   <div
     class="form-field"
-    class:form-field_notempty={isntEmpty}
+    class:form-field_enabled={isEnabled}
     class:form-field_focused={isFocused}
     class:form-field_hovered={isHovered}
     on:mouseenter={onMouseenter}
     on:mouseleave={onMouseleave}
     on:change>
-    <div class="form-field__item form-field__item_for_label" style={labelStyle}>
-      <label for={id} class="form-field__label">
-        <SvgText text={label} rect="790 190" size="190" />
+    <div class="form-field__cell form-field__cell_for_nameplate">
+      <label for={id} class="form-field__nameplate">
+        <SvgText text={label} x="50%" y="30" rect="190 900" />
       </label>
     </div>
-    <div class="form-field__item form-field__item_for_control">
+    <div class="form-field__cell form-field__cell_for_textarea">
+      <div class="form-field__label">
+        <SvgText text={label} x="30" rect="790 190" />
+      </div>
       <textarea
         {id}
-        class="field__control"
+        class="form-field__control"
         contenteditable="true"
+        maxlength="200"
         spellcheck="false"
         on:focus={onFocus}
         on:blur={onBlur}

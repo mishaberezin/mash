@@ -1,5 +1,5 @@
 <script>
-  import Textbox from './components/Textbox.svelte';
+  import Textbox from './blocks/Textbox.svelte';
 
   let headline = 'Better Call Saul';
   let paragraph =

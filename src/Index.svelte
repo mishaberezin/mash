@@ -4,9 +4,9 @@
   import globalcss from './global.css';
   import normalize from 'normalize.css';
 
-  import SetupSection from './components/SetupSection.svelte';
-  import LayoutSection from './components/LayoutSection.svelte';
-  import ResultSection from './components/ResultSection.svelte';
+  import SetupSection from './blocks/SetupSection.svelte';
+  import LayoutSection from './blocks/LayoutSection.svelte';
+  import ResultSection from './blocks/ResultSection.svelte';
 
   const onSetupNext = () => {
     $screen = 'layout';
