@@ -1,19 +1,16 @@
 <script>
-  import { screen } from './stores/app.js';
+  import { screen } from "./stores/app.js";
 
-  import globalcss from './global.css';
-  import normalize from 'normalize.css';
-
-  import SetupSection from './blocks/SetupSection.svelte';
-  import LayoutSection from './blocks/LayoutSection.svelte';
-  import ResultSection from './blocks/ResultSection.svelte';
+  import SetupSection from "./blocks/SetupSection.svelte";
+  import LayoutSection from "./blocks/LayoutSection.svelte";
+  import ResultSection from "./blocks/ResultSection.svelte";
 
   const onSetupNext = () => {
-    $screen = 'layout';
+    $screen = "layout";
   };
 
   const onLayoutNext = () => {
-    $screen = 'result';
+    $screen = "result";
   };
 </script>
 
@@ -25,10 +22,10 @@
 
 <div class="page page_name_index">
   {#if $screen === 'setup'}
-  <SetupSection mix="page__section" on:next="{onSetupNext}"></SetupSection>
+    <SetupSection on:next={onSetupNext} />
   {:else if $screen === 'layout'}
-  <LayoutSection on:next="{onLayoutNext}"></LayoutSection>
+    <LayoutSection on:next={onLayoutNext} />
   {:else if $screen === 'result'}
-  <ResultSection></ResultSection>
+    <ResultSection />
   {/if}
 </div>

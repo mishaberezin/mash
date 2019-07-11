@@ -178,10 +178,6 @@
     margin: 5px;
     margin-left: 20px;
     color: #fff;
-    font-size: 50px;
-    line-height: 15vh;
-    /* padding: 5px;
-    padding-top: 10px; */
     width: 100%;
     line-height: 1.2em;
 
