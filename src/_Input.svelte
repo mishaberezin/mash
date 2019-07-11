@@ -44,7 +44,7 @@
 
     if (scrollHeight === clientHeight) {
       console.log("===");
-      let guard = 100;
+      let guard = 300;
       while (guard && target.scrollHeight === clientHeight) {
         guard--;
 
@@ -60,7 +60,7 @@
       }
     } else if (scrollHeight > clientHeight) {
       console.log("> >");
-      let guard = 100;
+      let guard = 300;
       while (guard && target.scrollHeight > clientHeight) {
         guard--;
         fontSize--;
@@ -81,9 +81,15 @@
     margin: 100px auto 0 auto;
     height: 20vh;
     min-height: 150px;
+    max-height: 500px;
     max-width: 1200px;
+    min-width: 400px;
     background-color: #fff;
     box-shadow: 0 0px 10px 0px rgba(0, 0, 0, 0.3);
+    box-shadow: inset -20px 0px 0px 0px #ccc;
+    padding-right: 20px;
+    resize: both;
+    overflow: auto;
   }
 
   .wrap_madmode .form-field__control {
