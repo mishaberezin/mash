@@ -1,13 +1,14 @@
 <script>
+  import navigo from "../fonts/navigo.css";
   import { headline, text, logo, picture } from "../stores/assets.js";
   import { createEventDispatcher } from "svelte";
   import MegaButton from "./MegaButton.svelte";
   import FileField from "./FileField.svelte";
-  import TextField from "./TextField.svelte";
-  import FormField from "./FormField.svelte";
   import SvgText from "./SvgText.svelte";
+  import Input from "./Input/Input.svelte";
 
-  export let mix = "";
+  let mix = "";
+  export { mix as class };
 
   const dispatch = createEventDispatcher();
 
@@ -37,37 +38,46 @@
     --right-col-width: 33.5vh;
 
     height: 100%;
+    /* min-width: 700px; */
     display: grid;
-    grid-template: repeat(5, 20vh) / 1fr var(--right-col-width);
+    grid-template: repeat(5, minmax(120px, 20vh)) / 1fr var(--right-col-width);
+    font-family: Navigo;
   }
 
-  .section__item {
+  .section__cell {
     position: relative;
   }
 
-  .section__item_for_header {
+  .section__cell_for_header {
     grid-area: 1/1/2/3;
   }
 
-  .section__item_for_headline {
+  .section__cell_for_headline {
     grid-area: 2/1/3/3;
   }
 
-  .section__item_for_text {
-    grid-area: 3/1/4/2;
+  .section__cell_for_text {
+    grid-area: 3/1/4/3;
   }
 
-  .section__item_for_logo {
-    grid-area: 4/1/5/2;
+  .section__cell_for_logo {
+    grid-area: 4/1/5/3;
   }
 
-  .section__item_for_picture {
-    grid-area: 5/1/6/2;
+  .section__cell_for_picture {
+    grid-area: 5/1/6/3;
   }
 
-  .section__item_for_button {
+  .section__cell_for_button {
     grid-area: 1/2/6/3;
     overflow: hidden;
+  }
+
+  .section__cell_for_frame {
+    grid-area: 1/1/-1/-1;
+    z-index: -1;
+    border: 6px solid #000;
+    border-left: 0;
   }
 
   .button-wrap {
@@ -79,11 +89,8 @@
     left: 0;
   }
 
-  .section__item_role_border {
+  .section__cell_role_border:after {
     z-index: -1;
-  }
-
-  .section__item_role_border:after {
     content: "";
     position: absolute;
     bottom: 0;
@@ -95,78 +102,48 @@
     pointer-events: none;
   }
 
-  .section__item_for_line1 {
-    grid-area: 1/1/2/3;
-  }
-  .section__item_for_line2 {
-    grid-area: 2/1/3/3;
-  }
-  .section__item_for_line3 {
-    grid-area: 3/1/4/3;
-  }
-  .section__item_for_line4 {
-    grid-area: 4/1/5/3;
-  }
-
-  .page__main {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+  .section__header {
     width: 100%;
     height: 100%;
-    box-sizing: border-box;
-    border: 16px solid #000;
-    border-left: 0;
-    background-color: #fff;
+    font-size: 90px;
   }
 
-  .page__main-line {
-    flex-grow: 1;
-    min-height: 130px;
-    /* border-bottom: 3px solid black; */
-    box-sizing: border-box;
-    position: relative;
-  }
-
-  .page__main-line_last {
-    border-bottom: none;
-  }
-
-  .page__side {
-    position: fixed;
-    height: 140vh;
-    width: 140vh;
-    min-height: 700px;
-    min-width: 700px;
-    right: -100vh;
-    top: -20vh;
+  :global(.section__Input) {
+    padding-right: var(--right-col-width);
   }
 </style>
 
 <section class="section section_name_setup {mix}">
-  <div class="section__item section__item_for_header">
-    <SvgText text="Layout Mash" size="190" theme="outline" />
+  <div class="section__cell section__cell_for_header section__cell_role_border">
+    <div class="section__header">
+      <SvgText
+        debug={false}
+        text="Layout Mash"
+        theme="outline"
+        rect="600 90"
+        x="20" />
+    </div>
   </div>
-  <div class="section__item section__item_for_headline">
-    <FormField label="Headline" on:change={onHeadlineChange} />
+  <div
+    class="section__cell section__cell_for_headline section__cell_role_border">
+    <Input
+      class="section__Input"
+      label="Headline"
+      on:change={onHeadlineChange} />
   </div>
-  <div class="section__item section__item_for_text">
-    <TextField label="Text" on:change={onTextChange} />
+  <div class="section__cell section__cell_for_text section__cell_role_border">
+    <Input class="section__Input" label="Text" on:change={onTextChange} />
   </div>
-  <div class="section__item section__item_for_logo">
-    <FileField label="Logo" on:change={onLogoChange} />
+  <div class="section__cell section__cell_for_logo section__cell_role_border">
+    <Input class="section__Input" label="Logo" on:change={onLogoChange} />
   </div>
-  <div class="section__item section__item_for_picture">
-    <FileField label="Picture" on:change={onPictureChange} />
+  <div class="section__cell section__cell_for_picture">
+    <Input class="section__Input" label="Picture" on:change={onPictureChange} />
   </div>
-  <div class="section__item section__item_for_button">
+  <div class="section__cell section__cell_for_button">
     <div class="button-wrap">
       <MegaButton on:click={onMegaButtonClick}>Generate</MegaButton>
     </div>
   </div>
-
-  {#each [1, 2, 3, 4] as number}
-    <div
-      class="section__item section__item_role_border section__item_for_line{number}" />
-  {/each}
+  <div class="section__cell section__cell_for_frame" />
 </section>

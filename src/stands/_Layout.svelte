@@ -1,26 +1,30 @@
 <script>
-  import { createEventDispatcher } from "svelte";
-
-  const dispatch = createEventDispatcher();
-
-  import { headline, text, logo, picture } from "../stores/assets.js";
-  import { layout } from "../stores/layout";
-
   import fragment from "svelte-fragment";
   import layouts from "../../lib/layouts.js";
   import { getPermutations } from "../../lib/utils.js";
 
-  import Sample from "./Sample.svelte";
-  import Ruler from "./Ruler.svelte";
-  import TextBlock from "./TextBlock.svelte";
-  import Logo from "./Logo.svelte";
-  import Image from "./Image.svelte";
-  import Unzoom from "./Unzoom.svelte";
+  import Panel from "../blocks/Panel.svelte";
+  import Sample from "../blocks/Sample.svelte";
+  import Ruler from "../blocks/Ruler.svelte";
+  import TextBlock from "../blocks/TextBlock.svelte";
+  import Logo from "../blocks/Logo.svelte";
+  import Image from "../blocks/Image.svelte";
+  import Unzoom from "../blocks/Unzoom.svelte";
 
-  export let mix = "";
+  import mcLogoUrl from "../assets/mc-logo.svg";
+  import cyborgImageUrl from "../assets/cyborg.png";
 
-  const mcLogoUrl = $logo;
-  const cyborgImageUrl = $picture;
+  // const arrange = () => {
+  //   const areas = shuffle(layouts.next().value);
+  //   const items = ['logo', 'text', 'image'];
+
+  //   items.forEach(item => {
+  //     document.documentElement.style.setProperty(
+  //       `--area-${item}`,
+  //       areas.pop().join('/')
+  //     );
+  //   });
+  // };
 
   const allPlacements = areas => {};
 
@@ -41,15 +45,12 @@
       permutations: arrange(areas)
     };
   });
-
-  const onSampleClick = permutation => {
-    console.log("permutation: " + permutation);
-    $layout.permutation = permutation;
-    dispatch("next");
-  };
 </script>
 
 <style>
+  .stand {
+  }
+
   .stand__viewer {
     display: grid;
     grid-template: 270px / repeat(2, 550px);
@@ -74,9 +75,10 @@
   }
 </style>
 
-<!-- <section class="section section_name_result">LAYOUT</section> -->
-
 <div class="stand">
+  <div class="stand__cpanel">
+    <Panel name="привет" />
+  </div>
   <div class="stand__viewer">
     {#each arrangements as arrangement}
       <Unzoom>
@@ -92,14 +94,14 @@
       {#each arrangement.permutations as permutation}
         <Unzoom>
           <Ruler>
-            <Sample
-              arrangement={permutation}
-              on:click={() => onSampleClick(permutation)}>
+            <Sample arrangement={permutation}>
               <template use:fragment slot="logo" let:data>
                 <Logo url={mcLogoUrl}>🏝</Logo>
               </template>
               <template use:fragment slot="text" let:data>
-                <TextBlock headline={$headline} paragraph={$text} />
+                <TextBlock
+                  header="See you later, Alligator"
+                  paragraph="Not so soon, baboon!" />
               </template>
               <template use:fragment slot="image" let:data>
                 <Image url={cyborgImageUrl}>🏝</Image>

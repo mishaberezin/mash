@@ -4,10 +4,9 @@
 </script>
 
 <script>
-  import navigo from "./fonts/navigo.css";
-
-  import SvgText from "./blocks/SvgText.svelte";
-  import Textfit from "./blocks/Textfit.svelte";
+  import navigo from "../fonts/navigo.css";
+  import Input from "../blocks/Input/Input.svelte";
+  import SvgText from "../blocks/SvgText.svelte";
 
   export let label = "Headline";
 
@@ -223,4 +222,9 @@
         on:change />
     </div>
   </div>
+</div>
+
+<div class="wrap">
+  hello
+  <Input class="wrap__Input" label="Picture" />
 </div>

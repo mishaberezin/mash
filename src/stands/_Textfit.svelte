@@ -1,7 +1,8 @@
 <script>
-  import Textbox from './blocks/Textbox.svelte';
+  import Opensans from "../fonts/opensans.css";
+  import Textbox from "../blocks/Textbox.svelte";
 
-  let headline = 'Better Call Saul';
+  let headline = "Better Call Saul";
   let paragraph =
     "He wasn't always Saul Goodman, ace attorney for chemist-turned-meth dealer Walter White. Six years before he begins to represent Albuquerque's most notorious criminal, Goodman is Jimmy McGill, a small-time attorney hustling to make a name for himself.";
 
@@ -85,7 +86,7 @@
   }
 
   .grid:after {
-    content: '';
+    content: "";
     position: absolute;
     top: 0;
     right: 0;
@@ -193,67 +194,91 @@
 
 <div class="stand">
   <div class="stand__cpanel">
-    <textarea class="textarea1" bind:value="{headline}"></textarea>
-    <textarea class="textarea2" bind:value="{paragraph}"></textarea>
+    <textarea class="textarea1" bind:value={headline} />
+    <textarea class="textarea2" bind:value={paragraph} />
     <div class="checkboxes">
-      <label>1: <input type="checkbox" bind:checked="{showTextbox1}"/></label>
-      <label>2: <input type="checkbox" bind:checked="{showTextbox2}"/></label>
-      <label>3: <input type="checkbox" bind:checked="{showTextbox3}"/></label>
-      <label>4: <input type="checkbox" bind:checked="{showTextbox4}"/></label>
-      <label>5: <input type="checkbox" bind:checked="{showTextbox5}"/></label>
-      <label>6: <input type="checkbox" bind:checked="{showTextbox6}"/></label>
-      <label>7: <input type="checkbox" bind:checked="{showTextbox7}"/></label>
-      <label>8: <input type="checkbox" bind:checked="{showTextbox8}"/></label>
+      <label>
+        1:
+        <input type="checkbox" bind:checked={showTextbox1} />
+      </label>
+      <label>
+        2:
+        <input type="checkbox" bind:checked={showTextbox2} />
+      </label>
+      <label>
+        3:
+        <input type="checkbox" bind:checked={showTextbox3} />
+      </label>
+      <label>
+        4:
+        <input type="checkbox" bind:checked={showTextbox4} />
+      </label>
+      <label>
+        5:
+        <input type="checkbox" bind:checked={showTextbox5} />
+      </label>
+      <label>
+        6:
+        <input type="checkbox" bind:checked={showTextbox6} />
+      </label>
+      <label>
+        7:
+        <input type="checkbox" bind:checked={showTextbox7} />
+      </label>
+      <label>
+        8:
+        <input type="checkbox" bind:checked={showTextbox8} />
+      </label>
     </div>
     <div class="">
-      <span>Min font-size в px: </span
-      ><input type="number" min="0" bind:value="{minimumFontSize}" />
+      <span>Min font-size в px:</span>
+      <input type="number" min="0" bind:value={minimumFontSize} />
     </div>
     <div class="">
-      <span>Заг font-size в em: </span
-      ><input type="number" step="0.1" bind:value="{headlineFontSize}" />
+      <span>Заг font-size в em:</span>
+      <input type="number" step="0.1" bind:value={headlineFontSize} />
     </div>
     <div class="">
-      <span>Заг line-height в em: </span
-      ><input type="number" step="0.1" bind:value="{headlineLineHeight}" />
+      <span>Заг line-height в em:</span>
+      <input type="number" step="0.1" bind:value={headlineLineHeight} />
     </div>
     <div class="">
-      <span>Текст font-size в em: </span
-      ><input type="number" step="0.1" bind:value="{paragraphFontSize}" />
+      <span>Текст font-size в em:</span>
+      <input type="number" step="0.1" bind:value={paragraphFontSize} />
     </div>
     <div class="">
-      <span>Текст line-height в em: </span
-      ><input type="number" step="0.1" bind:value="{paragraphLineHeight}" />
+      <span>Текст line-height в em:</span>
+      <input type="number" step="0.1" bind:value={paragraphLineHeight} />
     </div>
     <div class="">
-      <span>Расстояние в em: </span
-      ><input type="number" step="0.1" bind:value="{marginSize}" />
+      <span>Расстояние в em:</span>
+      <input type="number" step="0.1" bind:value={marginSize} />
     </div>
   </div>
   <div class="grid">
-    <div class:hidden="{!showTextbox1}" class="grid__item grid__item_type_1">
-      <Textbox {...textboxProps}></Textbox>
+    <div class:hidden={!showTextbox1} class="grid__item grid__item_type_1">
+      <Textbox {...textboxProps} />
     </div>
-    <div class:hidden="{!showTextbox2}" class="grid__item grid__item_type_2">
-      <Textbox {...textboxProps}></Textbox>
+    <div class:hidden={!showTextbox2} class="grid__item grid__item_type_2">
+      <Textbox {...textboxProps} />
     </div>
-    <div class:hidden="{!showTextbox3}" class="grid__item grid__item_type_3">
-      <Textbox {...textboxProps}></Textbox>
+    <div class:hidden={!showTextbox3} class="grid__item grid__item_type_3">
+      <Textbox {...textboxProps} />
     </div>
-    <div class:hidden="{!showTextbox4}" class="grid__item grid__item_type_4">
-      <Textbox {...textboxProps}></Textbox>
+    <div class:hidden={!showTextbox4} class="grid__item grid__item_type_4">
+      <Textbox {...textboxProps} />
     </div>
-    <div class:hidden="{!showTextbox5}" class="grid__item grid__item_type_5">
-      <Textbox {...textboxProps}></Textbox>
+    <div class:hidden={!showTextbox5} class="grid__item grid__item_type_5">
+      <Textbox {...textboxProps} />
     </div>
-    <div class:hidden="{!showTextbox6}" class="grid__item grid__item_type_6">
-      <Textbox {...textboxProps}></Textbox>
+    <div class:hidden={!showTextbox6} class="grid__item grid__item_type_6">
+      <Textbox {...textboxProps} />
     </div>
-    <div class:hidden="{!showTextbox7}" class="grid__item grid__item_type_7">
-      <Textbox {...textboxProps}></Textbox>
+    <div class:hidden={!showTextbox7} class="grid__item grid__item_type_7">
+      <Textbox {...textboxProps} />
     </div>
-    <div class:hidden="{!showTextbox8}" class="grid__item grid__item_type_8">
-      <Textbox {...textboxProps}></Textbox>
+    <div class:hidden={!showTextbox8} class="grid__item grid__item_type_8">
+      <Textbox {...textboxProps} />
     </div>
   </div>
 </div>
