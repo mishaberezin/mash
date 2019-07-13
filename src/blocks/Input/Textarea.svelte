@@ -1,10 +1,14 @@
 <script>
+  import { createEventDispatcher } from "svelte";
   import { textfit } from "../../../lib/utils.js";
 
   export let id;
 
+  const dispatch = createEventDispatcher();
+
   const onInput = ({ target }) => {
     textfit(target, { min: 14, max: 300 });
+    dispatch("value", target.value);
   };
 </script>
 
@@ -39,5 +43,4 @@
   spellcheck="false"
   on:focus
   on:blur
-  on:input
   on:input={onInput} />

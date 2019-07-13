@@ -3,7 +3,6 @@
   import { headline, text, logo, picture } from "../stores/assets.js";
   import { createEventDispatcher } from "svelte";
   import MegaButton from "./MegaButton.svelte";
-  import FileField from "./FileField.svelte";
   import SvgText from "./SvgText.svelte";
   import Input from "./Input/Input.svelte";
 
@@ -12,20 +11,21 @@
 
   const dispatch = createEventDispatcher();
 
-  const onHeadlineChange = e => {
-    $headline = e.target.value;
+  const onHeadlineValue = ({ detail }) => {
+    $headline = detail;
   };
 
-  const onTextChange = e => {
-    $text = e.target.value;
+  const onTextValue = ({ detail }) => {
+    $text = detail;
   };
 
-  const onLogoChange = e => {
-    // $logo = e.target.value;
+  const onLogoValue = ({ detail }) => {
+    console.log(detail);
+    $logo = detail;
   };
 
-  const onPictureChange = e => {
-    // $picture = e.target.value;
+  const onPictureValue = ({ detail }) => {
+    $picture = detail;
   };
 
   const onMegaButtonClick = e => {
@@ -126,27 +126,24 @@
   </div>
   <div
     class="section__cell section__cell_for_headline section__cell_role_border">
-    <Input
-      class="section__Input"
-      label="Headline"
-      on:change={onHeadlineChange} />
+    <Input class="section__Input" label="Headline" on:value={onHeadlineValue} />
   </div>
   <div class="section__cell section__cell_for_text section__cell_role_border">
-    <Input class="section__Input" label="Text" on:change={onTextChange} />
+    <Input class="section__Input" label="Text" on:value={onTextValue} />
   </div>
   <div class="section__cell section__cell_for_logo section__cell_role_border">
     <Input
       class="section__Input"
       type="file"
       label="Logo"
-      on:change={onLogoChange} />
+      on:value={onLogoValue} />
   </div>
   <div class="section__cell section__cell_for_picture">
     <Input
       class="section__Input"
       type="file"
       label="Picture"
-      on:change={onPictureChange} />
+      on:value={onPictureValue} />
   </div>
   <div class="section__cell section__cell_for_button">
     <div class="button-wrap">

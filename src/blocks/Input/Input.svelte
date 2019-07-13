@@ -1,10 +1,10 @@
 <script context="module">
   import { uidMakerFactory } from "../../../lib/utils.js";
-
   const getUniqId = uidMakerFactory("input_");
 </script>
 
 <script>
+  import { createEventDispatcher } from "svelte";
   import navigo from "../../fonts/navigo.css";
   import SvgText from "../SvgText.svelte";
   import Textarea from "./Textarea.svelte";
@@ -12,9 +12,10 @@
 
   let mix = "";
   export { mix as class };
-
   export let type = "text";
   export let label = "";
+
+  const dispatch = createEventDispatcher();
 
   const typeMap = {
     text: Textarea,
@@ -35,45 +36,8 @@
   const onMouseleave = e => (isHovered = false);
   const onFocus = e => (isFocused = true);
   const onBlur = e => (isFocused = false);
-  const onInput = e => {
-    console.log(e);
-
-    const { target } = e;
-    // const { clientHeight, scrollHeight } = target;
-
-    value = target.value;
-
-    // let fontSize = parseInt(
-    //   target.style.fontSize || getComputedStyle(target).fontSize
-    // );
-
-    // console.log("initial: " + fontSize);
-
-    // if (scrollHeight === clientHeight) {
-    //   console.log("===");
-    //   let guard = 300;
-    //   while (guard && target.scrollHeight === clientHeight) {
-    //     guard--;
-
-    //     const nextSize = fontSize + 1;
-    //     target.style.fontSize = nextSize + "px";
-
-    //     if (target.scrollHeight === clientHeight) {
-    //       fontSize = nextSize;
-    //     } else {
-    //       target.style.fontSize = fontSize + "px";
-    //       break;
-    //     }
-    //   }
-    // } else if (scrollHeight > clientHeight) {
-    //   console.log("> >");
-    //   let guard = 300;
-    //   while (guard && target.scrollHeight > clientHeight) {
-    //     guard--;
-    //     fontSize--;
-    //     target.style.fontSize = fontSize + "px";
-    //   }
-    // }
+  const onValue = ({ detail }) => {
+    value = detail;
   };
 </script>
 
@@ -150,8 +114,7 @@
   class:input_focused={isFocused}
   class:input_hovered={isHovered}
   on:mouseenter={onMouseenter}
-  on:mouseleave={onMouseleave}
-  on:change>
+  on:mouseleave={onMouseleave}>
   <div class="input__cell input__cell_for_nameplate">
     <label for={id} class="input__nameplate">
       <SvgText text={label} x="50%" y="30" rect="190 900" />
@@ -169,7 +132,7 @@
       spellcheck="false"
       on:focus={onFocus}
       on:blur={onBlur}
-      on:input={onInput}
-      on:change />
+      on:value
+      on:value={onValue} />
   </div>
 </div>
