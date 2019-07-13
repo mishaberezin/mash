@@ -1,6 +1,7 @@
 <script context="module">
-  let counter = 0;
-  const getUniqId = () => `input_${counter++}`;
+  import { uidMakerFactory } from "../../../lib/utils.js";
+
+  const getUniqId = uidMakerFactory("input_");
 </script>
 
 <script>
@@ -15,10 +16,11 @@
   export let type = "text";
   export let label = "";
 
-  const Control = {
+  const typeMap = {
     text: Textarea,
     file: Filearea
-  }[type];
+  };
+  const Control = typeMap[type];
 
   let value = "";
   let isFocused = false;
@@ -34,44 +36,44 @@
   const onFocus = e => (isFocused = true);
   const onBlur = e => (isFocused = false);
   const onInput = e => {
+    console.log(e);
+
     const { target } = e;
-    const { clientHeight, scrollHeight } = target;
+    // const { clientHeight, scrollHeight } = target;
 
     value = target.value;
 
-    let fontSize = parseInt(
-      target.style.fontSize || getComputedStyle(target).fontSize
-    );
+    // let fontSize = parseInt(
+    //   target.style.fontSize || getComputedStyle(target).fontSize
+    // );
 
-    console.log("initial: " + fontSize);
+    // console.log("initial: " + fontSize);
 
-    if (scrollHeight === clientHeight) {
-      console.log("===");
-      let guard = 300;
-      while (guard && target.scrollHeight === clientHeight) {
-        guard--;
+    // if (scrollHeight === clientHeight) {
+    //   console.log("===");
+    //   let guard = 300;
+    //   while (guard && target.scrollHeight === clientHeight) {
+    //     guard--;
 
-        const nextSize = fontSize + 1;
-        target.style.fontSize = nextSize + "px";
+    //     const nextSize = fontSize + 1;
+    //     target.style.fontSize = nextSize + "px";
 
-        if (target.scrollHeight === clientHeight) {
-          fontSize = nextSize;
-        } else {
-          target.style.fontSize = fontSize + "px";
-          break;
-        }
-      }
-    } else if (scrollHeight > clientHeight) {
-      console.log("> >");
-      let guard = 300;
-      while (guard && target.scrollHeight > clientHeight) {
-        guard--;
-        fontSize--;
-        target.style.fontSize = fontSize + "px";
-      }
-    }
-
-    console.log("new: " + fontSize);
+    //     if (target.scrollHeight === clientHeight) {
+    //       fontSize = nextSize;
+    //     } else {
+    //       target.style.fontSize = fontSize + "px";
+    //       break;
+    //     }
+    //   }
+    // } else if (scrollHeight > clientHeight) {
+    //   console.log("> >");
+    //   let guard = 300;
+    //   while (guard && target.scrollHeight > clientHeight) {
+    //     guard--;
+    //     fontSize--;
+    //     target.style.fontSize = fontSize + "px";
+    //   }
+    // }
   };
 </script>
 

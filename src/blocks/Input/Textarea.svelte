@@ -1,7 +1,11 @@
 <script>
-  import textfit from "../../../lib/textfit.js";
+  import { textfit } from "../../../lib/utils.js";
 
   export let id;
+
+  const onInput = ({ target }) => {
+    textfit(target, { min: 14, max: 300 });
+  };
 </script>
 
 <style>
@@ -9,7 +13,6 @@
     height: 100%;
     width: 100%;
     background-color: transparent;
-    transition: background-color 0.2s;
     position: relative;
     outline: none;
     border: 0;
@@ -25,14 +28,16 @@
     width: 100%;
     line-height: 1.2em;
     cursor: pointer;
+    font-size: 300px; /* Чтобы курсор был сразу большой */
+    overflow: hidden; /* Убрать скролл */
   }
 </style>
 
 <textarea
   {id}
   class="textarea"
-  contenteditable="true"
   spellcheck="false"
   on:focus
   on:blur
-  on:input />
+  on:input
+  on:input={onInput} />

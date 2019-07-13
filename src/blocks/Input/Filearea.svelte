@@ -3,11 +3,10 @@
 </script>
 
 <style>
-  .textarea {
+  .filearea {
     height: 100%;
     width: 100%;
     background-color: transparent;
-    transition: background-color 0.2s;
     position: relative;
     outline: none;
     border: 0;
@@ -24,13 +23,21 @@
     line-height: 1.2em;
     cursor: pointer;
   }
+
+  .filearea__input {
+    margin: 0;
+    opacity: 0;
+  }
 </style>
 
-<textarea
-  {id}
-  class="textarea"
-  contenteditable="true"
-  spellcheck="false"
-  on:focus
-  on:blur
-  on:input />
+<label class="filearea">
+  <input
+    {id}
+    class="filearea__input"
+    type="file"
+    aria-label="Load your image"
+    on:focus
+    on:blur
+    on:input />
+  <span class="file-custom" />
+</label>

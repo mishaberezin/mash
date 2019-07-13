@@ -135,10 +135,18 @@
     <Input class="section__Input" label="Text" on:change={onTextChange} />
   </div>
   <div class="section__cell section__cell_for_logo section__cell_role_border">
-    <Input class="section__Input" label="Logo" on:change={onLogoChange} />
+    <Input
+      class="section__Input"
+      type="file"
+      label="Logo"
+      on:change={onLogoChange} />
   </div>
   <div class="section__cell section__cell_for_picture">
-    <Input class="section__Input" label="Picture" on:change={onPictureChange} />
+    <Input
+      class="section__Input"
+      type="file"
+      label="Picture"
+      on:change={onPictureChange} />
   </div>
   <div class="section__cell section__cell_for_button">
     <div class="button-wrap">
