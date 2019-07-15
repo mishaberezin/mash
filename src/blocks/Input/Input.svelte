@@ -80,22 +80,33 @@
   }
 
   .input__nameplate {
-    font-size: 140px;
-    writing-mode: tb;
+    font-size: 30px;
+    writing-mode: vertical-lr;
     width: 100%;
     height: 100%;
     fill: #fff;
+    color: #fff;
     cursor: pointer;
     transform: rotate(180deg);
     user-select: none;
     text-anchor: end;
     dominant-baseline: text-after-edge;
     font-weight: bold;
+    text-align: right;
+    padding-bottom: 13px;
+    padding-left: 18px;
+    box-sizing: border-box;
+  }
+
+  @media (min-height: 1000px) {
+    .input__nameplate {
+      font-size: 26px;
+    }
   }
 
   .input__label {
     pointer-events: none;
-    font-size: 188px;
+    font-size: 189px;
     fill: #000;
 
     position: absolute;
@@ -113,13 +124,15 @@
   }
 
   .input_hovered .input__cell_for_nameplate,
+  .input_focused .input__cell_for_nameplate,
   .input_enabled .input__cell_for_nameplate {
     margin-left: 0;
   }
 </style>
 
 <div
-  class="input {mix}"
+  class="input input_type_{type}
+  {mix}"
   class:input_enabled={isEnabled}
   class:input_focused={isFocused}
   class:input_hovered={isHovered}
@@ -127,7 +140,8 @@
   on:mouseleave={onMouseleave}>
   <div class="input__cell input__cell_for_nameplate">
     <label for={id} class="input__nameplate">
-      <SvgText text={label} x="0" y="110%" dy="0" vbh="700" vbw="170" />
+      {label}
+      <!-- <SvgText text={label} x="0" y="110%" dy="0" vbh="700" vbw="170" /> -->
     </label>
   </div>
   <div class="input__cell input__cell_for_textarea">
@@ -136,7 +150,7 @@
         text={label}
         x="0"
         y="100%"
-        dy="-14"
+        dy="-13"
         vbh="170"
         vbw="800"
         {...mainSvgTextProps} />

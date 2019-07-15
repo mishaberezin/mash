@@ -46,10 +46,12 @@
     --right-col-width: 33.5vh;
 
     height: 100%;
-    /* min-width: 700px; */
+    min-width: 600px;
     display: grid;
-    grid-template: repeat(5, minmax(120px, 20vh)) / 1fr var(--right-col-width);
+    grid-template: repeat(5, minmax(120px, 20%)) / 1fr var(--right-col-width);
     font-family: Navigo;
+    border-top: 7px solid #000;
+    box-sizing: border-box;
   }
 
   .section__cell {
@@ -81,13 +83,6 @@
     overflow: hidden;
   }
 
-  .section__cell_for_frame {
-    grid-area: 1/1/-1/-1;
-    z-index: -1;
-    border: 6px solid #000;
-    border-left: 0;
-  }
-
   .button-wrap {
     position: absolute;
     width: 120vh;
@@ -97,14 +92,15 @@
     left: 0;
   }
 
-  .section__cell_role_border {
+  .section__cell_role_line {
     border-bottom: 7px solid #000;
+    box-sizing: border-box;
   }
 
   .section__header {
     width: 100%;
     height: 100%;
-    font-size: 198px;
+    font-size: 190px;
     box-sizing: border-box;
     padding-right: var(--right-col-width);
   }
@@ -115,46 +111,45 @@
 </style>
 
 <section class="section section_name_setup {mix}">
-  <div class="section__cell section__cell_for_header section__cell_role_border">
+  <div class="section__cell section__cell_for_header section__cell_role_line">
     <div class="section__header">
       <SvgText
         text="Layout Mash"
         theme="outline"
-        vbw="1200"
+        vbw="1150"
         vbh="170"
-        dy="-8"
+        dy="-12"
         dx="1" />
     </div>
   </div>
-  <div
-    class="section__cell section__cell_for_headline section__cell_role_border">
+  <div class="section__cell section__cell_for_headline section__cell_role_line">
     <Input
       class="section__Input"
       label="Headline"
-      mainSvgTextProps={{ vbw: 1200 }}
+      mainSvgTextProps={{ vbw: 1150 }}
       on:value={onHeadlineValue} />
   </div>
-  <div class="section__cell section__cell_for_text section__cell_role_border">
+  <div class="section__cell section__cell_for_text section__cell_role_line">
     <Input
       class="section__Input"
       label="Text"
-      mainSvgTextProps={{ vbw: 1200, dx: 14 }}
+      mainSvgTextProps={{ vbw: 1150, dx: 14 }}
       on:value={onTextValue} />
   </div>
-  <div class="section__cell section__cell_for_logo section__cell_role_border">
+  <div class="section__cell section__cell_for_logo section__cell_role_line">
     <Input
       class="section__Input"
       type="file"
       label="Logo"
-      mainSvgTextProps={{ vbw: 1200 }}
+      mainSvgTextProps={{ vbw: 1150 }}
       on:value={onLogoValue} />
   </div>
-  <div class="section__cell section__cell_for_picture">
+  <div class="section__cell section__cell_for_picture section__cell_role_line">
     <Input
       class="section__Input"
       type="file"
       label="Picture"
-      mainSvgTextProps={{ vbw: 1200 }}
+      mainSvgTextProps={{ vbw: 1150 }}
       on:value={onPictureValue} />
   </div>
   <div class="section__cell section__cell_for_button">
@@ -162,5 +157,4 @@
       <MegaButton on:click={onMegaButtonClick}>Generate</MegaButton>
     </div>
   </div>
-  <div class="section__cell section__cell_for_frame" />
 </section>

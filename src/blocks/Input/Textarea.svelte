@@ -7,7 +7,7 @@
   const dispatch = createEventDispatcher();
 
   const onInput = ({ target }) => {
-    textfit(target, { min: 14, max: 300 });
+    textfit(target, { min: 1, max: 300 });
     dispatch("value", target.value);
   };
 </script>
