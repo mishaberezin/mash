@@ -27,7 +27,7 @@
     bottom: 0;
     left: 0;
     padding: 0;
-    margin-left: 20px;
+    /* margin-left: 20px; */
     color: #fff;
     width: 100%;
     line-height: 1.2em;

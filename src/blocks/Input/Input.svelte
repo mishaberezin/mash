@@ -14,6 +14,11 @@
   export { mix as class };
   export let type = "text";
   export let label = "";
+  export let mainSvgTextProps = {};
+  export let sideSvgTextProps = {};
+
+  // 170 высота
+  // 145 высота H
 
   const dispatch = createEventDispatcher();
 
@@ -75,18 +80,22 @@
   }
 
   .input__nameplate {
-    font-size: 180px;
+    font-size: 140px;
     writing-mode: tb;
     width: 100%;
     height: 100%;
     fill: #fff;
     cursor: pointer;
     transform: rotate(180deg);
+    user-select: none;
+    text-anchor: end;
+    dominant-baseline: text-after-edge;
+    font-weight: bold;
   }
 
   .input__label {
     pointer-events: none;
-    font-size: 145px;
+    font-size: 188px;
     fill: #000;
 
     position: absolute;
@@ -96,6 +105,7 @@
     left: 0;
 
     z-index: -1;
+    user-select: none;
   }
 
   .input_enabled .input__label {
@@ -117,12 +127,19 @@
   on:mouseleave={onMouseleave}>
   <div class="input__cell input__cell_for_nameplate">
     <label for={id} class="input__nameplate">
-      <SvgText text={label} x="50%" y="30" rect="190 900" />
+      <SvgText text={label} x="0" y="110%" dy="0" vbh="700" vbw="170" />
     </label>
   </div>
   <div class="input__cell input__cell_for_textarea">
     <div class="input__label">
-      <SvgText debug={false} text={label} x="30" rect="630 160" />
+      <SvgText
+        text={label}
+        x="0"
+        y="100%"
+        dy="-14"
+        vbh="170"
+        vbw="800"
+        {...mainSvgTextProps} />
     </div>
     <Control
       {id}

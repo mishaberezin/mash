@@ -9,6 +9,14 @@
   let mix = "";
   export { mix as class };
 
+  // const mainSvgTextProps = {
+  //   rect: "1000 150",
+  //   x: "0",
+  //   y: "100%",
+  //   dy: -12,
+  //   size: 172
+  // };
+
   const dispatch = createEventDispatcher();
 
   const onHeadlineValue = ({ detail }) => {
@@ -89,23 +97,16 @@
     left: 0;
   }
 
-  .section__cell_role_border:after {
-    z-index: -1;
-    content: "";
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 7px;
-    background-color: #000;
-    z-index: -1;
-    pointer-events: none;
+  .section__cell_role_border {
+    border-bottom: 7px solid #000;
   }
 
   .section__header {
     width: 100%;
     height: 100%;
-    font-size: 90px;
+    font-size: 198px;
+    box-sizing: border-box;
+    padding-right: var(--right-col-width);
   }
 
   :global(.section__Input) {
@@ -117,25 +118,35 @@
   <div class="section__cell section__cell_for_header section__cell_role_border">
     <div class="section__header">
       <SvgText
-        debug={false}
         text="Layout Mash"
         theme="outline"
-        rect="600 90"
-        x="20" />
+        vbw="1200"
+        vbh="170"
+        dy="-8"
+        dx="1" />
     </div>
   </div>
   <div
     class="section__cell section__cell_for_headline section__cell_role_border">
-    <Input class="section__Input" label="Headline" on:value={onHeadlineValue} />
+    <Input
+      class="section__Input"
+      label="Headline"
+      mainSvgTextProps={{ vbw: 1200 }}
+      on:value={onHeadlineValue} />
   </div>
   <div class="section__cell section__cell_for_text section__cell_role_border">
-    <Input class="section__Input" label="Text" on:value={onTextValue} />
+    <Input
+      class="section__Input"
+      label="Text"
+      mainSvgTextProps={{ vbw: 1200, dx: 14 }}
+      on:value={onTextValue} />
   </div>
   <div class="section__cell section__cell_for_logo section__cell_role_border">
     <Input
       class="section__Input"
       type="file"
       label="Logo"
+      mainSvgTextProps={{ vbw: 1200 }}
       on:value={onLogoValue} />
   </div>
   <div class="section__cell section__cell_for_picture">
@@ -143,6 +154,7 @@
       class="section__Input"
       type="file"
       label="Picture"
+      mainSvgTextProps={{ vbw: 1200 }}
       on:value={onPictureValue} />
   </div>
   <div class="section__cell section__cell_for_button">

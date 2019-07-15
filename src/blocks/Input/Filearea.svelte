@@ -8,7 +8,7 @@
 
   let value = "";
 
-  $: style = `background-image: url("${value}")`;
+  // $: previewSrc = `background-image: url("${value}")`;
 
   const onChange = e => {
     const file = e.target.files[0];
@@ -58,13 +58,23 @@
     background-size: contain;
   }
 
+  .filearea__preview {
+    height: 100%;
+    border: 10px solid rgba(255, 255, 255, 0.2);
+    box-sizing: border-box;
+    pointer-events: none;
+  }
+
   .filearea__input {
     margin: 0;
     opacity: 0;
   }
 </style>
 
-<label class="filearea" {style}>
+<label class="filearea">
+  {#if value}
+    <img class="filearea__preview" src={value} />
+  {/if}
   <input
     {id}
     class="filearea__input"

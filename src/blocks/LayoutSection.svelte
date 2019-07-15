@@ -1,5 +1,4 @@
 <script>
-  // import arrow from "../assets/arrow-back.svg";
   import navigo from "../fonts/navigo.css";
   import { createEventDispatcher } from "svelte";
 
@@ -63,10 +62,10 @@
     grid-template: minmax(120px, 20vh) / repeat(5, 1fr);
     grid-auto-columns: 1fr;
     grid-auto-rows: 130px; */
+  }
 
-    &.__header {
-      color: red;
-    }
+  .section__header {
+    color: red;
   }
 
   .section__cell {

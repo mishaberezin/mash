@@ -18,5 +18,8 @@
   },
   "browserslist": [
     "last 1 chrome versions"
-  ]
+  ],
+  "dependencies": {
+    "postcss-nested": "^4.1.2"
+  }
 }
