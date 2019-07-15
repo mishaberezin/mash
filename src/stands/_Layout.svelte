@@ -1,9 +1,11 @@
 <script>
+  import navigo from "../fonts/navigo.css";
+  import { headline, text, logo, picture } from "../stores/assets.js";
+
   import fragment from "svelte-fragment";
   import layouts from "../../lib/layouts.js";
   import { getPermutations } from "../../lib/utils.js";
 
-  import Panel from "../blocks/Panel.svelte";
   import Sample from "../blocks/Sample.svelte";
   import Ruler from "../blocks/Ruler.svelte";
   import TextBlock from "../blocks/TextBlock.svelte";
@@ -11,22 +13,8 @@
   import Image from "../blocks/Image.svelte";
   import Unzoom from "../blocks/Unzoom.svelte";
 
-  import mcLogoUrl from "../assets/mc-logo.svg";
-  import cyborgImageUrl from "../assets/cyborg.png";
-
-  // const arrange = () => {
-  //   const areas = shuffle(layouts.next().value);
-  //   const items = ['logo', 'text', 'image'];
-
-  //   items.forEach(item => {
-  //     document.documentElement.style.setProperty(
-  //       `--area-${item}`,
-  //       areas.pop().join('/')
-  //     );
-  //   });
-  // };
-
-  const allPlacements = areas => {};
+  // import mcLogoUrl from "../assets/mc-logo.svg";
+  // import cyborgImageUrl from "../assets/cyborg.png";
 
   const arrange = areas => {
     const keys = ["logo", "text", "image"];
@@ -48,7 +36,37 @@
 </script>
 
 <style>
-  .stand {
+  .section {
+    --right-col-width: 33.5vh;
+
+    min-height: 100%;
+    font-family: Navigo;
+    background: #000;
+  }
+
+  .section__header {
+    color: red;
+  }
+
+  .section__cell {
+    position: relative;
+  }
+
+  .section__cell_for_header {
+    height: 20vh;
+    min-height: 120px;
+  }
+
+  .section__header {
+    width: 100%;
+    height: 100%;
+    display: flex;
+  }
+
+  .section__header-item_for_back {
+    width: 200px;
+    background-image: url("../assets/arrow-back.svg");
+    background-repeat: no-repeat;
   }
 
   .stand__viewer {
@@ -75,42 +93,45 @@
   }
 </style>
 
-<div class="stand">
-  <div class="stand__cpanel">
-    <Panel name="привет" />
+<section class="section section_name_layout">
+  <div class="section__cell section__cell_for_header">
+    <header class="section__header">
+      <div class="section__header-item section__header-item_for_back" />
+      <div class="section__header-item" />
+    </header>
   </div>
-  <div class="stand__viewer">
-    {#each arrangements as arrangement}
-      <Unzoom>
-        <Ruler>
-          <Sample model={true} arrangement={arrangement.permutations[0]}>
-            <span slot="logo" />
-            <span slot="text" />
-            <span slot="image" />
-          </Sample>
-        </Ruler>
-      </Unzoom>
-
-      {#each arrangement.permutations as permutation}
+  <div class="stand">
+    <div class="stand__viewer">
+      {#each arrangements as arrangement}
         <Unzoom>
           <Ruler>
-            <Sample arrangement={permutation}>
-              <template use:fragment slot="logo" let:data>
-                <Logo url={mcLogoUrl}>🏝</Logo>
-              </template>
-              <template use:fragment slot="text" let:data>
-                <TextBlock
-                  header="See you later, Alligator"
-                  paragraph="Not so soon, baboon!" />
-              </template>
-              <template use:fragment slot="image" let:data>
-                <Image url={cyborgImageUrl}>🏝</Image>
-              </template>
+            <Sample model={true} arrangement={arrangement.permutations[0]}>
+              <span slot="logo" />
+              <span slot="text" />
+              <span slot="image" />
             </Sample>
           </Ruler>
         </Unzoom>
+
+        {#each arrangement.permutations as permutation}
+          <Unzoom>
+            <Ruler>
+              <Sample arrangement={permutation}>
+                <template use:fragment slot="logo" let:data>
+                  <Logo url={$logo}>🏝</Logo>
+                </template>
+                <template use:fragment slot="text" let:data>
+                  <TextBlock headline={$headline} paragraph={$text} />
+                </template>
+                <template use:fragment slot="image" let:data>
+                  <Image url={$picture}>🏝</Image>
+                </template>
+              </Sample>
+            </Ruler>
+          </Unzoom>
+        {/each}
+        <div>🛸</div>
       {/each}
-      <div>🛸</div>
-    {/each}
+    </div>
   </div>
-</div>
+</section>

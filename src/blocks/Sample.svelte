@@ -6,7 +6,7 @@
     `--area-logo: ${arrangement.logo}`,
     `--area-text: ${arrangement.text}`,
     `--area-image: ${arrangement.image}`
-  ].join(';');
+  ].join(";");
 </script>
 
 <style>
@@ -18,6 +18,7 @@
     grid-template: repeat(2, 236px) / repeat(4, 241px);
     grid-gap: 12px;
     padding: 12px;
+    background: #fff;
   }
 
   .sample__item {
