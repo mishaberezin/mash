@@ -1,5 +1,5 @@
 <script>
-  import navigo from "../fonts/navigo.css";
+  // import navigo from "../fonts/navigo.css";
   import { createEventDispatcher } from "svelte";
 
   const dispatch = createEventDispatcher();
@@ -51,42 +51,53 @@
 </script>
 
 <style>
-  .section {
-    --right-col-width: 33.5vh;
+  @import "../fonts/navigo.css";
 
+  .section {
+    width: 100%;
     min-height: 100%;
     font-family: Navigo;
     background: #000;
-
-    /* display: grid;
-    grid-template: minmax(120px, 20vh) / repeat(5, 1fr);
-    grid-auto-columns: 1fr;
-    grid-auto-rows: 130px; */
-  }
-
-  .section__header {
-    color: red;
-  }
-
-  .section__cell {
-    position: relative;
-  }
-
-  .section__cell_for_header {
-    height: 20vh;
-    min-height: 120px;
+    padding: 0 28px;
+    box-sizing: border-box;
   }
 
   .section__header {
     width: 100%;
-    height: 100%;
-    display: flex;
+    color: #fff;
+    font-size: 34px;
+    font-weight: bold;
+    display: grid;
+    grid-template: minmax(120px, 20vh) / repeat(5, 1fr);
+    grid-template-areas: "back title . average dich";
+    grid-column-gap: 20px;
   }
 
-  .section__header-item_for_back {
-    width: 200px;
+  .section__header-cell {
+    padding-top: 26px;
+  }
+
+  .section__back-button {
     background-image: url("../assets/arrow-back.svg");
     background-repeat: no-repeat;
+    background-size: auto;
+    width: 100%;
+    height: 100%;
+    margin-top: -9px;
+  }
+
+  .section__title {
+    grid-area: title;
+  }
+  .section__average {
+    grid-area: average;
+  }
+  .section__dich {
+    grid-area: dich;
+  }
+
+  .section__cell {
+    position: relative;
   }
 
   .stand__viewer {
@@ -114,13 +125,25 @@
 </style>
 
 <section class="section section_name_layout {mix}">
-  <div class="section__cell section__cell_for_header">
-    <header class="section__header">
-      <div class="section__header-item section__header-item_for_back" />
-      <div class="section__header-item" />
-    </header>
-  </div>
-  <div class="stand">
+  <header class="section__header">
+    <div class="section__header-cell">
+      <div class="section__back-button" />
+    </div>
+    <div class="section__header-cell section__title">Layout Mash</div>
+    <div class="section__header-cell section__average">Average</div>
+    <div class="section__header-cell section__dich">Dich</div>
+  </header>
+  <!-- <header class="section__header">
+    <div class="section__header-item section__header-item_for_back-button" />
+    <div class="section__header-item section__header-item_for_title">
+      Layout Mash
+    </div>
+    <div class="section__header-item section__header-item_for_average">
+      Average
+    </div>
+    <div class="section__header-item section__header-item_for_dich">Dich</div>
+  </header> -->
+  <main class="section__main">
     <div class="stand__viewer">
       {#each arrangements as arrangement}
         <Unzoom>
@@ -155,5 +178,5 @@
         <div>🛸</div>
       {/each}
     </div>
-  </div>
+  </main>
 </section>
