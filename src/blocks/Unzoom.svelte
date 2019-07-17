@@ -1,6 +1,11 @@
 <script>
-  export let title;
-  export let paragraph;
+  export let ratio = 0.5;
+
+  const width = 1024;
+  const height = 512;
+
+  $: wrapperStyle = `width: ${width * ratio}px; height: ${height * ratio}px;`;
+  $: contentStyle = `transform: scale(${ratio});`;
 </script>
 
 <style>
@@ -11,26 +16,10 @@
   .unzoom__content {
     transform-origin: top left;
   }
-
-  .unzoom_ratio_05 {
-    width: 512px;
-    height: 256px;
-  }
-
-  .unzoom_ratio_05 .unzoom__content {
-    transform: scale(0.5);
-  }
-
-  .unzoom_ratio_025 {
-    width: 256;
-    height: 128px;
-  }
-
-  .unzoom_ratio_025 .unzoom__content {
-    transform: scale(0.25);
-  }
 </style>
 
-<div class="unzoom unzoom_ratio_05">
-  <div class="unzoom__content"><slot></slot></div>
+<div class="unzoom" style={wrapperStyle}>
+  <div class="unzoom__content" style={contentStyle}>
+    <slot />
+  </div>
 </div>

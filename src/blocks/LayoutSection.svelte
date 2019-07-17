@@ -17,6 +17,7 @@
   import Logo from "./Logo.svelte";
   import Image from "./Image.svelte";
   import Unzoom from "./Unzoom.svelte";
+  import Arrow from "./Arrow.svelte";
 
   export let mix = "";
 
@@ -69,7 +70,7 @@
     font-weight: bold;
     display: grid;
     grid-template: minmax(120px, 20vh) / repeat(5, 1fr);
-    grid-template-areas: "back title . average dich";
+    grid-template-areas: "cell_1 cell_2 cell_3 cell_4 cell_5";
     grid-column-gap: 20px;
   }
 
@@ -77,23 +78,19 @@
     padding-top: 26px;
   }
 
-  .section__back-button {
-    background-image: url("../assets/arrow-back.svg");
-    background-repeat: no-repeat;
-    background-size: auto;
-    width: 100%;
-    height: 100%;
-    margin-top: -9px;
+  .section__header-cell_for_back-button {
+    grid-area: cell_1;
+    padding-top: 17px;
+    fill: #fff;
   }
-
-  .section__title {
-    grid-area: title;
+  .section__header-cell_for_title {
+    grid-area: cell_2;
   }
-  .section__average {
-    grid-area: average;
+  .section__header-cell_for_average {
+    grid-area: cell_4;
   }
-  .section__dich {
-    grid-area: dich;
+  .section__header-cell_for_dich {
+    grid-area: cell_5;
   }
 
   .section__cell {
@@ -126,23 +123,23 @@
 
 <section class="section section_name_layout {mix}">
   <header class="section__header">
-    <div class="section__header-cell">
-      <div class="section__back-button" />
+    <div class="section__header-cell section__header-cell_for_back-button">
+      <Arrow class="section__back-button" />
     </div>
-    <div class="section__header-cell section__title">Layout Mash</div>
-    <div class="section__header-cell section__average">Average</div>
-    <div class="section__header-cell section__dich">Dich</div>
-  </header>
-  <!-- <header class="section__header">
-    <div class="section__header-item section__header-item_for_back-button" />
-    <div class="section__header-item section__header-item_for_title">
+    <div
+      class="section__header-cell section__header-cell_for_title section__title">
       Layout Mash
     </div>
-    <div class="section__header-item section__header-item_for_average">
+    <div
+      class="section__header-cell section__header-cell_for_average
+      section__average">
       Average
     </div>
-    <div class="section__header-item section__header-item_for_dich">Dich</div>
-  </header> -->
+    <div
+      class="section__header-cell section__header-cell_for_dich section__dich">
+      Dich
+    </div>
+  </header>
   <main class="section__main">
     <div class="stand__viewer">
       {#each arrangements as arrangement}
@@ -158,21 +155,21 @@
 
         {#each arrangement.permutations as permutation}
           <Unzoom>
-            <Ruler>
-              <Sample
-                arrangement={permutation}
-                on:click={() => onSampleClick(permutation)}>
-                <template use:fragment slot="logo" let:data>
-                  <Logo url={mcLogoUrl}>🏝</Logo>
-                </template>
-                <template use:fragment slot="text" let:data>
-                  <TextBlock headline={$headline} paragraph={$text} />
-                </template>
-                <template use:fragment slot="image" let:data>
-                  <Image url={cyborgImageUrl}>🏝</Image>
-                </template>
-              </Sample>
-            </Ruler>
+            <!-- <Ruler> -->
+            <Sample
+              arrangement={permutation}
+              on:click={() => onSampleClick(permutation)}>
+              <template use:fragment slot="logo" let:data>
+                <Logo url={mcLogoUrl}>🏝</Logo>
+              </template>
+              <template use:fragment slot="text" let:data>
+                <TextBlock headline={$headline} paragraph={$text} />
+              </template>
+              <template use:fragment slot="image" let:data>
+                <Image url={cyborgImageUrl}>🏝</Image>
+              </template>
+            </Sample>
+            <!-- </Ruler> -->
           </Unzoom>
         {/each}
         <div>🛸</div>

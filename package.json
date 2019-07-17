@@ -20,6 +20,8 @@
     "last 1 chrome versions"
   ],
   "dependencies": {
+    "file-saver": "^2.0.2",
+    "html2canvas": "^1.0.0-rc.3",
     "postcss-nested": "^4.1.2"
   }
 }
