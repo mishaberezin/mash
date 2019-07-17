@@ -1,6 +1,15 @@
 <script>
   import navigo from "../fonts/navigo.css";
-  import { headline, text, logo, picture } from "../stores/assets.js";
+  import {
+    headline,
+    text,
+    logo,
+    picture,
+    headlinePlaceholder,
+    textPlaceholder,
+    logoPlaceholder,
+    picturePlaceholder
+  } from "../stores/assets.js";
   import { createEventDispatcher } from "svelte";
   import MegaButton from "./MegaButton.svelte";
   import SvgText from "./SvgText.svelte";
@@ -19,6 +28,11 @@
 
   const dispatch = createEventDispatcher();
 
+  let allDone = false;
+  $: if (!allDone && $headline && $text && $logo && $picture) {
+    allDone = true;
+  }
+
   const onHeadlineValue = ({ detail }) => {
     $headline = detail;
   };
@@ -28,7 +42,6 @@
   };
 
   const onLogoValue = ({ detail }) => {
-    console.log(detail);
     $logo = detail;
   };
 
@@ -37,6 +50,19 @@
   };
 
   const onMegaButtonClick = e => {
+    if (!$headline) {
+      $headline = $headlinePlaceholder;
+    }
+    if (!$text) {
+      $text = $textPlaceholder;
+    }
+    if (!$logo) {
+      $logo = $logoPlaceholder;
+    }
+    if (!$picture) {
+      $picture = $picturePlaceholder;
+    }
+
     dispatch("next");
   };
 </script>
@@ -154,7 +180,7 @@
   </div>
   <div class="section__cell section__cell_for_button">
     <div class="button-wrap">
-      <MegaButton on:click={onMegaButtonClick}>Generate</MegaButton>
+      <MegaButton on:click={onMegaButtonClick} {allDone}>Generate</MegaButton>
     </div>
   </div>
 </section>

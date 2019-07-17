@@ -1,8 +1,4 @@
-module.exports = {
-  compilerOptions: {
-    css: false // Убирает css из js-бандла
-  }
-};
+// Попытка прикрутить nested rules в svelte.
 
 // const postcss = require('postcss');
 // const postcssNested = require('postcss-nested');
