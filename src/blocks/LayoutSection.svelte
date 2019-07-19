@@ -1,10 +1,18 @@
 <script>
-  // import navigo from "../fonts/navigo.css";
   import { createEventDispatcher } from "svelte";
 
   const dispatch = createEventDispatcher();
 
-  import { headline, text, logo, picture } from "../stores/assets.js";
+  import {
+    headline,
+    text,
+    logo,
+    picture,
+    headlinePlaceholder,
+    textPlaceholder,
+    logoPlaceholder,
+    picturePlaceholder
+  } from "../stores/assets.js";
   import { layout } from "../stores/layout";
 
   import fragment from "svelte-fragment";
@@ -19,10 +27,14 @@
   import Unzoom from "./Unzoom.svelte";
   import Arrow from "./Arrow.svelte";
 
+  import Group from "./Group.svelte";
+
   export let mix = "";
 
-  const mcLogoUrl = $logo;
-  const cyborgImageUrl = $picture;
+  const heyHeadline = $headline || $headlinePlaceholder;
+  const heyText = $text || $textPlaceholder;
+  const heyLogo = $logo || $logoPlaceholder;
+  const heyPicture = $picture || $picturePlaceholder;
 
   const allPlacements = areas => {};
 
@@ -44,9 +56,8 @@
     };
   });
 
-  const onSampleClick = permutation => {
-    console.log("permutation: " + permutation);
-    $layout.permutation = permutation;
+  const onSampleClick = ({ detail }) => {
+    $layout.permutation = detail;
     dispatch("next");
   };
 </script>
@@ -97,27 +108,16 @@
     position: relative;
   }
 
-  .stand__viewer {
-    display: grid;
-    grid-template: 270px / repeat(2, 550px);
-    grid-auto-columns: 1fr;
-    grid-auto-rows: 300px;
-    margin: 0 auto;
-    width: 1100px;
+  .section__main {
+    padding-bottom: 100px;
   }
 
-  .viewer {
-    margin: 20px auto 0 auto;
-    width: 1220px;
+  .section__group {
+    margin-bottom: 72px;
   }
 
-  .viewer__cell {
-    width: 600px;
-    height: 400px;
-    overflow: hidden;
-    border: 1px solid #ccc;
-    display: inline-block;
-    position: relative;
+  .section__group:last-child {
+    margin-bottom: 0;
   }
 </style>
 
@@ -141,39 +141,45 @@
     </div>
   </header>
   <main class="section__main">
-    <div class="stand__viewer">
-      {#each arrangements as arrangement}
-        <Unzoom>
-          <Ruler>
-            <Sample model={true} arrangement={arrangement.permutations[0]}>
-              <span slot="logo" />
-              <span slot="text" />
-              <span slot="image" />
-            </Sample>
-          </Ruler>
-        </Unzoom>
+    {#each arrangements as arrangement}
+      <div class="section__group">
+        <Group
+          permutations={arrangement.permutations}
+          headline={heyHeadline}
+          text={heyText}
+          logo={heyLogo}
+          picture={heyPicture}
+          on:sampleClick={onSampleClick} />
 
-        {#each arrangement.permutations as permutation}
-          <Unzoom>
-            <!-- <Ruler> -->
-            <Sample
-              arrangement={permutation}
-              on:click={() => onSampleClick(permutation)}>
-              <template use:fragment slot="logo" let:data>
-                <Logo url={mcLogoUrl}>🏝</Logo>
-              </template>
-              <template use:fragment slot="text" let:data>
-                <TextBlock headline={$headline} paragraph={$text} />
-              </template>
-              <template use:fragment slot="image" let:data>
-                <Image url={cyborgImageUrl}>🏝</Image>
-              </template>
-            </Sample>
-            <!-- </Ruler> -->
+        <!-- <Unzoom>
+            <Ruler>
+              <Sample model={true} arrangement={arrangement.permutations[0]}>
+                <span slot="logo" />
+                <span slot="text" />
+                <span slot="image" />
+              </Sample>
+            </Ruler>
           </Unzoom>
-        {/each}
-        <div>🛸</div>
-      {/each}
-    </div>
+
+          {#each arrangement.permutations as permutation}
+            <Unzoom>
+              <Sample
+                arrangement={permutation}
+                on:click={() => onSampleClick(permutation)}>
+                <template use:fragment slot="logo" let:data>
+                  <Logo url={mcLogoUrl}>🏝</Logo>
+                </template>
+                <template use:fragment slot="text" let:data>
+                  <TextBlock headline={$headline} paragraph={$text} />
+                </template>
+                <template use:fragment slot="image" let:data>
+                  <Image url={cyborgImageUrl}>🏝</Image>
+                </template>
+              </Sample>
+            </Unzoom>
+          {/each}
+          <div>🛸</div> -->
+      </div>
+    {/each}
   </main>
 </section>
