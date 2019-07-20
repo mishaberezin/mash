@@ -74,20 +74,6 @@
     margin: 0 auto;
     width: 1100px;
   }
-
-  .viewer {
-    margin: 20px auto 0 auto;
-    width: 1220px;
-  }
-
-  .viewer__cell {
-    width: 600px;
-    height: 400px;
-    overflow: hidden;
-    border: 1px solid #ccc;
-    display: inline-block;
-    position: relative;
-  }
 </style>
 
 <section class="section section_name_layout">
