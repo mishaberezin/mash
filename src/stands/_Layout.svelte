@@ -13,9 +13,6 @@
   import Image from "../blocks/Image.svelte";
   import Unzoom from "../blocks/Unzoom.svelte";
 
-  // import mcLogoUrl from "../assets/mc-logo.svg";
-  // import cyborgImageUrl from "../assets/cyborg.png";
-
   const arrange = areas => {
     const keys = ["logo", "text", "image"];
     const permutations = getPermutations(areas);
@@ -102,7 +99,7 @@
   </div>
   <div class="stand">
     <div class="stand__viewer">
-      {#each arrangements as arrangement}
+      {#each arrangements as arrangement, i}
         <Unzoom>
           <Ruler>
             <Sample model={true} arrangement={arrangement.permutations[0]}>
@@ -113,7 +110,7 @@
           </Ruler>
         </Unzoom>
 
-        {#each arrangement.permutations as permutation}
+        <!-- {#each arrangement.permutations as permutation}
           <Unzoom>
             <Ruler>
               <Sample arrangement={permutation}>
@@ -129,8 +126,8 @@
               </Sample>
             </Ruler>
           </Unzoom>
-        {/each}
-        <div>🛸</div>
+        {/each} -->
+        <div style="color: #fff;">🛸 {i}</div>
       {/each}
     </div>
   </div>

@@ -30,14 +30,17 @@
 
   .sample__item_role_logo {
     grid-area: var(--area-logo);
+    z-index: 1;
   }
 
   .sample__item_role_text {
     grid-area: var(--area-text);
+    z-index: 1;
   }
 
   .sample__item_role_image {
     grid-area: var(--area-image);
+    z-index: 0;
   }
 
   .sample_model_true .sample__item_role_logo {

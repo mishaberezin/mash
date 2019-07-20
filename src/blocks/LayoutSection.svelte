@@ -42,19 +42,142 @@
     const keys = ["logo", "text", "image"];
     const permutations = getPermutations(areas);
 
-    return permutations.map(([logo, text, image]) => ({
+    const allBg = permutations.map(([logo, text, image]) => ({
+      logo: logo.join("/"),
+      text: text.join("/"),
+      image: "1/1/-1/-1"
+    }));
+    const all = permutations.map(([logo, text, image]) => ({
       logo: logo.join("/"),
       text: text.join("/"),
       image: image.join("/")
     }));
+
+    return [...all, ...allBg];
   };
 
   const arrangements = layouts.map((areas, i) => {
     return {
-      name: `Layout #${i}`,
+      id: i,
       permutations: arrange(areas)
     };
   });
+
+  // КОСТЫЛИЩЕ
+  const order = [
+    {
+      groupType: 1,
+      align: 1
+    },
+    {
+      groupType: 5,
+      align: 4
+    },
+    {
+      groupType: 5,
+      align: 4
+    },
+    {
+      groupType: 2,
+      align: 2
+    },
+    {
+      groupType: 4,
+      align: 1
+    },
+    {
+      groupType: 3,
+      align: 3
+    },
+    {
+      groupType: 1,
+      align: 1
+    },
+    {
+      groupType: 5,
+      align: 4
+    },
+    {
+      groupType: 5,
+      align: 4
+    },
+    {
+      groupType: 4,
+      align: 1
+    },
+    {
+      groupType: 2,
+      align: 2
+    },
+    {
+      groupType: 2,
+      align: 2
+    },
+    {
+      groupType: 5,
+      align: 4
+    },
+    {
+      groupType: 5,
+      align: 4
+    },
+    {
+      groupType: 1,
+      align: 1
+    },
+    {
+      groupType: 4,
+      align: 1
+    },
+    {
+      groupType: 5,
+      align: 4
+    },
+    {
+      groupType: 5,
+      align: 4
+    },
+    {
+      groupType: 4,
+      align: 1
+    },
+    {
+      groupType: 3,
+      align: 3
+    },
+    {
+      groupType: 2,
+      align: 2
+    },
+    {
+      groupType: 4,
+      align: 1
+    },
+    {
+      groupType: 5,
+      align: 4
+    },
+    {
+      groupType: 1,
+      align: 1
+    },
+    {
+      groupType: 3,
+      align: 3
+    },
+    {
+      groupType: 4,
+      align: 1
+    },
+    {
+      groupType: 2,
+      align: 2
+    },
+    {
+      groupType: 3,
+      align: 3
+    }
+  ];
 
   const onSampleClick = ({ detail }) => {
     $layout.permutation = detail;
@@ -113,11 +236,30 @@
   }
 
   .section__group {
+    display: inline-block;
     margin-bottom: 72px;
+    margin-right: 20px;
   }
 
   .section__group:last-child {
     margin-bottom: 0;
+    margin-right: 0;
+  }
+
+  .section__group_align_1 {
+    width: 100%;
+  }
+
+  .section__group_align_2 {
+    width: 80%;
+  }
+
+  .section__group_align_3 {
+    width: 60%;
+  }
+
+  .section__group_align_4 {
+    width: 40%;
   }
 </style>
 
@@ -141,44 +283,16 @@
     </div>
   </header>
   <main class="section__main">
-    {#each arrangements as arrangement}
-      <div class="section__group">
+    {#each order as step, i}
+      <div class="section__group section__group_align_{step.align}">
         <Group
-          permutations={arrangement.permutations}
+          permutations={arrangements[i].permutations}
+          type={step.groupType}
           headline={heyHeadline}
           text={heyText}
           logo={heyLogo}
           picture={heyPicture}
           on:sampleClick={onSampleClick} />
-
-        <!-- <Unzoom>
-            <Ruler>
-              <Sample model={true} arrangement={arrangement.permutations[0]}>
-                <span slot="logo" />
-                <span slot="text" />
-                <span slot="image" />
-              </Sample>
-            </Ruler>
-          </Unzoom>
-
-          {#each arrangement.permutations as permutation}
-            <Unzoom>
-              <Sample
-                arrangement={permutation}
-                on:click={() => onSampleClick(permutation)}>
-                <template use:fragment slot="logo" let:data>
-                  <Logo url={mcLogoUrl}>🏝</Logo>
-                </template>
-                <template use:fragment slot="text" let:data>
-                  <TextBlock headline={$headline} paragraph={$text} />
-                </template>
-                <template use:fragment slot="image" let:data>
-                  <Image url={cyborgImageUrl}>🏝</Image>
-                </template>
-              </Sample>
-            </Unzoom>
-          {/each}
-          <div>🛸</div> -->
       </div>
     {/each}
   </main>
