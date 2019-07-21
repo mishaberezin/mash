@@ -15,20 +15,22 @@
     cursor: pointer;
     transition: transform 0.2s;
 
-    transform: scale(0.95) perspective(1px) translateZ(0);
+    transform: scale(1) perspective(1px) translateZ(0);
   }
 
   .mega-button:hover {
-    transform: scale(1);
+    transform: scale(1.05);
   }
 
   .mega-button:active {
-    transform: scale(0.95);
+    transform: scale(1);
   }
 
   .mega-button__svg {
     height: 100%;
     transform: rotate(90deg);
+    position: relative;
+    right: -5%;
   }
 
   .mega-button__text {

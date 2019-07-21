@@ -1,6 +1,5 @@
 <script>
-  export let url = 'https://picsum.photos/128/128';
-
+  export let url = "";
   $: style = `background-image: url('${url}');`;
 </script>
 
@@ -8,9 +7,6 @@
   .logo {
     display: inline-block;
     position: relative;
-  }
-  .logo {
-    /* background-image: url('./assets/logo.svg'); */
     background-size: contain;
     background-repeat: no-repeat;
     background-position: bottom;
@@ -19,4 +15,4 @@
   }
 </style>
 
-<div class="logo" {style}></div>
+<div class="logo" {style} />

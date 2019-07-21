@@ -11,7 +11,6 @@
   let slotContent;
 
   onMount(() => {
-    // debugger;
     const wrapperWidth = wrapper.clientWidth;
     const wrapperHeight = wrapper.clientHeight;
 

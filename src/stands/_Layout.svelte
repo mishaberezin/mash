@@ -1,6 +1,6 @@
 <script>
   import navigo from "../fonts/navigo.css";
-  import { headline, text, logo, picture } from "../stores/assets.js";
+  import { headline, text, logo, picture } from "../store.js";
 
   import fragment from "svelte-fragment";
   import layouts from "../../lib/layouts.js";
@@ -38,31 +38,7 @@
     min-height: 100%;
     font-family: Navigo;
     background: #000;
-  }
-
-  .section__header {
-    color: red;
-  }
-
-  .section__cell {
-    position: relative;
-  }
-
-  .section__cell_for_header {
-    height: 20vh;
-    min-height: 120px;
-  }
-
-  .section__header {
-    width: 100%;
-    height: 100%;
-    display: flex;
-  }
-
-  .section__header-item_for_back {
-    width: 200px;
-    background-image: url("../assets/arrow-back.svg");
-    background-repeat: no-repeat;
+    padding-top: 30px;
   }
 
   .stand__viewer {
@@ -76,12 +52,6 @@
 </style>
 
 <section class="section section_name_layout">
-  <div class="section__cell section__cell_for_header">
-    <header class="section__header">
-      <div class="section__header-item section__header-item_for_back" />
-      <div class="section__header-item" />
-    </header>
-  </div>
   <div class="stand">
     <div class="stand__viewer">
       {#each arrangements as arrangement, i}

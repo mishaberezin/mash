@@ -1,7 +1,9 @@
 <script>
+  import { createEventDispatcher } from "svelte";
   import html2canvas from "html2canvas";
   import { saveAs } from "file-saver";
   import {
+    layout,
     headline,
     text,
     logo,
@@ -10,18 +12,20 @@
     textPlaceholder,
     logoPlaceholder,
     picturePlaceholder
-  } from "../stores/assets.js";
-  import { layout } from "../stores/layout";
+  } from "../store.js";
 
   import fragment from "svelte-fragment";
 
   import Sample from "./Sample.svelte";
   import Unzoom from "./Unzoom.svelte";
+  import Zoom from "./Zoom.svelte";
   import Logo from "./Logo.svelte";
   import Image from "./Image.svelte";
   import Arrow from "./Arrow.svelte";
 
   export let mix = "";
+
+  const dispatch = createEventDispatcher();
 
   const heyHeadline = $headline || $headlinePlaceholder;
   const heyText = $text || $textPlaceholder;
@@ -38,6 +42,14 @@
         saveAs(blob, "screenshot.png");
       });
     });
+  };
+
+  const onArrowClick = () => {
+    dispatch("back");
+  };
+
+  const onHomeClick = () => {
+    dispatch("home");
   };
 </script>
 
@@ -70,15 +82,6 @@
     padding-top: 26px;
   }
 
-  .section__back-button {
-    background-image: url("../assets/arrow-back.svg");
-    background-repeat: no-repeat;
-    background-size: auto;
-    width: 100%;
-    height: 100%;
-    margin-top: -9px;
-  }
-
   .section__header-cell_for_back-button {
     grid-area: cell_1;
   }
@@ -90,6 +93,10 @@
   }
   .section__header-cell_for_mnt {
     grid-area: cell_5;
+  }
+
+  .section__title {
+    cursor: pointer;
   }
 
   .section__main {
@@ -104,7 +111,7 @@
   }
 
   .section__main-cell_for_sample {
-    background-color: rgb(155, 125, 125);
+    border-bottom: 1px solid #000;
   }
 
   .section__main-cell_for_download {
@@ -114,16 +121,18 @@
     align-items: center;
     justify-content: center;
     flex-grow: 1;
+    overflow: hidden;
   }
 </style>
 
 <section class="section section_name_result {mix}">
   <header class="section__header">
     <div class="section__header-cell section__header-cell_for_back-button">
-      <Arrow class="section__back-button" />
+      <Arrow on:click={onArrowClick} />
     </div>
     <div
-      class="section__header-cell section__header-cell_for_title section__title">
+      class="section__header-cell section__header-cell_for_title section__title"
+      on:click={onHomeClick}>
       Layout Mash
     </div>
     <div
@@ -137,7 +146,7 @@
   </header>
   <main class="section__main">
     <div class="section__main-cell section__main-cell_for_sample">
-      <Unzoom ratio={0.8}>
+      <Zoom>
         <div bind:this={sample}>
           <Sample
             arrangement={permutation}
@@ -146,7 +155,7 @@
             logo={heyLogo}
             picture={heyPicture} />
         </div>
-      </Unzoom>
+      </Zoom>
     </div>
     <div
       class="section__main-cell section__main-cell_for_download"

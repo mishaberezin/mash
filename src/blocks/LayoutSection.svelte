@@ -1,9 +1,10 @@
 <script>
-  import { createEventDispatcher } from "svelte";
+  import { createEventDispatcher, tick } from "svelte";
 
   const dispatch = createEventDispatcher();
 
   import {
+    layout,
     headline,
     text,
     logo,
@@ -12,20 +13,15 @@
     textPlaceholder,
     logoPlaceholder,
     picturePlaceholder
-  } from "../stores/assets.js";
-  import { layout } from "../stores/layout";
+  } from "../store.js";
 
-  import fragment from "svelte-fragment";
   import layouts from "../../lib/layouts.js";
-  import { getPermutations } from "../../lib/utils.js";
+  import { getPermutations, sleep } from "../../lib/utils.js";
 
   import Sample from "./Sample.svelte";
-  import Ruler from "./Ruler.svelte";
   import Logo from "./Logo.svelte";
   import Image from "./Image.svelte";
-  import Unzoom from "./Unzoom.svelte";
   import Arrow from "./Arrow.svelte";
-
   import Group from "./Group.svelte";
 
   export let mix = "";
@@ -122,8 +118,10 @@
     },
     {
       groupType: 1,
-      align: 1
+      align: 1,
+      anchor: "average"
     },
+
     {
       groupType: 4,
       align: 1
@@ -154,7 +152,8 @@
     },
     {
       groupType: 5,
-      align: 4
+      align: 4,
+      anchor: "dich"
     },
     {
       groupType: 1,
@@ -176,11 +175,19 @@
       groupType: 3,
       align: 3
     }
-  ];
+  ].map((item, i) => ({ ...item, i }));
 
   const onSampleClick = ({ detail }) => {
     $layout.permutation = detail;
     dispatch("next");
+  };
+
+  const onArrowClick = () => {
+    dispatch("back");
+  };
+
+  const onHomeClick = () => {
+    dispatch("home");
   };
 </script>
 
@@ -230,6 +237,16 @@
     position: relative;
   }
 
+  .section__title {
+    cursor: pointer;
+  }
+
+  .section__average,
+  .section__dich {
+    color: #fff;
+    text-decoration: none;
+  }
+
   .section__main {
     padding-bottom: 100px;
   }
@@ -265,27 +282,27 @@
 <section class="section section_name_layout {mix}">
   <header class="section__header">
     <div class="section__header-cell section__header-cell_for_back-button">
-      <Arrow class="section__back-button" />
+      <Arrow on:click={onArrowClick} />
     </div>
     <div
-      class="section__header-cell section__header-cell_for_title section__title">
+      class="section__header-cell section__header-cell_for_title section__title"
+      on:click={onHomeClick}>
       Layout Mash
     </div>
-    <div
-      class="section__header-cell section__header-cell_for_average
-      section__average">
-      Average
+    <div class="section__header-cell section__header-cell_for_average">
+      <a class="section__average" href="#average">Average</a>
     </div>
-    <div
-      class="section__header-cell section__header-cell_for_dich section__dich">
-      Dich
+    <div class="section__header-cell section__header-cell_for_dich">
+      <a class="section__dich" href="#dich">Dich</a>
     </div>
   </header>
   <main class="section__main">
-    {#each order as step, i}
-      <div class="section__group section__group_align_{step.align}">
+    {#each order.slice(0, 4) as step}
+      <div
+        id={step.anchor}
+        class="section__group section__group_align_{step.align}">
         <Group
-          permutations={arrangements[i].permutations}
+          permutations={arrangements[step.i].permutations}
           type={step.groupType}
           headline={heyHeadline}
           text={heyText}
@@ -294,5 +311,21 @@
           on:sampleClick={onSampleClick} />
       </div>
     {/each}
+    {#await sleep(500) then something}
+      {#each order.slice(4) as step}
+        <div
+          id={step.anchor}
+          class="section__group section__group_align_{step.align}">
+          <Group
+            permutations={arrangements[step.i].permutations}
+            type={step.groupType}
+            headline={heyHeadline}
+            text={heyText}
+            logo={heyLogo}
+            picture={heyPicture}
+            on:sampleClick={onSampleClick} />
+        </div>
+      {/each}
+    {/await}
   </main>
 </section>

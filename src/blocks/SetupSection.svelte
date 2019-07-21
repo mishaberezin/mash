@@ -9,7 +9,7 @@
     textPlaceholder,
     logoPlaceholder,
     picturePlaceholder
-  } from "../stores/assets.js";
+  } from "../store.js";
   import { createEventDispatcher } from "svelte";
   import MegaButton from "./MegaButton.svelte";
   import SvgText from "./SvgText.svelte";
