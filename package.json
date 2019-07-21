@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "scripts": {
     "start": "parcel src/*.html src/stands/*.html --open --no-hmr --https --log-level 2",
-    "build": "parcel build src/*.html src/stands/*.html --experimental-scope-hoisting",
+    "build": "parcel build src/*.html src/stands/*.html",
     "prebuild": "rm -rf ./dist",
     "deploy": "npm run build && surge ./dist --domain layoutmash.surge.sh",
     "test": "echo todo"
@@ -15,16 +15,14 @@
     "parcel-plugin-svelte": "^3.0.1",
     "postcss-preset-env": "^6.7.0",
     "svelte": "^3.6.1",
-    "svelte-fragment": "^1.0.1"
-  },
-  "browserslist": [
-    "last 1 chrome versions"
-  ],
-  "dependencies": {
+    "svelte-fragment": "^1.0.1",
     "file-saver": "^2.0.2",
     "html2canvas": "^1.0.0-rc.3",
     "postcss-nested": "^4.1.2"
   },
+  "browserslist": [
+    "last 1 chrome versions"
+  ],
   "svelte": {
     "compilerOptions": {
       "css": false
