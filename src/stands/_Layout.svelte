@@ -10,7 +10,7 @@
   import Ruler from "../blocks/Ruler.svelte";
   import Logo from "../blocks/Logo.svelte";
   import Image from "../blocks/Image.svelte";
-  import Unzoom from "../blocks/Unzoom.svelte";
+  import Zoom from "../blocks/Zoom.svelte";
 
   const arrange = areas => {
     const keys = ["logo", "text", "image"];
@@ -55,7 +55,7 @@
   <div class="stand">
     <div class="stand__viewer">
       {#each arrangements as arrangement, i}
-        <Unzoom>
+        <Zoom>
           <Ruler>
             <Sample model={true} arrangement={arrangement.permutations[0]}>
               <span slot="logo" />
@@ -63,7 +63,7 @@
               <span slot="image" />
             </Sample>
           </Ruler>
-        </Unzoom>
+        </Zoom>
         <div style="color: #fff;">🛸 {i}</div>
       {/each}
     </div>

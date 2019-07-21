@@ -17,7 +17,6 @@
   import fragment from "svelte-fragment";
 
   import Sample from "./Sample.svelte";
-  import Unzoom from "./Unzoom.svelte";
   import Zoom from "./Zoom.svelte";
   import Logo from "./Logo.svelte";
   import Image from "./Image.svelte";

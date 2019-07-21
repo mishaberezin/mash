@@ -1,9 +1,8 @@
 <script>
-  import Opensans from "../fonts/open-sans.css";
   import Textbox from "../blocks/Textbox.svelte";
 
   let headline = "Better Call Saul";
-  let paragraph =
+  let text =
     "He wasn't always Saul Goodman, ace attorney for chemist-turned-meth dealer Walter White. Six years before he begins to represent Albuquerque's most notorious criminal, Goodman is Jimmy McGill, a small-time attorney hustling to make a name for himself.";
 
   let showTextbox1 = true;
@@ -15,53 +14,29 @@
   let showTextbox7 = true;
   let showTextbox8 = true;
 
-  let minimumFontSize = 0; // px
   let headlineFontSize = 3; // em
   let headlineLineHeight = 1.6;
-  let paragraphFontSize = 1; // em
-  let paragraphLineHeight = 1.2;
+  let textFontSize = 1; // em
+  let textLineHeight = 1.2;
   let marginSize = 1.2;
 
-  $: textboxProps = {
-    headline,
-    paragraph,
+  $: textboxParams = {
     headlineFontSize,
     headlineLineHeight,
-    paragraphFontSize,
-    paragraphLineHeight,
-    marginSize,
-    minimumFontSize
+    textFontSize,
+    textLineHeight,
+    marginSize
   };
 </script>
 
 <style>
+  @import "../fonts/open-sans.css";
+
   .stand {
     margin: 10px;
     margin-top: 40px;
   }
 
-  .resizer {
-    background: linear-gradient(135deg, #0ff 0, #0ff 96%, #fff 96%);
-    border: 3px solid #000;
-    overflow: auto;
-    width: 250px;
-    min-width: 120px;
-    max-width: 1000px;
-    height: 250px;
-    min-height: 120px;
-    max-height: 500px;
-    font-weight: 700;
-    color: #000;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 10px;
-    margin-bottom: 40px;
-
-    resize: both;
-    display: none;
-    position: relative;
-  }
   .grid {
     --area-type-1: 1/1/1/1;
     --area-type-2: 1/2/2/4;
@@ -78,7 +53,7 @@
     display: grid;
     grid-template: repeat(4, 128px) / repeat(10, 128px);
     grid-gap: 40px 20px;
-    /* padding: 12px; */
+
     background-color: #fff;
     position: relative;
 
@@ -160,7 +135,6 @@
     --area-type-1: 1/1/3/3;
     --area-type-2: 1/3/3/6;
     --area-type-3: 1/6/2/10;
-
     --area-type-4: 1/7/2/10;
     --area-type-5: 2/1/4/1;
     --area-type-6: 2/2/4/4;
@@ -195,7 +169,7 @@
 <div class="stand">
   <div class="stand__cpanel">
     <textarea class="textarea1" bind:value={headline} />
-    <textarea class="textarea2" bind:value={paragraph} />
+    <textarea class="textarea2" bind:value={text} />
     <div class="checkboxes">
       <label>
         1:
@@ -230,10 +204,7 @@
         <input type="checkbox" bind:checked={showTextbox8} />
       </label>
     </div>
-    <div class="">
-      <span>Min font-size в px:</span>
-      <input type="number" min="0" bind:value={minimumFontSize} />
-    </div>
+    <div class="" />
     <div class="">
       <span>Заг font-size в em:</span>
       <input type="number" step="0.1" bind:value={headlineFontSize} />
@@ -244,11 +215,11 @@
     </div>
     <div class="">
       <span>Текст font-size в em:</span>
-      <input type="number" step="0.1" bind:value={paragraphFontSize} />
+      <input type="number" step="0.1" bind:value={textFontSize} />
     </div>
     <div class="">
       <span>Текст line-height в em:</span>
-      <input type="number" step="0.1" bind:value={paragraphLineHeight} />
+      <input type="number" step="0.1" bind:value={textLineHeight} />
     </div>
     <div class="">
       <span>Расстояние в em:</span>
@@ -257,28 +228,28 @@
   </div>
   <div class="grid">
     <div class:hidden={!showTextbox1} class="grid__item grid__item_type_1">
-      <Textbox {...textboxProps} />
+      <Textbox {headline} {text} params={textboxParams} />
     </div>
     <div class:hidden={!showTextbox2} class="grid__item grid__item_type_2">
-      <Textbox {...textboxProps} />
+      <Textbox {headline} {text} params={textboxParams} />
     </div>
     <div class:hidden={!showTextbox3} class="grid__item grid__item_type_3">
-      <Textbox {...textboxProps} />
+      <Textbox {headline} {text} params={textboxParams} />
     </div>
     <div class:hidden={!showTextbox4} class="grid__item grid__item_type_4">
-      <Textbox {...textboxProps} />
+      <Textbox {headline} {text} params={textboxParams} />
     </div>
     <div class:hidden={!showTextbox5} class="grid__item grid__item_type_5">
-      <Textbox {...textboxProps} />
+      <Textbox {headline} {text} params={textboxParams} />
     </div>
     <div class:hidden={!showTextbox6} class="grid__item grid__item_type_6">
-      <Textbox {...textboxProps} />
+      <Textbox {headline} {text} params={textboxParams} />
     </div>
     <div class:hidden={!showTextbox7} class="grid__item grid__item_type_7">
-      <Textbox {...textboxProps} />
+      <Textbox {headline} {text} params={textboxParams} />
     </div>
     <div class:hidden={!showTextbox8} class="grid__item grid__item_type_8">
-      <Textbox {...textboxProps} />
+      <Textbox {headline} {text} params={textboxParams} />
     </div>
   </div>
 </div>
