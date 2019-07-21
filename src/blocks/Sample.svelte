@@ -1,6 +1,5 @@
 <script>
   import Textbox from "../blocks/Textbox.svelte";
-  import Logo from "./Logo.svelte";
   import Image from "./Image.svelte";
 
   export let arrangement = {};
@@ -9,15 +8,6 @@
   export let text = "";
   export let logo = "";
   export let picture = "";
-
-  const textboxTypoProps = {
-    minimumFontSize: 0, // px
-    headlineFontSize: 3, // em
-    headlineLineHeight: 1.6,
-    paragraphFontSize: 1, // em
-    paragraphLineHeight: 1.2,
-    marginSize: 1.2
-  };
 
   const style = [
     `--area-logo: ${arrangement.logo}`,
@@ -73,12 +63,12 @@
 
 <div class="sample" class:sample_highlight={highlight} {style} on:click>
   <div class="sample__item sample__item_role_logo">
-    <Logo url={logo} />
+    <Image type="logo" url={logo} />
   </div>
   <div class="sample__item sample__item_role_text">
-    <Textbox {headline} {text} {...textboxTypoProps} />
+    <Textbox {headline} {text} />
   </div>
   <div class="sample__item sample__item_role_image">
-    <Image url={picture} />
+    <Image type="picture" url={picture} />
   </div>
 </div>

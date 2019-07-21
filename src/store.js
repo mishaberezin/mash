@@ -7,10 +7,10 @@ export const text = writable('');
 export const logo = writable('');
 export const picture = writable('');
 
-export const headlinePlaceholder = readable('Headline La-la-la-la');
+export const headlinePlaceholder = readable('Headline');
 export const textPlaceholder = readable('55 Easy Ways To Write Headlines');
 
-const logoPlaceholderUrl = 'https://picsum.photos/100/50';
+const logoPlaceholderUrl = 'https://picsum.photos/150/90';
 export const logoPlaceholder = writable(logoPlaceholderUrl);
 fetch(logoPlaceholderUrl)
   .then(resp => resp.arrayBuffer())
