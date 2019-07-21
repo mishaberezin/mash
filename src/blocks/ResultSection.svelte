@@ -1,13 +1,21 @@
 <script>
   import html2canvas from "html2canvas";
   import { saveAs } from "file-saver";
-  import { headline, text, logo, picture } from "../stores/assets.js";
+  import {
+    headline,
+    text,
+    logo,
+    picture,
+    headlinePlaceholder,
+    textPlaceholder,
+    logoPlaceholder,
+    picturePlaceholder
+  } from "../stores/assets.js";
   import { layout } from "../stores/layout";
 
   import fragment from "svelte-fragment";
 
   import Sample from "./Sample.svelte";
-  import TextBlock from "./TextBlock.svelte";
   import Unzoom from "./Unzoom.svelte";
   import Logo from "./Logo.svelte";
   import Image from "./Image.svelte";
@@ -15,21 +23,20 @@
 
   export let mix = "";
 
-  const mcLogoUrl = $logo;
-  const cyborgImageUrl = $picture;
+  const heyHeadline = $headline || $headlinePlaceholder;
+  const heyText = $text || $textPlaceholder;
+  const heyLogo = $logo || $logoPlaceholder;
+  const heyPicture = $picture || $picturePlaceholder;
+
   const permutation = $layout.permutation;
 
   let sample;
 
   const onDownloadClick = () => {
-    console.log("clicked");
-
     html2canvas(sample).then(canvas => {
       canvas.toBlob(function(blob) {
         saveAs(blob, "screenshot.png");
       });
-
-      // document.body.appendChild(canvas);
     });
   };
 </script>
@@ -132,17 +139,12 @@
     <div class="section__main-cell section__main-cell_for_sample">
       <Unzoom ratio={0.8}>
         <div bind:this={sample}>
-          <Sample arrangement={permutation}>
-            <template use:fragment slot="logo" let:data>
-              <Logo url={mcLogoUrl}>🏝</Logo>
-            </template>
-            <template use:fragment slot="text" let:data>
-              <TextBlock headline={$headline} paragraph={$text} />
-            </template>
-            <template use:fragment slot="image" let:data>
-              <Image url={cyborgImageUrl}>🏝</Image>
-            </template>
-          </Sample>
+          <Sample
+            arrangement={permutation}
+            headline={heyHeadline}
+            text={heyText}
+            logo={heyLogo}
+            picture={heyPicture} />
         </div>
       </Unzoom>
     </div>

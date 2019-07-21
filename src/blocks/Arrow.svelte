@@ -1,8 +1,3 @@
-<script>
-  let mix = "";
-  export { mix as class };
-</script>
-
 <style>
   .arrow {
     display: inline-block;

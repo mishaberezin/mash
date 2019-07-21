@@ -1,4 +1,5 @@
 <script>
+  import { textfit } from "../../lib/utils.js";
   import { onMount } from "svelte";
   import { innerWidth, innerHeight } from "../../lib/utils.js";
 
@@ -30,20 +31,22 @@
     }
   };
 
+  const onInput = ({ target }) => {
+    dispatch("value", target.value);
+  };
+
   onMount(() => {
-    // throttle
-    // window.addEventListener('resize', update);
-    // update();
+    textfit(target, { min: 1, max: 300 });
   });
 </script>
 
 <style>
-  .textfit {
+  .text-fit {
     width: 100%;
     height: 100%;
   }
 </style>
 
-<div class="textfit" bind:this={elem} {style}>
+<div class="text-fit" bind:this={elem} {style}>
   <slot />
 </div>

@@ -8,7 +8,6 @@
 
   import Sample from "../blocks/Sample.svelte";
   import Ruler from "../blocks/Ruler.svelte";
-  import TextBlock from "../blocks/TextBlock.svelte";
   import Logo from "../blocks/Logo.svelte";
   import Image from "../blocks/Image.svelte";
   import Unzoom from "../blocks/Unzoom.svelte";
@@ -95,24 +94,6 @@
             </Sample>
           </Ruler>
         </Unzoom>
-
-        <!-- {#each arrangement.permutations as permutation}
-          <Unzoom>
-            <Ruler>
-              <Sample arrangement={permutation}>
-                <template use:fragment slot="logo" let:data>
-                  <Logo url={$logo}>🏝</Logo>
-                </template>
-                <template use:fragment slot="text" let:data>
-                  <TextBlock headline={$headline} paragraph={$text} />
-                </template>
-                <template use:fragment slot="image" let:data>
-                  <Image url={$picture}>🏝</Image>
-                </template>
-              </Sample>
-            </Ruler>
-          </Unzoom>
-        {/each} -->
         <div style="color: #fff;">🛸 {i}</div>
       {/each}
     </div>

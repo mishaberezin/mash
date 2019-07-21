@@ -4,7 +4,7 @@
   const dispatch = createEventDispatcher();
 
   import Sample from "./Sample.svelte";
-  import TextBlock from "./TextBlock.svelte";
+  import Textbox from "./Textbox.svelte";
   import Logo from "./Logo.svelte";
   import Image from "./Image.svelte";
   import Zoom from "./Zoom.svelte";
@@ -85,17 +85,11 @@
       <Zoom>
         <Sample
           arrangement={permutation}
-          on:click={() => onSampleClick(permutation)}>
-          <div class="group__item-logo" slot="logo">
-            <Logo url={logo} />
-          </div>
-          <div class="group__item-logo" slot="text">
-            <TextBlock {headline} paragraph={text} />
-          </div>
-          <div class="group__item-logo" slot="image">
-            <Image url={picture} />
-          </div>
-        </Sample>
+          on:click={() => onSampleClick(permutation)}
+          {headline}
+          {text}
+          {logo}
+          {picture} />
       </Zoom>
     </div>
   {/each}

@@ -21,7 +21,6 @@
 
   import Sample from "./Sample.svelte";
   import Ruler from "./Ruler.svelte";
-  import TextBlock from "./TextBlock.svelte";
   import Logo from "./Logo.svelte";
   import Image from "./Image.svelte";
   import Unzoom from "./Unzoom.svelte";

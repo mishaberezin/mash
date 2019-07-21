@@ -1,5 +1,5 @@
 <script>
-  import Opensans from "../fonts/opensans.css";
+  import Opensans from "../fonts/open-sans.css";
   import Textbox from "../blocks/Textbox.svelte";
 
   let headline = "Better Call Saul";
