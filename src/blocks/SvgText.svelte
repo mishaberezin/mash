@@ -8,6 +8,9 @@
   export let vbh = "200";
   export let vbw = "1000";
 
+  let mix = "";
+  export { mix as class };
+
   const viewBox = `0 0 ${vbw} ${vbh}`;
 </script>
 
@@ -33,9 +36,11 @@
 
 <svg
   xmlns="http://www.w3.org/2000/svg"
-  class="svg-text svg-text_theme_{theme}"
+  class="svg-text svg-text_theme_{theme}
+  {mix}"
   preserveAspectRatio="xMinYMax meet"
-  {viewBox}>
+  {viewBox}
+  on:click>
   <rect class="svg-text__viewbox" width="100%" height="100%" />
   <text class="svg-text__text" {x} {y} {dx} {dy}>{text}</text>
 </svg>

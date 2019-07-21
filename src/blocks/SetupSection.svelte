@@ -14,17 +14,7 @@
   import MegaButton from "./MegaButton.svelte";
   import SvgText from "./SvgText.svelte";
   import Input from "./Input/Input.svelte";
-
-  let mix = "";
-  export { mix as class };
-
-  // const mainSvgTextProps = {
-  //   rect: "1000 150",
-  //   x: "0",
-  //   y: "100%",
-  //   dy: -12,
-  //   size: 172
-  // };
+  import Credits from "./Credits.svelte";
 
   const dispatch = createEventDispatcher();
 
@@ -64,6 +54,12 @@
     }
 
     dispatch("next");
+  };
+
+  let showCredits = 0;
+  const onHeaderClick = () => {
+    showCredits += 1;
+    showCredits %= 2;
   };
 </script>
 
@@ -126,9 +122,38 @@
   .section__header {
     width: 100%;
     height: 100%;
-    font-size: 190px;
     box-sizing: border-box;
     padding-right: var(--right-col-width);
+    cursor: pointer;
+  }
+
+  .section__credits {
+    display: none;
+    width: 100%;
+    height: 100%;
+  }
+
+  .section__header-svg {
+    width: 100%;
+    height: 100%;
+    font-size: 190px;
+    transition: transform 0.3s;
+  }
+
+  .section__header_showcredits {
+    padding-right: 0;
+  }
+
+  .section__header_showcredits .section__credits {
+    display: block;
+  }
+
+  .section__header_showcredits .section__header-svg {
+    display: none;
+  }
+
+  .section__header:hover .section__header-svg {
+    transform: translateX(72px);
   }
 
   :global(.section__Input) {
@@ -136,16 +161,24 @@
   }
 </style>
 
-<section class="section section_name_setup {mix}">
+<section class="section section_name_setup">
   <div class="section__cell section__cell_for_header section__cell_role_line">
-    <div class="section__header">
-      <SvgText
-        text="Layout Mash"
-        theme="outline"
-        vbw="1150"
-        vbh="170"
-        dy="-12"
-        dx="1" />
+    <div
+      class="section__header"
+      class:section__header_showcredits={showCredits}
+      on:click={onHeaderClick}>
+      <div class="section__header-svg">
+        <SvgText
+          text="Layout Mash"
+          theme="outline"
+          vbw="1150"
+          vbh="170"
+          dy="-12"
+          dx="1" />
+      </div>
+      <div class="section__credits">
+        <Credits />
+      </div>
     </div>
   </div>
   <div class="section__cell section__cell_for_headline section__cell_role_line">

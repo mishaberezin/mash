@@ -17,9 +17,6 @@
   export let mainSvgTextProps = {};
   export let sideSvgTextProps = {};
 
-  // 170 высота
-  // 145 высота H
-
   const dispatch = createEventDispatcher();
 
   const typeMap = {
