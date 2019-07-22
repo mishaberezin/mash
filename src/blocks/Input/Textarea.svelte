@@ -4,6 +4,9 @@
 
   export let id;
 
+  let mix = "";
+  export { mix as class };
+
   const dispatch = createEventDispatcher();
 
   const onInput = ({ target }) => {
@@ -31,7 +34,6 @@
     color: #fff;
     width: 100%;
     line-height: 1.2em;
-    cursor: pointer;
     font-size: 300px; /* Чтобы курсор был сразу большой */
     overflow: hidden; /* Убрать скролл */
   }
@@ -39,7 +41,7 @@
 
 <textarea
   {id}
-  class="textarea"
+  class="textarea {mix}"
   spellcheck="false"
   on:focus
   on:blur

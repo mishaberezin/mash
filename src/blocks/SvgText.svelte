@@ -23,7 +23,7 @@
 
   .svg-text_theme_outline {
     stroke: #000;
-    stroke-width: 4;
+    stroke-width: 7px;
     fill: #fff;
   }
 

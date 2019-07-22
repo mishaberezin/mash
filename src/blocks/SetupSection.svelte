@@ -65,7 +65,9 @@
 
 <style>
   .section {
-    --right-col-width: 33.5vh;
+    --left-input-padding: 20px;
+    --right-col-width: 50vh;
+    --right-col-padding: 33.5vh;
 
     height: 100%;
     min-width: 600px;
@@ -107,9 +109,9 @@
 
   .button-wrap {
     position: absolute;
-    width: 120vh;
-    height: 120vh;
-    margin-top: -10vh;
+    width: calc(100vh - 12px);
+    height: calc(100vh - 12px);
+    margin-top: -1px;
     top: 0;
     left: 0;
   }
@@ -123,7 +125,7 @@
     width: 100%;
     height: 100%;
     box-sizing: border-box;
-    padding-right: var(--right-col-width);
+    padding-right: var(--right-col-padding);
     cursor: pointer;
   }
 
@@ -137,6 +139,7 @@
     width: 100%;
     height: 100%;
     font-size: 190px;
+    font-weight: bold;
     transition: transform 0.3s;
   }
 
@@ -157,7 +160,12 @@
   }
 
   :global(.section__Input) {
-    padding-right: var(--right-col-width);
+    padding-left: var(--left-input-padding);
+    padding-right: var(--right-col-padding);
+  }
+
+  .section__cell_for_header {
+    padding-left: 20px;
   }
 </style>
 

@@ -104,6 +104,7 @@
   .input__label {
     pointer-events: none;
     font-size: 189px;
+    font-weight: bold;
     fill: #000;
 
     position: absolute;
@@ -118,6 +119,14 @@
 
   .input_enabled .input__label {
     display: none;
+  }
+
+  :global(.input__control) {
+    cursor: pointer;
+  }
+
+  :global(.input_enabled .input__control) {
+    cursor: unset;
   }
 
   .input_hovered .input__cell_for_nameplate,
@@ -136,10 +145,7 @@
   on:mouseenter={onMouseenter}
   on:mouseleave={onMouseleave}>
   <div class="input__cell input__cell_for_nameplate">
-    <label for={id} class="input__nameplate">
-      {label}
-      <!-- <SvgText text={label} x="0" y="110%" dy="0" vbh="700" vbw="170" /> -->
-    </label>
+    <label for={id} class="input__nameplate">{label}</label>
   </div>
   <div class="input__cell input__cell_for_textarea">
     <div class="input__label">

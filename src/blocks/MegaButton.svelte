@@ -35,7 +35,8 @@
 
   .mega-button__text {
     font-family: Navigo;
-    font-size: 10px;
+    font-weight: bold;
+    font-size: 15px;
     fill: #fff;
   }
 
@@ -87,7 +88,7 @@
     <circle cx="50" cy="50" r="50" />
     <text
       x="50%"
-      y="85%"
+      y="65%"
       dominant-baseline="middle"
       text-anchor="middle"
       class="mega-button__text">

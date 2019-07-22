@@ -30,7 +30,7 @@
 
   setTimeout(() => {
     textfit(textbox, { min: 1, max: 300 });
-  }, 1000);
+  }, 300);
 </script>
 
 <style>
