@@ -1,9 +1,10 @@
 <script>
-  import { screen } from "./store.js";
+  import { screen, mobile } from "./store.js";
 
   import SetupSection from "./blocks/SetupSection.svelte";
   import LayoutSection from "./blocks/LayoutSection.svelte";
   import ResultSection from "./blocks/ResultSection.svelte";
+  import MobileSorry from "./blocks/MobileSorry.svelte";
 
   const onSetupNext = () => ($screen = "layout");
   const onLayoutNext = () => ($screen = "result");
@@ -19,7 +20,9 @@
 </style>
 
 <div class="page page_name_index">
-  {#if $screen === 'setup'}
+  {#if $mobile}
+    <MobileSorry on:next={onSetupNext} />
+  {:else if $screen === 'setup'}
     <SetupSection on:next={onSetupNext} />
   {:else if $screen === 'layout'}
     <LayoutSection

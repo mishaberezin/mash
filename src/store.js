@@ -1,3 +1,4 @@
+import { throttle } from 'lodash';
 import { writable, readable, derived } from 'svelte/store';
 
 export const screen = writable('setup');
@@ -42,3 +43,18 @@ export const layout = writable({
   done: false,
   permutation: { image: '1/3/3/5', logo: '1/1/2/2', text: '2/1/3/3' }
 });
+
+const isMobile = () => {
+  return (
+    screen.width <= 640 ||
+    window.matchMedia('only screen and (max-width: 640px)').matches
+  );
+};
+export const mobile = writable(isMobile());
+
+window.addEventListener(
+  'resize',
+  throttle(() => {
+    mobile.set(isMobile());
+  }, 100)
+);

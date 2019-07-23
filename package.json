@@ -9,16 +9,17 @@
     "test": "echo todo"
   },
   "devDependencies": {
+    "file-saver": "^2.0.2",
+    "html2canvas": "^1.0.0-rc.3",
+    "lodash": "^4.17.15",
     "normalize.css": "^8.0.1",
     "parcel-bundler": "^1.12.3",
     "parcel-plugin-imagemin": "^3.0.0",
     "parcel-plugin-svelte": "^3.0.1",
+    "postcss-nested": "^4.1.2",
     "postcss-preset-env": "^6.7.0",
     "svelte": "^3.6.1",
-    "svelte-fragment": "^1.0.1",
-    "file-saver": "^2.0.2",
-    "html2canvas": "^1.0.0-rc.3",
-    "postcss-nested": "^4.1.2"
+    "svelte-fragment": "^1.0.1"
   },
   "browserslist": [
     "last 1 chrome versions"
