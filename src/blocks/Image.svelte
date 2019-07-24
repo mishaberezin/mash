@@ -15,6 +15,7 @@
   }
 
   .image_type_logo {
+    background-size: contain;
     background-position: top left;
   }
 
