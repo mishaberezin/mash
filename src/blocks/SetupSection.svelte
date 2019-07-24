@@ -56,10 +56,12 @@
     dispatch("next");
   };
 
-  let showCredits = 0;
-  const onHeaderClick = () => {
-    showCredits += 1;
-    showCredits %= 2;
+  let showCredits = true;
+  const onHeaderMouseenter = () => {
+    showCredits = true;
+  };
+  const onHeaderMouseleave = () => {
+    showCredits = false;
   };
 </script>
 
@@ -125,12 +127,13 @@
     width: 100%;
     height: 100%;
     box-sizing: border-box;
-    padding-right: var(--right-col-padding);
-    cursor: pointer;
+    position: relative;
+    z-index: 1;
   }
 
   .section__credits {
-    display: none;
+    transition: opacity 0.3s;
+    opacity: 0;
     width: 100%;
     height: 100%;
   }
@@ -138,9 +141,17 @@
   .section__header-svg {
     width: 100%;
     height: 100%;
-    font-size: 190px;
+    font-size: 186px;
     font-weight: bold;
     transition: transform 0.3s;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: -1;
+    padding-right: var(--right-col-padding);
+    box-sizing: border-box;
   }
 
   .section__header_showcredits {
@@ -148,16 +159,16 @@
   }
 
   .section__header_showcredits .section__credits {
-    display: block;
+    opacity: 1;
   }
 
-  .section__header_showcredits .section__header-svg {
+  /* .section__header_showcredits .section__header-svg {
     display: none;
-  }
+  } */
 
-  .section__header:hover .section__header-svg {
+  /* .section__header:hover .section__header-svg {
     transform: translateX(72px);
-  }
+  } */
 
   :global(.section__Input) {
     padding-left: var(--left-input-padding);
@@ -174,11 +185,13 @@
     <div
       class="section__header"
       class:section__header_showcredits={showCredits}
-      on:click={onHeaderClick}>
+      on:mouseenter={onHeaderMouseenter}
+      on:mouseleave={onHeaderMouseleave}>
+
       <div class="section__header-svg">
         <SvgText
           text="Layout Mash"
-          theme="outline"
+          theme={showCredits ? 'outline-thin' : 'outline'}
           vbw="1150"
           vbh="170"
           dy="-12"

@@ -19,11 +19,18 @@
     width: 100%;
     height: 100%;
     display: block;
+    transition: stroke-width 0.3s;
   }
 
   .svg-text_theme_outline {
     stroke: #000;
     stroke-width: 7px;
+    fill: #fff;
+  }
+
+  .svg-text_theme_outline-thin {
+    stroke: #000;
+    stroke-width: 1px;
     fill: #fff;
   }
 

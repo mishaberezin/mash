@@ -24,9 +24,17 @@
   }
 
   .credits__item {
-    font-size: 34px;
+    font-size: 28px;
     font-weight: bold;
-    padding-top: 18px;
+    padding-top: 10px;
+  }
+
+  .credits__title {
+    padding-left: 1px;
+  }
+
+  .credits__intuition {
+    padding-top: 16px;
   }
 
   .credits__team {
@@ -35,9 +43,19 @@
   }
 
   .credits__link {
+    display: inline-block;
     text-decoration: none;
-    transition: color 0.2s;
     color: rgba(0, 0, 0, 1);
+  }
+
+  .credits__link-anchor {
+    display: inline-block;
+    transform: translateX(0);
+    transition: transform 0.2s;
+  }
+
+  .credits__link:hover .credits__link-anchor {
+    transform: translateX(14px);
   }
 
   .credits__park-svg {
@@ -47,13 +65,10 @@
     height: 40px;
   }
 
-  .credits__link:hover {
-    color: rgba(0, 0, 0, 0.6);
-  }
-
   .credits__link-author {
     margin-bottom: 6px;
     display: inline-block;
+    white-space: nowrap;
   }
 </style>
 
@@ -66,24 +81,27 @@
     <a
       class="credits__link credits__link_type_park"
       href="https://intuition.team/park">
-      <img class="credits__park-svg" src={parkSvg} alt="Intuition Park" />
+      <img
+        class="credits__link-anchor credits__park-svg"
+        src={parkSvg}
+        alt="Intuition Park" />
     </a>
   </div>
   <div class="credits__item credits__team">
     <a
       class="credits__link credits__link-author"
       href="https://github.com/mishaberezin">
-      Misha Berezin
+      <span class="credits__link-anchor">Misha Berezin</span>
     </a>
     <br />
     <a class="credits__link credits__link-author" href="http://nellykam.space">
-      Nelly Kam
+      <span class="credits__link-anchor">Nelly Kam</span>
     </a>
     <br />
     <a
       class="credits__link credits__link-author"
       href="https://www.behance.net/29ine">
-      Anatolie Micaliuc
+      <span class="credits__link-anchor">Anatolie Micaliuc</span>
     </a>
   </div>
 </div>

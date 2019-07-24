@@ -60,7 +60,7 @@
 
   .filearea__preview {
     height: 100%;
-    border: 10px solid rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.4);
     box-sizing: border-box;
     pointer-events: none;
   }
@@ -73,7 +73,7 @@
 
 <label class="filearea">
   {#if value}
-    <img class="filearea__preview" src={value} />
+    <img class="filearea__preview" src={value} alt="preview" />
   {/if}
   <input
     {id}

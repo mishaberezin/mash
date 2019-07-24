@@ -19,7 +19,19 @@
   }
 
   .mega-button:hover {
-    transform: scale(1.05);
+    /* transform: scale(1.05); */
+  }
+
+  .mega-button__circle {
+    stroke: #000;
+    stroke-width: 1px;
+    transition: fill 0.2s;
+  }
+
+  .mega-button:hover .mega-button__circle {
+    stroke: #000;
+    stroke-width: 1px;
+    fill: #fff;
   }
 
   .mega-button:active {
@@ -30,7 +42,7 @@
     height: 100%;
     transform: rotate(90deg);
     position: relative;
-    right: -5%;
+    right: -6%;
   }
 
   .mega-button__text {
@@ -38,8 +50,11 @@
     font-weight: bold;
     font-size: 15px;
     fill: #fff;
+    transition: fill 0.2s;
   }
-
+  .mega-button:hover .mega-button__text {
+    fill: #000;
+  }
   @keyframes buzz-out {
     10% {
       transform: translateX(3px) rotate(2deg);
@@ -85,13 +100,13 @@
     class="mega-button__svg"
     viewBox="0 0 100 100"
     xmlns="http://www.w3.org/2000/svg">
-    <circle cx="50" cy="50" r="50" />
+    <circle class="mega-button__circle" cx="50" cy="49" r="50" />
     <text
+      class="mega-button__text"
       x="50%"
       y="65%"
       dominant-baseline="middle"
-      text-anchor="middle"
-      class="mega-button__text">
+      text-anchor="middle">
       <slot />
     </text>
   </svg>
