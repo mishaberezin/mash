@@ -90,7 +90,7 @@
   <div class="credits__item credits__team">
     <a
       class="credits__link credits__link-author"
-      href="https://github.com/mishaberezin">
+      href="https://github.com/mishaberezin/mash">
       <span class="credits__link-anchor">Misha Berezin</span>
     </a>
     <br />
