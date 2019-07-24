@@ -56,7 +56,7 @@
     dispatch("next");
   };
 
-  let showCredits = true;
+  let showCredits = false;
   const onHeaderMouseenter = () => {
     showCredits = true;
   };
