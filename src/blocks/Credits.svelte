@@ -75,7 +75,7 @@
 <div class="credits">
   <div class="credits__item credits__title">Layout Mash</div>
   <div class="credits__item credits__beta">
-    <img class="credits__beta-svg" src={betaSvg} alt="Intuition Park" />
+    <img class="credits__beta-svg" src={betaSvg} alt="Beta" />
   </div>
   <div class="credits__item credits__intuition">
     <a

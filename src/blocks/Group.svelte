@@ -77,6 +77,17 @@
       "area9  area10"
       "area11 .";
   }
+
+  .group__item {
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.3);
+    opacity: 1;
+    cursor: pointer;
+  }
+
+  .group__item:hover {
+    opacity: 0.9;
+    box-shadow: 0 0 0 7px rgba(255, 255, 255, 0.4);
+  }
 </style>
 
 <div class="group group_type_{type}">

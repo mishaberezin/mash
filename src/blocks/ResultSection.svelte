@@ -36,7 +36,9 @@
   let sample;
 
   const onDownloadClick = () => {
-    html2canvas(sample).then(canvas => {
+    html2canvas(sample, {
+      scale: 1
+    }).then(canvas => {
       canvas.toBlob(function(blob) {
         saveAs(blob, "screenshot.png");
       });
@@ -110,17 +112,17 @@
   }
 
   .section__main-cell_for_sample {
-    border-bottom: 1px solid #000;
+    border-bottom: 7px solid #000;
   }
 
   .section__main-cell_for_download {
-    font-size: 100px;
-    font-size: 100px;
+    font-size: 96px;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-grow: 1;
     overflow: hidden;
+    cursor: pointer;
   }
 </style>
 
