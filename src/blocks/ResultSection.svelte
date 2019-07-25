@@ -123,6 +123,32 @@
     flex-grow: 1;
     overflow: hidden;
     cursor: pointer;
+    transform: scale(1);
+    transition: transform 0.2s;
+  }
+
+  .section__main-cell_for_download:hover {
+    transform: scale(1.05);
+  }
+
+  .section__main-cell_for_download:active {
+    transform: scale(1);
+  }
+
+  .credits__link {
+    display: inline-block;
+    text-decoration: none;
+    color: rgba(0, 0, 0, 1);
+  }
+
+  .credits__link-anchor {
+    display: inline-block;
+    transform: translateX(0);
+    transition: transform 0.2s;
+  }
+
+  .credits__link:hover .credits__link-anchor {
+    transform: translateX(14px);
   }
 </style>
 
@@ -139,10 +165,28 @@
     <div
       class="section__header-cell section__header-cell_for_intuition
       section__intuition">
-      Intuition
+      <a
+        class="credits__link credits__link_type_park"
+        href="https://intuition.team/park">
+        <span class="credits__link-anchor">Intuition</span>
+      </a>
     </div>
     <div class="section__header-cell section__header-cell_for_mnt section__mnt">
-      MNT
+      <a
+        class="credits__link credits__link-author"
+        href="https://github.com/mishaberezin/mash">
+        <span class="credits__link-anchor" title="Misha Berezin">M</span>
+      </a>
+      <a
+        class="credits__link credits__link-author"
+        href="http://nellykam.space">
+        <span class="credits__link-anchor" title="Nelly Kam">N</span>
+      </a>
+      <a
+        class="credits__link credits__link-author"
+        href="https://www.behance.net/29ine">
+        <span class="credits__link-anchor" title="Anatolie Micaliuc">T</span>
+      </a>
     </div>
   </header>
   <main class="section__main">
