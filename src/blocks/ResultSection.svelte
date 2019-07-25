@@ -34,8 +34,10 @@
   const permutation = $layout.permutation;
 
   let sample;
-
   const onDownloadClick = () => {
+    // https://github.com/niklasvh/html2canvas/issues/117
+    window.scrollTo(0, 0);
+
     html2canvas(sample, {
       scale: 1
     }).then(canvas => {
