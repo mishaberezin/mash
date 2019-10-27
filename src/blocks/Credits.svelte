@@ -1,14 +1,11 @@
 <script>
-  import parkSvg from "../assets/park.svg";
-  import betaSvg from "../assets/beta.svg";
-
-  export let url = "https://picsum.photos/200/400";
+  export let url = 'https://picsum.photos/200/400';
 
   $: style = `background-image: url('${url}');`;
 </script>
 
 <style>
-  @import "../fonts/navigo.css";
+  @import '../fonts/navigo.css';
 
   .credits {
     font-family: Navigo;
@@ -17,7 +14,7 @@
     height: 100%;
     grid-column-gap: 20px;
     grid-template-columns: repeat(5, calc(20% - 16px));
-    grid-template-areas: "area1  area2 area3 area4 area4";
+    grid-template-areas: 'area1  area2 area3 area4 area4';
     padding-left: 11px;
     padding-right: 28px;
     box-sizing: border-box;
@@ -75,22 +72,25 @@
 <div class="credits">
   <div class="credits__item credits__title">Layout Mash</div>
   <div class="credits__item credits__beta">
-    <img class="credits__beta-svg" src={betaSvg} alt="Beta" />
+    <img class="credits__beta-svg" src="/beta.svg" alt="Beta" />
   </div>
   <div class="credits__item credits__intuition">
     <a
       class="credits__link credits__link_type_park"
-      href="https://intuition.team/park">
+      href="https://intuition.team/park"
+    >
       <img
         class="credits__link-anchor credits__park-svg"
-        src={parkSvg}
-        alt="Intuition Park" />
+        src="park.svg"
+        alt="Intuition Park"
+      />
     </a>
   </div>
   <div class="credits__item credits__team">
     <a
       class="credits__link credits__link-author"
-      href="https://github.com/mishaberezin/mash">
+      href="https://github.com/mishaberezin/mash"
+    >
       <span class="credits__link-anchor">Misha Berezin</span>
     </a>
     <br />
@@ -100,7 +100,8 @@
     <br />
     <a
       class="credits__link credits__link-author"
-      href="https://www.behance.net/29ine">
+      href="https://www.behance.net/29ine"
+    >
       <span class="credits__link-anchor">Anatolie Micaliuc</span>
     </a>
   </div>

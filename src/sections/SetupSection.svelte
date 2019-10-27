@@ -1,5 +1,4 @@
 <script>
-  import navigo from "../fonts/navigo.css";
   import {
     headline,
     text,
@@ -11,10 +10,11 @@
     picturePlaceholder
   } from "../store.js";
   import { createEventDispatcher } from "svelte";
-  import MegaButton from "./MegaButton.svelte";
-  import SvgText from "./SvgText.svelte";
-  import Input from "./Input/Input.svelte";
-  import Credits from "./Credits.svelte";
+
+  import MegaButton from "../blocks/MegaButton.svelte";
+  import SvgText from "../blocks/SvgText.svelte";
+  import Input from "../blocks/Input/Input.svelte";
+  import Credits from "../blocks/Credits.svelte";
 
   const dispatch = createEventDispatcher();
 
@@ -66,6 +66,8 @@
 </script>
 
 <style>
+  @import "../fonts/navigo.css";
+
   .section {
     --left-input-padding: 20px;
     --right-col-width: 50vh;
@@ -161,14 +163,6 @@
   .section__header_showcredits .section__credits {
     opacity: 1;
   }
-
-  /* .section__header_showcredits .section__header-svg {
-    display: none;
-  } */
-
-  /* .section__header:hover .section__header-svg {
-    transform: translateX(72px);
-  } */
 
   :global(.section__Input) {
     padding-left: var(--left-input-padding);

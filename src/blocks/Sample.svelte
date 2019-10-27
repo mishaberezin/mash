@@ -1,19 +1,48 @@
 <script>
-  import Textbox from "../blocks/Textbox.svelte";
-  import Image from "./Image.svelte";
+  import Textbox from '../blocks/Textbox.svelte';
+  import Image from './Image.svelte';
 
   export let arrangement = {};
   export let highlight = false;
-  export let headline = "";
-  export let text = "";
-  export let logo = "";
-  export let picture = "";
+  export let headline = '';
+  export let text = '';
+  export let logo = '';
+  export let picture = '';
+  export let base64 = false;
+
+  if (base64) {
+    (async () => {
+      logo = await fetch('https://picsum.photos/150/90')
+        .then(resp => resp.arrayBuffer())
+        .then(buffer => {
+          var base64Flag = 'data:image/jpeg;base64,';
+          var binary = '';
+          var bytes = [].slice.call(new Uint8Array(buffer));
+          bytes.forEach(b => (binary += String.fromCharCode(b)));
+          const base64 = btoa(binary);
+
+          return base64Flag + base64;
+        });
+
+      picture = await fetch('https://picsum.photos/400/200')
+        .then(resp => resp.arrayBuffer())
+        .then(buffer => {
+          var base64Flag = 'data:image/jpeg;base64,';
+          var binary = '';
+          var bytes = [].slice.call(new Uint8Array(buffer));
+          bytes.forEach(b => (binary += String.fromCharCode(b)));
+          const base64 = btoa(binary);
+
+          return base64Flag + base64;
+        });
+    })();
+  }
 
   const style = [
     `--area-logo: ${arrangement.logo}`,
     `--area-text: ${arrangement.text}`,
     `--area-image: ${arrangement.image}`
-  ].join(";");
+  ].join(';');
 </script>
 
 <style>
@@ -61,14 +90,14 @@
   }
 </style>
 
-<div class="sample" class:sample_highlight={highlight} {style} on:click>
+<div class="sample" class:sample_highlight="{highlight}" {style} on:click>
   <div class="sample__item sample__item_role_logo">
-    <Image type="logo" url={logo} />
+    <Image type="logo" url="{logo}"></Image>
   </div>
   <div class="sample__item sample__item_role_text">
-    <Textbox {headline} {text} />
+    <Textbox {headline} {text}></Textbox>
   </div>
   <div class="sample__item sample__item_role_image">
-    <Image type="picture" url={picture} />
+    <Image type="picture" url="{picture}"></Image>
   </div>
 </div>

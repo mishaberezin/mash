@@ -18,13 +18,11 @@
   import layouts from "../../lib/layouts.js";
   import { getPermutations, sleep } from "../../lib/utils.js";
 
-  import Sample from "./Sample.svelte";
-  import Logo from "./Logo.svelte";
-  import Image from "./Image.svelte";
-  import Arrow from "./Arrow.svelte";
-  import Group from "./Group.svelte";
-
-  export let mix = "";
+  import Sample from "../blocks/Sample.svelte";
+  import Logo from "../blocks/Logo.svelte";
+  import Image from "../blocks/Image.svelte";
+  import Arrow from "../blocks/Arrow.svelte";
+  import Group from "../blocks/Group.svelte";
 
   const heyHeadline = $headline || $headlinePlaceholder;
   const heyText = $text || $textPlaceholder;
@@ -239,6 +237,7 @@
 
   .section__title {
     cursor: pointer;
+    white-space: nowrap;
   }
 
   .section__average,
@@ -279,7 +278,7 @@
   }
 </style>
 
-<section class="section section_name_layout {mix}">
+<section class="section section_name_layout">
   <header class="section__header">
     <div class="section__header-cell section__header-cell_for_back-button">
       <Arrow on:click={onArrowClick} />

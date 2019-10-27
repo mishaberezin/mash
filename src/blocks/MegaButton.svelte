@@ -1,6 +1,4 @@
 <script>
-  import navigo from "../fonts/navigo.css";
-
   export let arrangement = {};
   export let allDone;
 </script>
@@ -95,18 +93,20 @@
   }
 </style>
 
-<div class="mega-button" class:mega-button_alldone={allDone} on:click>
+<div class="mega-button" class:mega-button_alldone="{allDone}" on:click>
   <svg
     class="mega-button__svg"
     viewBox="0 0 100 100"
-    xmlns="http://www.w3.org/2000/svg">
+    xmlns="http://www.w3.org/2000/svg"
+  >
     <circle class="mega-button__circle" cx="50" cy="49" r="50" />
     <text
       class="mega-button__text"
       x="50%"
       y="65%"
       dominant-baseline="middle"
-      text-anchor="middle">
+      text-anchor="middle"
+    >
       <slot />
     </text>
   </svg>

@@ -5,7 +5,6 @@
 
 <script>
   import { createEventDispatcher } from "svelte";
-  import navigo from "../../fonts/navigo.css";
   import SvgText from "../SvgText.svelte";
   import Textarea from "./Textarea.svelte";
   import Filearea from "./Filearea.svelte";

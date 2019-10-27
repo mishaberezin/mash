@@ -1,25 +1,43 @@
 {
   "name": "mash",
+  "description": "Random layout generator",
   "version": "0.1.0",
   "scripts": {
-    "start": "parcel src/*.html src/stands/*.html --open --no-hmr --https --log-level 2",
-    "build": "parcel build src/*.html src/stands/*.html",
-    "prebuild": "rm -rf ./dist",
-    "deploy": "npm run build && surge ./dist --domain layoutmash.surge.sh",
-    "test": "echo todo"
+    "dev": "sapper dev",
+    "build": "sapper build --legacy",
+    "export": "sapper export --legacy",
+    "start": "node __sapper__/build",
+    "test": "run-p --race dev cy:run"
+  },
+  "dependencies": {
+    "compression": "^1.7.1",
+    "polka": "next",
+    "sirv": "^0.4.0"
   },
   "devDependencies": {
+    "@babel/core": "^7.0.0",
+    "@babel/plugin-syntax-dynamic-import": "^7.0.0",
+    "@babel/plugin-transform-runtime": "^7.0.0",
+    "@babel/preset-env": "^7.0.0",
+    "@babel/runtime": "^7.0.0",
     "file-saver": "^2.0.2",
-    "html2canvas": "^1.0.0-rc.3",
+    "html2canvas": "^1.0.0-rc.5",
     "lodash": "^4.17.15",
     "normalize.css": "^8.0.1",
-    "parcel-bundler": "^1.12.3",
-    "parcel-plugin-imagemin": "^3.0.0",
-    "parcel-plugin-svelte": "^3.0.1",
-    "postcss-nested": "^4.1.2",
-    "postcss-preset-env": "^6.7.0",
-    "svelte": "^3.6.1",
-    "svelte-fragment": "^1.0.1"
+    "npm-run-all": "^4.1.5",
+    "prettier": "^1.18.2",
+    "prettier-plugin-svelte": "^0.7.0",
+    "rollup": "^1.12.0",
+    "rollup-plugin-babel": "^4.0.2",
+    "rollup-plugin-commonjs": "^10.0.0",
+    "rollup-plugin-node-resolve": "^5.2.0",
+    "rollup-plugin-replace": "^2.0.0",
+    "rollup-plugin-svelte": "^5.0.1",
+    "rollup-plugin-terser": "^4.0.4",
+    "sapper": "^0.27.0",
+    "svelte": "^3.12.1",
+    "svelte-fragment": "^1.0.1",
+    "uuid": "^3.3.3"
   },
   "browserslist": [
     "last 1 chrome versions"

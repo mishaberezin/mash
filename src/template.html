@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="theme-color" content="#333333" />
+    <title>Layout Mash</title>
+
+    %sapper.base%
+
+    <link rel="stylesheet" href="normalize.css" />
+    <link rel="stylesheet" href="global.css" />
+    <!-- <link rel="manifest" href="manifest.json" /> -->
+    <link rel="shortcut icon" type="image/png" href="favicon.png" />
+
+    <!-- Placeholders -->
+    <link rel="preload" href="https://picsum.photos/150/90" as="image" />
+    <link rel="preload" href="https://picsum.photos/400/200" as="image" />
+
+    %sapper.styles% %sapper.head%
+  </head>
+  <body>
+    <div id="app">%sapper.html%</div>
+
+    <!-- Metrika -->
+    <!-- <script type="text/javascript">
+      (function(m, e, t, r, i, k, a) {
+        m[i] =
+          m[i] ||
+          function() {
+            (m[i].a = m[i].a || []).push(arguments);
+          };
+        m[i].l = 1 * new Date();
+        (k = e.createElement(t)),
+          (a = e.getElementsByTagName(t)[0]),
+          (k.async = 1),
+          (k.src = r),
+          a.parentNode.insertBefore(k, a);
+      })(
+        window,
+        document,
+        'script',
+        'https://mc.yandex.ru/metrika/tag.js',
+        'ym'
+      );
+
+      ym(54589852, 'init', {
+        clickmap: true,
+        trackLinks: true,
+        accurateTrackBounce: true,
+        webvisor: true
+      });
+    </script>
+    <noscript
+      ><div>
+        <img
+          src="https://mc.yandex.ru/watch/54589852"
+          style="position:absolute; left:-9999px;"
+          alt=""
+        /></div
+	></noscript> -->
+
+    <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-storage.js"></script>
+
+    <script>
+      var firebaseConfig = {
+        apiKey: 'AIzaSyBtPG6y_cR0LQOdN_Xz-lo5EnhcXsZOWGQ',
+        authDomain: 'layout-mash.firebaseapp.com',
+        databaseURL: 'https://layout-mash.firebaseio.com',
+        projectId: 'layout-mash',
+        storageBucket: 'layout-mash.appspot.com',
+        messagingSenderId: '180393824272',
+        appId: '1:180393824272:web:fd09d41d28f62f96fb3a95',
+        measurementId: 'G-86R1R59QZQ'
+      };
+      firebase.initializeApp(firebaseConfig);
+    </script>
+
+    %sapper.scripts%
+  </body>
+</html>
