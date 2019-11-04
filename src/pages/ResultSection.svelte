@@ -1,60 +1,69 @@
 <script>
   import * as sapper from '@sapper/app';
   import { onMount, createEventDispatcher } from 'svelte';
+  import { storage } from '../vendor/firebase';
+  import fileSaver from 'file-saver';
   import uuid from 'uuid/v1';
-
-  import {
-    layout,
-    headline,
-    text,
-    logo,
-    picture,
-    headlinePlaceholder,
-    textPlaceholder,
-    logoPlaceholder,
-    picturePlaceholder
-  } from '../store.js';
-
-  let html2canvas;
-  // import { saveAs } from 'file-saver';
-
-  onMount(async () => {
-    const module = await import('html2canvas');
-    html2canvas = module.default;
-  });
+  import { urlToB64Async } from '../utils';
 
   import fragment from 'svelte-fragment';
-
   import Sample from '../blocks/Sample.svelte';
   import Zoom from '../blocks/Zoom.svelte';
   import Logo from '../blocks/Logo.svelte';
   import Image from '../blocks/Image.svelte';
   import Arrow from '../blocks/Arrow.svelte';
 
-  export let mix = '';
+  import { layout, headline, text, logo, picture } from '../store.js';
+
+  let html2canvas;
+  let logoB64;
+  let pictureB64;
+
+  let Sharing;
+
+  onMount(async () => {
+    const module = await import('../blocks/Sharing.svelte');
+    Sharing = module.default;
+
+    logoB64 = await urlToB64Async($logo);
+    pictureB64 = await urlToB64Async($picture);
+  });
 
   const dispatch = createEventDispatcher();
 
-  const heyHeadline = $headline || $headlinePlaceholder;
-  const heyText = $text || $textPlaceholder;
-  const heyLogo = $logo || $logoPlaceholder;
-  const heyPicture = $picture || $picturePlaceholder;
-
-  const permutation = $layout.permutation;
+  const { permutation } = $layout;
 
   let sample;
   const onDownloadClick = () => {
-    // https://github.com/niklasvh/html2canvas/issues/117
-    window.scrollTo(0, 0);
+    window.scrollTo(0, 0); // https://git.io/Je28P
 
     html2canvas(sample, {
       scale: 1
     }).then(canvas => {
       canvas.toBlob(blob => {
-        // saveAs(blob, "screenshot.png");
-        const filePath = `test/${uuid()}.png`;
-        console.log(filePath);
-        const storageRef = firebase.storage().ref(filePath);
+        fileSaver.saveAs(blob, 'screenshot.png');
+      });
+    });
+  };
+  const onShareClick = async () => {
+    const id = uuid();
+
+    const data = {
+      headline: $headline,
+      text: $text,
+      logo: logoB64,
+      picture: pictureB64
+    };
+
+    window.scrollTo(0, 0);
+
+    const canvas = await html2canvas(sample, {
+      scale: 1
+    });
+    const result = await new Promise((resolve, reject) => {
+      canvas.toBlob(blob => {
+        const imgPath = `test/${id}.png`;
+        const storageRef = storage.ref(imgPath);
         const task = storageRef.put(blob);
 
         task.on(
@@ -62,94 +71,32 @@
           snapshot => {
             console.log(snapshot);
           },
-          () => {},
-          () => {
-            console.log('⛄️ ' + filePath);
-          }
+          reject,
+          resolve
         );
       });
     });
-  };
-  const onShareClick = async () => {
-    const id = uuid();
 
-    const logoB64 = await fetch('https://picsum.photos/150/90')
-      .then(resp => resp.arrayBuffer())
-      .then(buffer => {
-        var base64Flag = 'data:image/jpeg;base64,';
-        var binary = '';
-        var bytes = [].slice.call(new Uint8Array(buffer));
-        bytes.forEach(b => (binary += String.fromCharCode(b)));
-        const base64 = btoa(binary);
+    console.log(result);
+    // sapper.goto(`/look-${id}`);
 
-        return base64Flag + base64;
-      });
+    // return new Promise((resolve, reject) => {
+    //   const jsonPath = `test/${id}.json`;
+    //   const storageRef = firebase.storage().ref(jsonPath);
+    //   const blob = new Blob([JSON.stringify(data, null, 4)], {
+    //     type: 'application/json'
+    //   });
+    //   const task = storageRef.put(blob);
 
-    const pictureB64 = await fetch('https://picsum.photos/400/200')
-      .then(resp => resp.arrayBuffer())
-      .then(buffer => {
-        var base64Flag = 'data:image/jpeg;base64,';
-        var binary = '';
-        var bytes = [].slice.call(new Uint8Array(buffer));
-        bytes.forEach(b => (binary += String.fromCharCode(b)));
-        const base64 = btoa(binary);
-
-        return base64Flag + base64;
-      });
-
-    const data = {
-      headline: heyHeadline,
-      text: heyText,
-      logo: logoB64,
-      picture: pictureB64
-    };
-
-    window.scrollTo(0, 0);
-
-    html2canvas(sample, {
-      scale: 1
-    })
-      .then(canvas => {
-        return new Promise((resolve, reject) => {
-          canvas.toBlob(blob => {
-            const imgPath = `test/${id}.png`;
-            const storageRef = firebase.storage().ref(imgPath);
-            const task = storageRef.put(blob);
-
-            task.on(
-              'state_changed',
-              snapshot => {
-                console.log(snapshot);
-              },
-              reject,
-              resolve
-            );
-          });
-        });
-      })
-      .then(() => {
-        return new Promise((resolve, reject) => {
-          const jsonPath = `test/${id}.json`;
-          const storageRef = firebase.storage().ref(jsonPath);
-          const blob = new Blob([JSON.stringify(data, null, 4)], {
-            type: 'application/json'
-          });
-          const task = storageRef.put(blob);
-
-          task.on(
-            'state_changed',
-            snapshot => {
-              console.log(snapshot);
-            },
-            reject,
-            resolve
-          );
-        });
-      })
-      .then(() => {
-        console.log(id);
-        sapper.goto(`/look-${id}`);
-      });
+    //   task.on(
+    //     'state_changed',
+    //     snapshot => {
+    //       console.log(snapshot);
+    //     },
+    //     reject,
+    //     resolve
+    //   );
+    // });
   };
 
   const onArrowClick = () => {
@@ -209,8 +156,6 @@
 
   .section__main {
     display: flex;
-    border: 7px solid #000;
-    border-bottom: 0;
     margin: 0 auto;
     justify-content: center;
     align-items: center;
@@ -219,27 +164,16 @@
   }
 
   .section__main-cell_for_sample {
-    border-bottom: 7px solid #000;
-  }
-
-  .section__main-cell_for_download {
-    font-size: 96px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     flex-grow: 1;
-    overflow: hidden;
-    cursor: pointer;
-    transform: scale(1);
-    transition: transform 0.2s;
+    border: 7px solid #000;
+    border-top: 0;
+    border-bottom: 0;
   }
 
-  .section__main-cell_for_download:hover {
-    transform: scale(1.05);
-  }
-
-  .section__main-cell_for_download:active {
-    transform: scale(1);
+  .section__main-cell_for_sharing {
+    border: 7px solid #000;
+    box-sizing: border-box;
+    width: 100%;
   }
 
   .credits__link {
@@ -259,7 +193,7 @@
   }
 </style>
 
-<section class="section section_name_result {mix}">
+<section class="section section_name_result">
   <header class="section__header">
     <div class="section__header-cell section__header-cell_for_back-button">
       <Arrow on:click="{onArrowClick}"></Arrow>
@@ -308,11 +242,10 @@
         <div bind:this="{sample}">
           <Sample
             arrangement="{permutation}"
-            headline="{heyHeadline}"
-            text="{heyText}"
-            logo="{heyLogo}"
-            picture="{heyPicture}"
-            base64="{true}"
+            headline="{$headline}"
+            text="{$text}"
+            logo="{logoB64}"
+            picture="{pictureB64}"
           ></Sample>
         </div>
       </Zoom>
@@ -323,10 +256,10 @@
       Download
     </div> -->
     <div
-      class="section__main-cell section__main-cell_for_download"
+      class="section__main-cell section__main-cell_for_sharing"
       on:click="{onShareClick}"
     >
-      Share
+      <Sharing></Sharing>
     </div>
   </main>
 </section>

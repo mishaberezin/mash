@@ -1,49 +1,25 @@
 <script>
-  import { createEventDispatcher, tick } from "svelte";
+  import { createEventDispatcher } from 'svelte';
+  import { layout, headline, text, logo, picture } from '../store';
+  import { getPermutations, sleep, layouts } from '../utils';
+
+  import Arrow from '../blocks/Arrow.svelte';
+  import Group from '../blocks/Group.svelte';
 
   const dispatch = createEventDispatcher();
 
-  import {
-    layout,
-    headline,
-    text,
-    logo,
-    picture,
-    headlinePlaceholder,
-    textPlaceholder,
-    logoPlaceholder,
-    picturePlaceholder
-  } from "../store.js";
-
-  import layouts from "../../lib/layouts.js";
-  import { getPermutations, sleep } from "../../lib/utils.js";
-
-  import Sample from "../blocks/Sample.svelte";
-  import Logo from "../blocks/Logo.svelte";
-  import Image from "../blocks/Image.svelte";
-  import Arrow from "../blocks/Arrow.svelte";
-  import Group from "../blocks/Group.svelte";
-
-  const heyHeadline = $headline || $headlinePlaceholder;
-  const heyText = $text || $textPlaceholder;
-  const heyLogo = $logo || $logoPlaceholder;
-  const heyPicture = $picture || $picturePlaceholder;
-
-  const allPlacements = areas => {};
-
   const arrange = areas => {
-    const keys = ["logo", "text", "image"];
     const permutations = getPermutations(areas);
 
-    const allBg = permutations.map(([logo, text, image]) => ({
-      logo: logo.join("/"),
-      text: text.join("/"),
-      image: "1/1/-1/-1"
+    const allBg = permutations.map(([logo, text]) => ({
+      logo: logo.join('/'),
+      text: text.join('/'),
+      image: '1/1/-1/-1'
     }));
     const all = permutations.map(([logo, text, image]) => ({
-      logo: logo.join("/"),
-      text: text.join("/"),
-      image: image.join("/")
+      logo: logo.join('/'),
+      text: text.join('/'),
+      image: image.join('/')
     }));
 
     return [...all, ...allBg];
@@ -117,7 +93,7 @@
     {
       groupType: 1,
       align: 1,
-      anchor: "average"
+      anchor: 'average'
     },
 
     {
@@ -151,7 +127,7 @@
     {
       groupType: 5,
       align: 4,
-      anchor: "dich"
+      anchor: 'dich'
     },
     {
       groupType: 1,
@@ -177,20 +153,20 @@
 
   const onSampleClick = ({ detail }) => {
     $layout.permutation = detail;
-    dispatch("next");
+    dispatch('next');
   };
 
   const onArrowClick = () => {
-    dispatch("back");
+    dispatch('back');
   };
 
   const onHomeClick = () => {
-    dispatch("home");
+    dispatch('home');
   };
 </script>
 
 <style>
-  @import "../fonts/navigo.css";
+  @import '../fonts/navigo.css';
 
   .section {
     width: 100%;
@@ -208,7 +184,7 @@
     font-weight: bold;
     display: grid;
     grid-template: minmax(120px, 20vh) / repeat(5, 1fr);
-    grid-template-areas: "cell_1 cell_2 cell_3 cell_4 cell_5";
+    grid-template-areas: 'cell_1 cell_2 cell_3 cell_4 cell_5';
     grid-column-gap: 20px;
   }
 
@@ -281,11 +257,12 @@
 <section class="section section_name_layout">
   <header class="section__header">
     <div class="section__header-cell section__header-cell_for_back-button">
-      <Arrow on:click={onArrowClick} />
+      <Arrow on:click="{onArrowClick}"></Arrow>
     </div>
     <div
       class="section__header-cell section__header-cell_for_title section__title"
-      on:click={onHomeClick}>
+      on:click="{onHomeClick}"
+    >
       Layout Mash
     </div>
     <div class="section__header-cell section__header-cell_for_average">
@@ -297,34 +274,35 @@
   </header>
   <main class="section__main">
     {#each order.slice(0, 4) as step}
-      <div
-        id={step.anchor}
-        class="section__group section__group_align_{step.align}">
-        <Group
-          permutations={arrangements[step.i].permutations}
-          type={step.groupType}
-          headline={heyHeadline}
-          text={heyText}
-          logo={heyLogo}
-          picture={heyPicture}
-          on:sampleClick={onSampleClick} />
-      </div>
-    {/each}
-    {#await sleep(500) then something}
-      {#each order.slice(4) as step}
-        <div
-          id={step.anchor}
-          class="section__group section__group_align_{step.align}">
-          <Group
-            permutations={arrangements[step.i].permutations}
-            type={step.groupType}
-            headline={heyHeadline}
-            text={heyText}
-            logo={heyLogo}
-            picture={heyPicture}
-            on:sampleClick={onSampleClick} />
-        </div>
-      {/each}
-    {/await}
+    <div
+      id="{step.anchor}"
+      class="section__group section__group_align_{step.align}"
+    >
+      <Group
+        permutations="{arrangements[step.i].permutations}"
+        type="{step.groupType}"
+        headline="{$headline}"
+        text="{$text}"
+        logo="{$logo}"
+        picture="{$picture}"
+        on:sampleClick="{onSampleClick}"
+      ></Group>
+    </div>
+    {/each} {#await sleep(500) then something} {#each order.slice(4) as step}
+    <div
+      id="{step.anchor}"
+      class="section__group section__group_align_{step.align}"
+    >
+      <Group
+        permutations="{arrangements[step.i].permutations}"
+        type="{step.groupType}"
+        headline="{$headline}"
+        text="{$text}"
+        logo="{$logo}"
+        picture="{$picture}"
+        on:sampleClick="{onSampleClick}"
+      ></Group>
+    </div>
+    {/each} {/await}
   </main>
 </section>

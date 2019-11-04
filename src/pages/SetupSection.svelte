@@ -1,20 +1,24 @@
-<script>
+<script context="module">
   import {
-    headline,
-    text,
-    logo,
-    picture,
-    headlinePlaceholder,
-    textPlaceholder,
-    logoPlaceholder,
-    picturePlaceholder
-  } from "../store.js";
-  import { createEventDispatcher } from "svelte";
+    getRandomImageUrl,
+    getRandomHeadline,
+    getRandomParagraph
+  } from '../utils';
 
-  import MegaButton from "../blocks/MegaButton.svelte";
-  import SvgText from "../blocks/SvgText.svelte";
-  import Input from "../blocks/Input/Input.svelte";
-  import Credits from "../blocks/Credits.svelte";
+  const defaultHeadline = getRandomHeadline();
+  const defaultParagraph = getRandomParagraph();
+  const defaultLogo = getRandomImageUrl({ width: 150, height: 90 });
+  const defaultPicture = getRandomImageUrl({ width: 400, height: 200 });
+</script>
+
+<script>
+  import { headline, text, logo, picture } from '../store.js';
+  import { createEventDispatcher } from 'svelte';
+
+  import MegaButton from '../blocks/MegaButton.svelte';
+  import SvgText from '../blocks/SvgText.svelte';
+  import Input from '../blocks/Input/Input.svelte';
+  import Credits from '../blocks/Credits.svelte';
 
   const dispatch = createEventDispatcher();
 
@@ -39,21 +43,21 @@
     $picture = detail;
   };
 
-  const onMegaButtonClick = e => {
+  const onMegaButtonClick = () => {
     if (!$headline) {
-      $headline = $headlinePlaceholder;
+      $headline = defaultHeadline;
     }
     if (!$text) {
-      $text = $textPlaceholder;
+      $text = defaultParagraph;
     }
     if (!$logo) {
-      $logo = $logoPlaceholder;
+      $logo = defaultLogo;
     }
     if (!$picture) {
-      $picture = $picturePlaceholder;
+      $picture = defaultPicture;
     }
 
-    dispatch("next");
+    dispatch('next');
   };
 
   let showCredits = false;
@@ -66,7 +70,7 @@
 </script>
 
 <style>
-  @import "../fonts/navigo.css";
+  @import '../fonts/navigo.css';
 
   .section {
     --left-input-padding: 20px;
@@ -174,61 +178,47 @@
   }
 </style>
 
+<!-- Placeholders -->
+<link rel="preload" href="{defaultLogo}" as="image" />
+<link rel="preload" href="{defaultPicture}" as="image" />
+
 <section class="section section_name_setup">
   <div class="section__cell section__cell_for_header section__cell_role_line">
     <div
       class="section__header"
-      class:section__header_showcredits={showCredits}
-      on:mouseenter={onHeaderMouseenter}
-      on:mouseleave={onHeaderMouseleave}>
-
+      class:section__header_showcredits="{showCredits}"
+      on:mouseenter="{onHeaderMouseenter}"
+      on:mouseleave="{onHeaderMouseleave}"
+    >
       <div class="section__header-svg">
-        <SvgText
-          text="Layout Mash"
-          theme={showCredits ? 'outline-thin' : 'outline'}
-          vbw="1150"
-          vbh="170"
-          dy="-12"
-          dx="1" />
+        <SvgText text="Layout Mash" theme={showCredits ? 'outline-thin' :
+        'outline'} vbw="1150" vbh="170" dy="-12" dx="1" />
       </div>
       <div class="section__credits">
-        <Credits />
+        <Credits></Credits>
       </div>
     </div>
   </div>
   <div class="section__cell section__cell_for_headline section__cell_role_line">
-    <Input
-      class="section__Input"
-      label="Headline"
-      mainSvgTextProps={{ vbw: 1150 }}
-      on:value={onHeadlineValue} />
+    <Input class="section__Input" label="Headline" mainSvgTextProps={{ vbw: 1150 }}
+    on:value={onHeadlineValue} />
   </div>
   <div class="section__cell section__cell_for_text section__cell_role_line">
-    <Input
-      class="section__Input"
-      label="Text"
-      mainSvgTextProps={{ vbw: 1150, dx: 14 }}
-      on:value={onTextValue} />
+    <Input class="section__Input" label="Text" mainSvgTextProps={{ vbw: 1150, dx: 14 }}
+    on:value={onTextValue} />
   </div>
   <div class="section__cell section__cell_for_logo section__cell_role_line">
-    <Input
-      class="section__Input"
-      type="file"
-      label="Logo"
-      mainSvgTextProps={{ vbw: 1150 }}
-      on:value={onLogoValue} />
+    <Input class="section__Input" type="file" label="Logo" mainSvgTextProps={{ vbw: 1150 }}
+    on:value={onLogoValue} />
   </div>
   <div class="section__cell section__cell_for_picture section__cell_role_line">
-    <Input
-      class="section__Input"
-      type="file"
-      label="Picture"
-      mainSvgTextProps={{ vbw: 1150 }}
-      on:value={onPictureValue} />
+    <Input class="section__Input" type="file" label="Picture"
+    mainSvgTextProps={{ vbw: 1150 }}
+    on:value={onPictureValue} />
   </div>
   <div class="section__cell section__cell_for_button">
     <div class="button-wrap">
-      <MegaButton on:click={onMegaButtonClick} {allDone}>Generate</MegaButton>
+      <MegaButton on:click="{onMegaButtonClick}" {allDone}>Generate</MegaButton>
     </div>
   </div>
 </section>

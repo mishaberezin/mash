@@ -8,35 +8,6 @@
   export let text = '';
   export let logo = '';
   export let picture = '';
-  export let base64 = false;
-
-  if (base64) {
-    (async () => {
-      logo = await fetch('https://picsum.photos/150/90')
-        .then(resp => resp.arrayBuffer())
-        .then(buffer => {
-          var base64Flag = 'data:image/jpeg;base64,';
-          var binary = '';
-          var bytes = [].slice.call(new Uint8Array(buffer));
-          bytes.forEach(b => (binary += String.fromCharCode(b)));
-          const base64 = btoa(binary);
-
-          return base64Flag + base64;
-        });
-
-      picture = await fetch('https://picsum.photos/400/200')
-        .then(resp => resp.arrayBuffer())
-        .then(buffer => {
-          var base64Flag = 'data:image/jpeg;base64,';
-          var binary = '';
-          var bytes = [].slice.call(new Uint8Array(buffer));
-          bytes.forEach(b => (binary += String.fromCharCode(b)));
-          const base64 = btoa(binary);
-
-          return base64Flag + base64;
-        });
-    })();
-  }
 
   const style = [
     `--area-logo: ${arrangement.logo}`,

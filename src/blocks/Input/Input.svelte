@@ -1,5 +1,5 @@
 <script context="module">
-  import { uidMakerFactory } from "../../../lib/utils.js";
+  import { uidMakerFactory } from "../../utils";
   const getUniqId = uidMakerFactory("input_");
 </script>
 

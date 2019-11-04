@@ -1,6 +1,6 @@
 <script>
-  import { afterUpdate } from "svelte";
-  import { textfit } from "../../lib/utils.js";
+  import { afterUpdate } from 'svelte';
+  import { textfit } from '../utils';
 
   export let params = {
     headlineFontSize: 3,
@@ -18,7 +18,7 @@
     `--text-font-size: ${params.textFontSize}em`,
     `--text-line-height: ${params.textLineHeight}em`,
     `--margin-size: ${params.marginSize}em`
-  ].join(";");
+  ].join(';');
 
   let textbox;
 
@@ -34,13 +34,13 @@
 </script>
 
 <style>
-  @import "../fonts/open-sans.css";
+  @import '../fonts/open-sans.css';
 
   .textbox {
     display: block;
     width: 100%;
     height: 100%;
-    font-family: "Open Sans", sans-serif;
+    font-family: 'Open Sans', sans-serif;
     font-size: 20px;
   }
 
@@ -66,7 +66,7 @@
   }
 </style>
 
-<div class="textbox" bind:this={textbox} {style}>
+<div class="textbox" bind:this="{textbox}" {style}>
   <h2 class="textbox__headline">{headline}</h2>
   <p class="textbox__text">{text}</p>
 </div>

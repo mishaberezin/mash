@@ -1,9 +1,3 @@
-<script>
-  export let url = 'https://picsum.photos/200/400';
-
-  $: style = `background-image: url('${url}');`;
-</script>
-
 <style>
   @import '../fonts/navigo.css';
 

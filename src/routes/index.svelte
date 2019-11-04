@@ -1,28 +1,21 @@
 <script>
-  import throttle from 'lodash/throttle';
   import { section } from '../store.js';
   import { onMount } from 'svelte';
+  import SetupSection from '../pages/SetupSection.svelte';
+  import LayoutSection from '../pages/LayoutSection.svelte';
+  import ResultSection from '../pages/ResultSection.svelte';
+  import MobileSection from '../pages/MobileSection.svelte';
 
   let isMobile = false;
   onMount(() => {
-    const check = () =>
-      screen.width <= 640 ||
-      window.matchMedia('only screen and (max-width: 640px)').matches;
+    const mql = matchMedia('only screen and (max-width: 640px)');
 
-    isMobile = check();
+    isMobile = mql.matches;
 
-    window.addEventListener(
-      'resize',
-      throttle(() => {
-        isMobile = check();
-      }, 100)
-    );
+    const handler = ({ matches }) => (isMobile = matches);
+    mql.addListener(handler);
+    return () => mql.removeListener(handler);
   });
-
-  import SetupSection from '../sections/SetupSection.svelte';
-  import LayoutSection from '../sections/LayoutSection.svelte';
-  import ResultSection from '../sections/ResultSection.svelte';
-  import MobileSection from '../sections/MobileSection.svelte';
 
   const gotoSetupSection = () => ($section = 'setup');
   const gotoLayoutSection = () => ($section = 'layout');

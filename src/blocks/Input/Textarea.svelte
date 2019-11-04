@@ -1,6 +1,6 @@
 <script>
   import { createEventDispatcher } from "svelte";
-  import { textfit } from "../../../lib/utils.js";
+  import { textfit } from "../../utils";
 
   export let id;
 
