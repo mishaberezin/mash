@@ -30,19 +30,19 @@
 
 <div class="page">
   {#if isMobile}
-  <MobileSection on:next="{gotoLayoutSection}"></MobileSection>
+  <MobileSection></MobileSection>
   {:else if $section === 'setup'}
-  <SetupSection on:next="{gotoLayoutSection}"></SetupSection>
+  <SetupSection navigateNext="{gotoLayoutSection}"></SetupSection>
   {:else if $section === 'layout'}
   <LayoutSection
-    on:next="{gotoResultSection}"
-    on:back="{gotoSetupSection}"
-    on:home="{gotoSetupSection}"
+    navigateBack="{gotoSetupSection}"
+    navigateHome="{gotoSetupSection}"
+    navigateNext="{gotoResultSection}"
   ></LayoutSection>
   {:else if $section === 'result'}
   <ResultSection
-    on:back="{gotoLayoutSection}"
-    on:home="{gotoSetupSection}"
+    navigateBack="{gotoLayoutSection}"
+    navigateHome="{gotoSetupSection}"
   ></ResultSection>
   {/if}
 </div>

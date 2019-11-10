@@ -1,12 +1,11 @@
 <script>
-  import { createEventDispatcher } from 'svelte';
+  export let navigateBack, navigateHome, navigateNext;
+
   import { layout, headline, text, logo, picture } from '../store';
   import { getPermutations, sleep, layouts } from '../utils';
 
   import Arrow from '../blocks/Arrow.svelte';
   import Group from '../blocks/Group.svelte';
-
-  const dispatch = createEventDispatcher();
 
   const arrange = areas => {
     const permutations = getPermutations(areas);
@@ -14,12 +13,12 @@
     const allBg = permutations.map(([logo, text]) => ({
       logo: logo.join('/'),
       text: text.join('/'),
-      image: '1/1/-1/-1'
+      image: '1/1/-1/-1',
     }));
     const all = permutations.map(([logo, text, image]) => ({
       logo: logo.join('/'),
       text: text.join('/'),
-      image: image.join('/')
+      image: image.join('/'),
     }));
 
     return [...all, ...allBg];
@@ -28,7 +27,7 @@
   const arrangements = layouts.map((areas, i) => {
     return {
       id: i,
-      permutations: arrange(areas)
+      permutations: arrange(areas),
     };
   });
 
@@ -36,132 +35,124 @@
   const order = [
     {
       groupType: 1,
-      align: 1
-    },
-    {
-      groupType: 5,
-      align: 4
-    },
-    {
-      groupType: 5,
-      align: 4
-    },
-    {
-      groupType: 2,
-      align: 2
-    },
-    {
-      groupType: 4,
-      align: 1
-    },
-    {
-      groupType: 3,
-      align: 3
-    },
-    {
-      groupType: 1,
-      align: 1
-    },
-    {
-      groupType: 5,
-      align: 4
-    },
-    {
-      groupType: 5,
-      align: 4
-    },
-    {
-      groupType: 4,
-      align: 1
-    },
-    {
-      groupType: 2,
-      align: 2
-    },
-    {
-      groupType: 2,
-      align: 2
-    },
-    {
-      groupType: 5,
-      align: 4
-    },
-    {
-      groupType: 5,
-      align: 4
-    },
-    {
-      groupType: 1,
       align: 1,
-      anchor: 'average'
-    },
-
-    {
-      groupType: 4,
-      align: 1
-    },
-    {
-      groupType: 5,
-      align: 4
-    },
-    {
-      groupType: 5,
-      align: 4
-    },
-    {
-      groupType: 4,
-      align: 1
-    },
-    {
-      groupType: 3,
-      align: 3
-    },
-    {
-      groupType: 2,
-      align: 2
-    },
-    {
-      groupType: 4,
-      align: 1
     },
     {
       groupType: 5,
       align: 4,
-      anchor: 'dich'
     },
     {
-      groupType: 1,
-      align: 1
-    },
-    {
-      groupType: 3,
-      align: 3
-    },
-    {
-      groupType: 4,
-      align: 1
+      groupType: 5,
+      align: 4,
     },
     {
       groupType: 2,
-      align: 2
+      align: 2,
+    },
+    {
+      groupType: 4,
+      align: 1,
     },
     {
       groupType: 3,
-      align: 3
-    }
+      align: 3,
+    },
+    {
+      groupType: 1,
+      align: 1,
+    },
+    {
+      groupType: 5,
+      align: 4,
+    },
+    {
+      groupType: 5,
+      align: 4,
+    },
+    {
+      groupType: 4,
+      align: 1,
+    },
+    {
+      groupType: 2,
+      align: 2,
+    },
+    {
+      groupType: 2,
+      align: 2,
+    },
+    {
+      groupType: 5,
+      align: 4,
+    },
+    {
+      groupType: 5,
+      align: 4,
+    },
+    {
+      groupType: 1,
+      align: 1,
+      anchor: 'average',
+    },
+
+    {
+      groupType: 4,
+      align: 1,
+    },
+    {
+      groupType: 5,
+      align: 4,
+    },
+    {
+      groupType: 5,
+      align: 4,
+    },
+    {
+      groupType: 4,
+      align: 1,
+    },
+    {
+      groupType: 3,
+      align: 3,
+    },
+    {
+      groupType: 2,
+      align: 2,
+    },
+    {
+      groupType: 4,
+      align: 1,
+    },
+    {
+      groupType: 5,
+      align: 4,
+      anchor: 'dich',
+    },
+    {
+      groupType: 1,
+      align: 1,
+    },
+    {
+      groupType: 3,
+      align: 3,
+    },
+    {
+      groupType: 4,
+      align: 1,
+    },
+    {
+      groupType: 2,
+      align: 2,
+    },
+    {
+      groupType: 3,
+      align: 3,
+    },
   ].map((item, i) => ({ ...item, i }));
 
   const onSampleClick = ({ detail }) => {
-    $layout.permutation = detail;
-    dispatch('next');
-  };
-
-  const onArrowClick = () => {
-    dispatch('back');
-  };
-
-  const onHomeClick = () => {
-    dispatch('home');
+    $layout = detail;
+    navigateNext();
   };
 </script>
 
@@ -257,11 +248,11 @@
 <section class="section section_name_layout">
   <header class="section__header">
     <div class="section__header-cell section__header-cell_for_back-button">
-      <Arrow on:click="{onArrowClick}"></Arrow>
+      <Arrow on:click="{navigateBack}"></Arrow>
     </div>
     <div
       class="section__header-cell section__header-cell_for_title section__title"
-      on:click="{onHomeClick}"
+      on:click="{navigateHome}"
     >
       Layout Mash
     </div>

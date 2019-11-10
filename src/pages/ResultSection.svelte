@@ -1,12 +1,9 @@
 <script>
-  import * as sapper from '@sapper/app';
-  import { onMount, createEventDispatcher } from 'svelte';
-  import { storage } from '../vendor/firebase';
-  import fileSaver from 'file-saver';
-  import uuid from 'uuid/v1';
+  export let navigateBack, navigateHome;
+
+  import { onMount } from 'svelte';
   import { urlToB64Async } from '../utils';
 
-  import fragment from 'svelte-fragment';
   import Sample from '../blocks/Sample.svelte';
   import Zoom from '../blocks/Zoom.svelte';
   import Logo from '../blocks/Logo.svelte';
@@ -15,97 +12,12 @@
 
   import { layout, headline, text, logo, picture } from '../store.js';
 
-  let html2canvas;
-  let logoB64;
-  let pictureB64;
-
-  let Sharing;
+  let Sharing = null;
 
   onMount(async () => {
-    const module = await import('../blocks/Sharing.svelte');
-    Sharing = module.default;
-
-    logoB64 = await urlToB64Async($logo);
-    pictureB64 = await urlToB64Async($picture);
+    Sharing = (await import('../blocks/Sharing.svelte')).default;
+    console.log(Sharing);
   });
-
-  const dispatch = createEventDispatcher();
-
-  const { permutation } = $layout;
-
-  let sample;
-  const onDownloadClick = () => {
-    window.scrollTo(0, 0); // https://git.io/Je28P
-
-    html2canvas(sample, {
-      scale: 1
-    }).then(canvas => {
-      canvas.toBlob(blob => {
-        fileSaver.saveAs(blob, 'screenshot.png');
-      });
-    });
-  };
-  const onShareClick = async () => {
-    const id = uuid();
-
-    const data = {
-      headline: $headline,
-      text: $text,
-      logo: logoB64,
-      picture: pictureB64
-    };
-
-    window.scrollTo(0, 0);
-
-    const canvas = await html2canvas(sample, {
-      scale: 1
-    });
-    const result = await new Promise((resolve, reject) => {
-      canvas.toBlob(blob => {
-        const imgPath = `test/${id}.png`;
-        const storageRef = storage.ref(imgPath);
-        const task = storageRef.put(blob);
-
-        task.on(
-          'state_changed',
-          snapshot => {
-            console.log(snapshot);
-          },
-          reject,
-          resolve
-        );
-      });
-    });
-
-    console.log(result);
-    // sapper.goto(`/look-${id}`);
-
-    // return new Promise((resolve, reject) => {
-    //   const jsonPath = `test/${id}.json`;
-    //   const storageRef = firebase.storage().ref(jsonPath);
-    //   const blob = new Blob([JSON.stringify(data, null, 4)], {
-    //     type: 'application/json'
-    //   });
-    //   const task = storageRef.put(blob);
-
-    //   task.on(
-    //     'state_changed',
-    //     snapshot => {
-    //       console.log(snapshot);
-    //     },
-    //     reject,
-    //     resolve
-    //   );
-    // });
-  };
-
-  const onArrowClick = () => {
-    dispatch('back');
-  };
-
-  const onHomeClick = () => {
-    dispatch('home');
-  };
 </script>
 
 <style>
@@ -122,7 +34,7 @@
     box-sizing: border-box;
   }
 
-  .section__header {
+  .header {
     width: 100%;
     color: #000;
     font-size: 34px;
@@ -133,25 +45,27 @@
     grid-column-gap: 20px;
   }
 
-  .section__header-cell {
+  .header__cell {
     padding-top: 26px;
   }
 
-  .section__header-cell_for_back-button {
+  .header__cell_for_back-button {
     grid-area: cell_1;
   }
-  .section__header-cell_for_title {
+  .header__cell_for_title {
     grid-area: cell_2;
   }
-  .section__header-cell_for_intuition {
+  .header__cell_for_intuition {
     grid-area: cell_4;
   }
-  .section__header-cell_for_mnt {
+  .header__cell_for_mnt {
     grid-area: cell_5;
+    white-space: nowrap;
   }
 
-  .section__title {
+  .title {
     cursor: pointer;
+    white-space: nowrap;
   }
 
   .section__main {
@@ -194,18 +108,15 @@
 </style>
 
 <section class="section section_name_result">
-  <header class="section__header">
-    <div class="section__header-cell section__header-cell_for_back-button">
-      <Arrow on:click="{onArrowClick}"></Arrow>
+  <header class="section__header header">
+    <div class="header__cell header__cell_for_back-button">
+      <Arrow on:click="{navigateBack}"></Arrow>
+    </div>
+    <div class="header__cell header__cell_for_title" on:click="{navigateHome}">
+      <span class="title">Layout Mash</span>
     </div>
     <div
-      class="section__header-cell section__header-cell_for_title section__title"
-      on:click="{onHomeClick}"
-    >
-      Layout Mash
-    </div>
-    <div
-      class="section__header-cell section__header-cell_for_intuition
+      class="header__cell header__cell_for_intuition
       section__intuition"
     >
       <a
@@ -215,7 +126,7 @@
         <span class="credits__link-anchor">Intuition</span>
       </a>
     </div>
-    <div class="section__header-cell section__header-cell_for_mnt section__mnt">
+    <div class="header__cell header__cell_for_mnt section__mnt">
       <a
         class="credits__link credits__link-author"
         href="https://github.com/mishaberezin/mash"
@@ -239,27 +150,19 @@
   <main class="section__main">
     <div class="section__main-cell section__main-cell_for_sample">
       <Zoom>
-        <div bind:this="{sample}">
+        <div>
           <Sample
-            arrangement="{permutation}"
+            arrangement="{$layout}"
             headline="{$headline}"
             text="{$text}"
-            logo="{logoB64}"
-            picture="{pictureB64}"
+            logo="{$logo}"
+            picture="{$picture}"
           ></Sample>
         </div>
       </Zoom>
     </div>
-    <!-- <div
-      class="section__main-cell section__main-cell_for_download"
-      on:click={onDownloadClick}>
-      Download
-    </div> -->
-    <div
-      class="section__main-cell section__main-cell_for_sharing"
-      on:click="{onShareClick}"
-    >
-      <Sharing></Sharing>
+    <div class="section__main-cell section__main-cell_for_sharing">
+      <!-- <svelte:component this="{Sharing}" /> -->
     </div>
   </main>
 </section>

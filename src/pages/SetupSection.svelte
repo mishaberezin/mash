@@ -1,26 +1,42 @@
 <script context="module">
   import {
-    getRandomImageUrl,
+    getRandomImageB64,
     getRandomHeadline,
-    getRandomParagraph
+    getRandomParagraph,
   } from '../utils';
 
-  const defaultHeadline = getRandomHeadline();
-  const defaultParagraph = getRandomParagraph();
-  const defaultLogo = getRandomImageUrl({ width: 150, height: 90 });
-  const defaultPicture = getRandomImageUrl({ width: 400, height: 200 });
+  // CONTINUE HERE
+  async function preloadDefaults() {
+    const data = {
+      defaults: {
+        headline: getRandomHeadline(),
+        paragraph: getRandomParagraph(),
+        logo: await getRandomImageB64({
+          width: 150,
+          height: 90,
+        }),
+        picture: await getRandomImageB64({
+          width: 400,
+          height: 200,
+        }),
+      },
+    };
+
+    console.log(data);
+
+    return data;
+  }
 </script>
 
 <script>
+  export let navigateNext;
+
   import { headline, text, logo, picture } from '../store.js';
-  import { createEventDispatcher } from 'svelte';
 
   import MegaButton from '../blocks/MegaButton.svelte';
   import SvgText from '../blocks/SvgText.svelte';
   import Input from '../blocks/Input/Input.svelte';
   import Credits from '../blocks/Credits.svelte';
-
-  const dispatch = createEventDispatcher();
 
   let allDone = false;
   $: if (!allDone && $headline && $text && $logo && $picture) {
@@ -43,21 +59,21 @@
     $picture = detail;
   };
 
-  const onMegaButtonClick = () => {
+  const onMegaButtonClick = async () => {
     if (!$headline) {
-      $headline = defaultHeadline;
+      $headline = defaults.headline;
     }
     if (!$text) {
-      $text = defaultParagraph;
+      $text = defaults.paragraph;
     }
     if (!$logo) {
-      $logo = defaultLogo;
+      $logo = defaults.logo;
     }
     if (!$picture) {
-      $picture = defaultPicture;
+      $picture = defaults.picture;
     }
 
-    dispatch('next');
+    navigateNext();
   };
 
   let showCredits = false;
@@ -179,8 +195,8 @@
 </style>
 
 <!-- Placeholders -->
-<link rel="preload" href="{defaultLogo}" as="image" />
-<link rel="preload" href="{defaultPicture}" as="image" />
+<!-- <link rel="preload" href="{defaultLogo}" as="image" />
+<link rel="preload" href="{defaultPicture}" as="image" /> -->
 
 <section class="section section_name_setup">
   <div class="section__cell section__cell_for_header section__cell_role_line">
