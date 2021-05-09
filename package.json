@@ -11,7 +11,7 @@
   "devDependencies": {
     "file-saver": "^2.0.2",
     "html2canvas": "^1.0.0-rc.3",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.21",
     "normalize.css": "^8.0.1",
     "parcel-bundler": "^1.12.3",
     "parcel-plugin-imagemin": "^3.0.0",
